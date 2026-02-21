@@ -1,6 +1,17 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValue, useVelocity, useTransform, useAnimationFrame } from "framer-motion";
+import {
+  FaPhp,
+  FaReact,
+  FaNodeJs
+} from "react-icons/fa";
 
+import {
+  SiTypescript,
+  SiTailwindcss,
+  SiNextdotjs,
+  SiVite
+} from "react-icons/si";
 const COLORS = {
   cream: "#faf8f3",
   dark: "#1a1a2e",
@@ -776,16 +787,44 @@ export default function Portfolio() {
               whileHover={{ y: -5 }}
               className="md:col-span-2 bg-[#3d405b] text-white p-8 rounded-[2rem] flex flex-col justify-between relative overflow-hidden group"
             >
-              <div className="relative z-10">
-                <h2 className="text-3xl font-black mb-4">
+              <div className="relative z-10 max-w-4xl">
+                <h2 className="text-1.5xl font-black mb-2 sm:text-[36px] leading-[1.4] tracking-tight text-white">
                   I build products people actually enjoy using.
                 </h2>
-                <p className="text-white/60 max-w-md text-sm leading-relaxed">
-                  I turn ideas into real, working software — focusing on clean design,
-                  smooth interactions, and solid engineering under the hood.
-                  From backend logic to polished interfaces, I care about building
-                  experiences that feel intuitive, accessible, and genuinely useful
-                  in the real world.
+
+                <p className="text-white/70 text-[15px] sm:text-[18px] leading-[2] sm:leading-[2.8] font-medium">
+                  I design and develop fast, scalable web applications using{" "}
+
+                  {[
+                    { name: "PHP", icon: <FaPhp />, color: "bg-indigo-500/10 border-indigo-500/30 text-white" },
+                    { name: "TypeScript", icon: <SiTypescript />, color: "bg-blue-600/10 border-blue-500/30 text-blue-300" },
+                    { name: "React", icon: <FaReact />, color: "bg-cyan-500/10 border-cyan-400/30 text-cyan-300" },
+                    { name: "Next.js", icon: <SiNextdotjs />, color: "bg-white/10 border-white/20 text-white" },
+                    { name: "Node.js", icon: <FaNodeJs />, color: "bg-green-500/10 border-green-400/30 text-green-300" },
+                    { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "bg-teal-500/10 border-teal-400/30 text-teal-300" },
+                  ].map((tech, i, arr) => (
+                    <span key={i} className="inline-block whitespace-nowrap">
+                      <span
+                        className={`
+                          inline-flex items-center gap-2 
+                          px-2.5 py-1 mx-0.5
+                          rounded-md border 
+                          text-[11px] sm:text-[13px] font-bold
+                          transition-all hover:scale-105
+                          ${tech.color}
+                        `}
+                      >
+                        <span className="text-[14px]">{tech.icon}</span>
+                        {tech.name}
+                      </span>
+
+                      {/* Keeping grammar attached to the badge so they don't separate on wrap */}
+                      <span className="mr-1.5 text-white/40">
+                        {i < arr.length - 2 ? "," : i === arr.length - 2 ? " and" : ""}
+                      </span>
+                    </span>
+                  ))}
+                  {" "}keeping things clean and easy to use. I build products that simply work.
                 </p>
               </div>
               <div className="mt-8 flex gap-6 relative z-10">
