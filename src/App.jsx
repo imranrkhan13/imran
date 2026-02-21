@@ -807,7 +807,7 @@ export default function Portfolio() {
                       <span
                         className={`
                           inline-flex items-center gap-2 
-                          px-2.5 py-1 mx-0.5
+                          px-2.5 py-0.3 mx-0.5
                           rounded-md border 
                           text-[11px] sm:text-[13px] font-bold
                           transition-all hover:scale-105
