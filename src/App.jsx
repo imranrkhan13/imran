@@ -504,7 +504,7 @@ export default function Portfolio() {
       },
       {
         name: "Instagram",
-        handle: "imran.k_12",
+        handle: "imran.k_11",
         href: "https://instagram.com/imran.k_12",
         icon: (
           <svg
