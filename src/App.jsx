@@ -174,7 +174,7 @@ const timeline = [
   { title: "Techiesaie Studio", sub: "Founded digital studio for local businesses", date: "2026" },
   { title: "Drive Accessible", sub: "Freelance Full-Stack · Production fleet system", date: "2025 – Now" },
   { title: "Multiple Projects", sub: "5 full-stack projects shipped", date: "2025" },
-  { title: "B.Sc. IT", sub: "MVM College, Mumbai University", date: "2022 – 2025" },
+  { title: "B.Sc. IT", sub: "University ", date: "2022 – 2025" },
 ];
 // ── Timeline Item ─────────────────────────────────────────────────────────────
 function TimelineItem({ title, sub, date, index, isLast }) {
@@ -1024,8 +1024,12 @@ export default function Portfolio() {
             <div style={{ position: "relative", zIndex: 1 }}>
               <span style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.5em", color: "#85cdca", display: "block", marginBottom: 16 }}>✦ Education</span>
               <h3 style={{ fontSize: "clamp(36px,5vw,50px)", fontWeight: 900, letterSpacing: "-0.03em", margin: "0 0 10px" }}>B.Sc. IT</h3>
-              <p style={{ fontSize: 16, fontWeight: 500, opacity: 0.55, marginBottom: 4 }}>MVM College of Arts, Science & Commerce</p>
-              <p style={{ fontSize: 12, opacity: 0.35, fontWeight: 500 }}>Mumbai University · 2022 – 2025</p>
+              <p style={{ fontSize: 16, fontWeight: 500, opacity: 0.55, marginBottom: 4 }}>
+                Building AI-powered tools for job tracking & interview preparation
+              </p>
+              <p style={{ fontSize: 12, opacity: 0.35, fontWeight: 500 }}>
+                Full Stack Development · 2022 – 2025
+              </p>
               <div style={{ marginTop: 28, display: "flex", gap: 24, alignItems: "center" }}>
                 <div>
                   <div style={{ fontSize: 36, fontWeight: 900, color: "#e27d60" }}><Counter to={25} /></div>
@@ -1144,7 +1148,7 @@ export default function Portfolio() {
       {/* Footer */}
       <footer className="text-center py-12 px-6">
         <p className="text-[10px] font-black uppercase tracking-[0.5em] opacity-20">
-          Made with care by Imran Khan · Mumbai · 2026
+          Made with care by Imran Khan · 2026
         </p>
       </footer>
 
