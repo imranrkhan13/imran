@@ -24,110 +24,178 @@ const projects = [
   {
     id: "drive",
     name: "Drive Accessible",
-    tag: "Freelance · Live",
+    tag: "SaaS · Production",
     year: "2025–Now",
-    short: "Full-scale fleet & car rental management system — from bookings to invoices.",
+    short: "Fleet & car rental SaaS platform — bookings, billing, renewals, and operations in one system.",
     urls: ["driveaccessible.com", "fleet.driveaccessible.com"],
     liveUrl: "https://driveaccessible.com",
     fleetUrl: "https://fleet.driveaccessible.com",
-    tech: ["Php", "javascript", "MySQL"],
+    tech: ["PHP", "JavaScript", "MySQL"],
     color: "#e27d60",
     bg: "#fdf0ec",
     featured: true,
     bullets: [
-      "Designed centralized dashboard managing vehicles, clients, drivers, payments & invoices",
-      "Built automated renewals with double-booking prevention and renewal history",
-      "Developed financial engine: daily-rate pricing, partial payments, security deposits",
-      "Created pending payment dashboards + professional production-ready invoices",
-      "Handled 60+ production tasks — feature enhancements, urgent fixes, stakeholder collab",
-      "Deployed official company website with animations, testimonials, SEO pages",
+      "Built full-scale SaaS managing vehicles, bookings, clients, drivers, invoices, and renewals",
+      "Engineered conflict detection system eliminating double bookings completely",
+      "Developed billing engine with daily pricing, deposits, partial payments, real-time totals",
+      "Created payment tracking dashboard improving revenue visibility and follow-ups",
+      "Handled 60+ production issues including critical bugs and feature delivery",
+      "Deployed SEO-optimized company website with modern UI and animations",
     ],
   },
+
+  {
+    id: "aicheckdata",
+    name: "AI Check Data",
+    tag: "AI · SaaS",
+    year: "2025",
+    short: "Multi-LLM data validation and scoring platform with fallback and reliability handling.",
+    liveUrl: "https://aicheckdata.netlify.app/", // 🔥 replace with real
+    tech: ["React", "Supabase", "PostgreSQL", "LLM APIs"],
+    color: "#6366f1",
+    bg: "#eef2ff",
+    featured: true,
+    bullets: [
+      "Built multi-LLM pipeline (Gemini, Groq, Mistral, OpenRouter) for data validation",
+      "Implemented fallback system for reliability across API failures and rate limits",
+      "Designed real-time UI with optimistic updates and session-based sync",
+      "Created scoring engine combining outputs from multiple AI models",
+      "Handled real-world AI challenges like inconsistent responses and latency",
+    ],
+  },
+
+  {
+    id: "resumeai",
+    name: "Resume AI",
+    tag: "AI · Product",
+    year: "2025",
+    short: "AI-powered resume builder tailored to job descriptions.",
+    liveUrl: "", // 🔥 replace
+    tech: ["React", "Supabase", "LLM APIs"],
+    color: "#7c3aed",
+    bg: "#f5f3ff",
+    bullets: [
+      "Generated ATS-optimized resumes based on job descriptions",
+      "Integrated multiple AI providers with structured output generation",
+      "Mapped user experience to job requirements using prompt engineering",
+      "Implemented save, edit, and export functionality",
+    ],
+  },
+
+  {
+    id: "vault",
+    name: "Vault",
+    tag: "Real-Time · P2P",
+    year: "2025",
+    short: "Peer-to-peer file sharing and screen sharing platform.",
+    liveUrl: "https://file-sharing-vu8t.onrender.com/", // 🔥 replace
+    tech: ["Node.js", "WebRTC", "WebSockets"],
+    color: "#0ea5e9",
+    bg: "#ecfeff",
+    featured: true,
+    bullets: [
+      "Built real-time P2P system for file transfer and screen sharing",
+      "Implemented WebRTC connections with signaling via WebSockets",
+      "Designed token-based sharing system for instant access",
+      "Enabled encrypted and private communication without server storage",
+    ],
+  },
+
   {
     id: "techiesaie",
     name: "Techiesaie",
     tag: "Studio · Live",
     year: "2026",
-    short: "My digital studio — crafting custom software for local businesses.",
+    short: "Digital studio building custom software for businesses.",
     urls: ["techiesaie.com"],
     liveUrl: "https://techiesaie.com",
-    tech: ["Design", "React", "Branding"],
+    tech: ["React", "Design", "Branding"],
     color: "#85cdca",
     bg: "#edf7f6",
     featured: true,
     bullets: [
-      "Platform for helping local businesses go digital with custom software",
-      "Focus on speed, ease of use, and business-aligned design",
+      "Built platform to help local businesses digitize operations",
+      "Focused on fast delivery and simple user experience",
     ],
   },
+
   {
     id: "foodexpress",
     name: "FoodExpress",
     tag: "Full Stack",
     year: "2024",
-    short: "Full-stack food ordering platform — restaurant browsing, cart, and checkout.",
+    short: "Food ordering platform with cart and checkout.",
+    liveUrl: "https://foodexpress-0v7b.onrender.com/", // optional
     tech: ["React", "TypeScript", "Node.js", "MongoDB"],
     color: "#f4a261",
     bg: "#fef4ec",
     bullets: [
-      "Restaurant browsing, cart, and checkout flows end-to-end",
-      "RESTful APIs for users, orders, and cart with clean data separation",
+      "Developed full ordering flow from browsing to checkout",
+      "Built REST APIs for users, orders, and cart",
     ],
   },
+
   {
     id: "freaky",
     name: "FreakyBall",
-    tag: "Sports · API",
+    tag: "API · Sports",
     year: "2024",
-    short: "Live football scores & statistics platform inspired by modern sports apps.",
-    tech: ["React", "JavaScript", "Football-Data.org API"],
+    short: "Live football scores and stats platform.",
+    liveUrl: "https://freaky-ball.vercel.app/",
+    tech: ["React", "JavaScript", "Football API"],
     color: "#2d6a4f",
     bg: "#edf7f1",
     bullets: [
-      "Match timelines, team stat comparisons, optimized API usage",
-      "Inspired by modern sports applications like FotMob",
+      "Implemented live match timelines and stats",
+      "Optimized API usage for performance",
     ],
   },
+
   {
-    id: "wiki",
+    id: "wikireels",
     name: "Wikireels",
-    tag: "Fun · Scroll",
+    tag: "UI · Experiment",
     year: "2024",
-    short: "TikTok-style vertical scrolling interface for Wikipedia discovery.",
+    short: "Vertical scrolling Wikipedia explorer.",
+    liveUrl: "https://wikireels.techiesaie.com/",
     tech: ["React", "Framer Motion", "Wikipedia API"],
     color: "#9b5de5",
     bg: "#f3eeff",
     bullets: [
-      "Infinite scroll with snap-based navigation for Wikipedia articles",
-      "Smooth motion animations for a native-app feel",
+      "Built infinite scroll with snap navigation",
+      "Created smooth mobile-like animations",
     ],
   },
+
   {
     id: "career",
     name: "Career Garden",
     tag: "Productivity",
     year: "2024",
-    short: "Job application tracker with stage management and persistence.",
-    tech: ["React", "Local Storage"],
+    short: "Job application tracker with workflow stages.",
+    liveUrl: "https://career-garden.techiesaie.com/",
+    tech: ["React", "Supabase"],
     color: "#e63946",
     bg: "#fdeced",
     bullets: [
-      "Multi-stage tracking: Applied, Interview, Offer, Rejected",
-      "Filtering and persistence logic across sessions",
+      "Implemented stage-based tracking system",
+      "Added filtering and persistent state",
     ],
   },
+
   {
     id: "manucrafts",
     name: "Manucrafts",
     tag: "E-Commerce",
     year: "2024",
-    short: "Boutique e-commerce with storefront + admin dashboard.",
+    short: "E-commerce platform with admin dashboard.",
+    liveUrl: "https://manucrafts.techiesaie.com/",
     tech: ["React", "Tailwind CSS", "Vite"],
     color: "#c77dff",
     bg: "#f7eeff",
     bullets: [
-      "Customer storefront and admin dashboard in one app",
-      "Real-time stock handling, image uploads, checkout logic",
+      "Built storefront and admin system",
+      "Handled stock, uploads, and checkout logic",
     ],
   },
 ];
@@ -343,94 +411,147 @@ function Modal({ project, onClose }) {
     return () => window.removeEventListener("keydown", esc);
   }, [onClose]);
 
+  // Using your specific architectural spring physics
+  const modalSpring = { type: "spring", damping: 30, stiffness: 300, mass: 0.8 };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-end md:items-center justify-center p-4"
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-xl" />
+      {/* Deep blurred backdrop using your COLORS.dark for the tint */}
+      <div className="absolute inset-0 bg-[#1a1a2e]/80 backdrop-blur-2xl" />
+
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 100, opacity: 0 }}
-        transition={{ type: "spring", damping: 30, stiffness: 400 }}
+        initial={{ y: 50, scale: 0.9, opacity: 0 }}
+        animate={{ y: 0, scale: 1, opacity: 1 }}
+        exit={{ y: 50, scale: 0.9, opacity: 0 }}
+        transition={modalSpring}
         onClick={(e) => e.stopPropagation()}
-        className="relative z-10 w-full max-w-3xl max-h-[85vh] overflow-hidden rounded-[2.5rem] shadow-2xl"
-        style={{ background: project.bg }}
+        className="relative z-10 w-full max-w-5xl h-full max-h-[85vh] md:h-auto overflow-hidden rounded-[2rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/10 flex flex-col md:flex-row"
+        style={{ background: project.bg || COLORS.cream }}
       >
-        {/* Top gradient bar */}
-        <div className="h-1 w-full" style={{ background: project.color }} />
+        {/* Decorative Archive Strip */}
+        <div
+          className="hidden md:flex w-16 items-center justify-center border-r border-black/5"
+          style={{ background: `${project.color}10` }}
+        >
+          <span className="origin-center -rotate-90 text-[10px] font-black tracking-[0.6em] uppercase opacity-20 whitespace-nowrap">
+            Technical Archive // {project.year}
+          </span>
+        </div>
 
-        <div className="p-8 md:p-12 overflow-y-auto max-h-[85vh]">
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-widest opacity-40 block mb-1">{project.tag} · {project.year}</span>
-              <h2 className="text-4xl font-black tracking-tight" style={{ color: COLORS.dark }}>{project.name}</h2>
-            </div>
-            <button
-              onClick={onClose}
-              className="w-12 h-12 bg-white/80 rounded-2xl flex items-center justify-center text-xl font-bold hover:bg-white transition-colors shadow-sm"
-            >
-              ×
-            </button>
-          </div>
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Top Detail Bar */}
+          <div className="h-2 w-full" style={{ background: project.color }} />
 
-          <p className="text-lg font-medium opacity-70 leading-relaxed mb-8 border-l-4 pl-6" style={{ borderColor: project.color }}>
-            {project.short}
-          </p>
-
-          <div className="space-y-3 mb-8">
-            {project.bullets.map((b, i) => (
+          <div className="p-8 md:p-14 overflow-y-auto custom-scrollbar">
+            <div className="flex justify-between items-start mb-12">
               <motion.div
-                key={i}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-                className="flex items-start gap-4 p-4 bg-white/50 rounded-2xl"
+                transition={{ delay: 0.1 }}
               >
-                <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: project.color + "20" }}>
-                  <div className="w-2 h-2 rounded-full" style={{ background: project.color }} />
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-black/5 text-slate-500">
+                    {project.tag}
+                  </span>
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: project.color }} />
+                  <span className="text-[10px] font-mono opacity-40">{project.year}</span>
                 </div>
-                <p className="text-sm font-medium opacity-75 leading-relaxed">{b}</p>
+                <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none" style={{ color: COLORS.dark }}>
+                  {project.name}<span style={{ color: project.color }}>.</span>
+                </h2>
               </motion.div>
-            ))}
-          </div>
 
-          <div className="flex flex-wrap gap-2 mb-8">
-            {project.tech.map((t) => (
-              <span key={t} className="px-4 py-2 bg-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-[#3d405b]/10 shadow-sm">
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {project.liveUrl && (
-            <div className="flex gap-3 flex-wrap">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-black hover:opacity-90 transition-opacity shadow-lg"
-                style={{ background: project.color }}
+              <button
+                onClick={onClose}
+                className="group w-14 h-14 rounded-2xl flex items-center justify-center transition-all bg-black/5 hover:bg-black hover:text-white"
               >
-                Visit {project.urls?.[0]} ↗
-              </a>
-              {project.fleetUrl && (
-                <a
-                  href={project.fleetUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black border-2 hover:bg-white transition-colors"
-                  style={{ borderColor: project.color, color: project.color }}
-                >
-                  fleet.driveaccessible.com ↗
-                </a>
-              )}
+                <span className="text-2xl font-light group-hover:rotate-90 transition-transform duration-300">✕</span>
+              </button>
             </div>
-          )}
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              {/* Left Column: Summary & Bullets */}
+              <div className="lg:col-span-7">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-xl font-medium leading-relaxed mb-10 opacity-80"
+                  style={{ color: COLORS.dark }}
+                >
+                  {project.short}
+                </motion.p>
+
+                <div className="space-y-4">
+                  {project.bullets.map((b, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 + (i * 0.05) }}
+                      className="group flex items-start gap-5 p-5 bg-white/40 border border-transparent hover:border-black/5 hover:bg-white rounded-2xl transition-all"
+                    >
+                      <span className="font-mono text-[10px] opacity-20 mt-1">0{i + 1}</span>
+                      <p className="text-sm font-semibold opacity-70 leading-relaxed group-hover:opacity-100 transition-opacity">
+                        {b}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Stack & Links */}
+              <div className="lg:col-span-5 space-y-10">
+                <div className="p-8 rounded-[2rem] bg-black/5 border border-black/5">
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.2em] opacity-30 mb-6">Stack Overview</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-4 py-2 bg-white rounded-xl text-[10px] font-black uppercase tracking-widest border border-black/5 shadow-sm hover:scale-105 transition-transform"
+                        style={{ color: COLORS.muted }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between px-8 py-5 rounded-2xl text-white text-sm font-black transition-all hover:brightness-110 shadow-xl"
+                      style={{ background: project.color }}
+                    >
+                      <span>LAUNCH PROJECT</span>
+                      <span className="text-xl">↗</span>
+                    </a>
+                  )}
+                  {project.fleetUrl && (
+                    <a
+                      href={project.fleetUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between px-8 py-5 rounded-2xl text-sm font-black border-2 transition-all hover:bg-black hover:text-white hover:border-black"
+                      style={{ borderColor: `${project.color}40`, color: project.color }}
+                    >
+                      <span>TECHNICAL DOCS</span>
+                      <span className="font-mono text-[10px] opacity-50">v2.0</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -559,6 +680,30 @@ export default function Portfolio() {
         </motion.a>
       </div>
     );
+  };
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    },
+  };
+
+  const titleMask = {
+    hidden: { y: "100%" },
+    visible: {
+      y: 0,
+      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+    },
   };
 
 
@@ -773,7 +918,7 @@ export default function Portfolio() {
                 Current Role
               </p>
               <p className="text-sm font-semibold text-[#3d405b] leading-relaxed">
-                Contributing to accessible mobility solutions at
+                Working on real world fleet system handling bookings, vehicles and payments at
                 <span className="text-[#e27d60] font-black"> DriveAccessible</span>.
               </p>
             </motion.div>
@@ -909,67 +1054,96 @@ export default function Portfolio() {
       <Marquee items={["React", "Node.js", "TypeScript", "MySQL", "MongoDB", "Full-Stack", "Freelance", "Mumbai", "2025", "Available for Work"]} />
 
       {/* WORK SECTION */}
-      <section id="work" className="max-w-7xl mx-auto px-6 py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-end justify-between mb-20"
-          >
+      <section id="work" className="max-w-7xl mx-auto px-6 py-20">
+        {/* Header Section: Simple & Fast to Read */}
+        <header className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#e27d60] block mb-4">✦ Selected Work</span>
-            <h2 className="text-6xl md:text-8xl font-black tracking-tight leading-none">Projects<span className="text-[#e27d60]">.</span></h2>
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="text-[10px] font-black uppercase tracking-[0.3em] text-[#e27d60] block mb-2"
+            >
+              ✦ Selected Projects
+            </motion.span>
+
+            <div className="overflow-hidden">
+              <motion.h2
+                variants={titleMask}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="text-6xl md:text-8xl font-black tracking-tighter leading-none"
+              >
+                My Work<span className="text-[#e27d60]">.</span>
+              </motion.h2>
+            </div>
           </div>
-          <p className="hidden md:block text-sm opacity-40 font-medium max-w-xs text-right leading-relaxed">
-            7 projects. From freelance fleet systems to fun Wikipedia readers.
-          </p>
-        </motion.div>
 
-          <section className="mb-12">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="h-1 w-8 bg-blue-600 rounded-full" />
-              <h2 className="text-2xl font-bold tracking-tight">Featured Works</h2>
-            </div>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-sm opacity-60 font-medium max-w-xs md:text-right leading-relaxed"
+          >
+            A look at my top 7 projects. Built with clean code and focused on solving real problems.
+          </motion.p>
+        </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              {featured.map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  // First project takes 7 columns, second takes 5 for asymmetrical interest
-                  className={`${i === 0 ? 'md:col-span-7' : 'md:col-span-5'} group`}
-                >
-                  <ProjectCard
-                    p={p}
-                    isFeatured
-                    onClick={() => setActiveProject(p)}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </section>
+        {/* Main Grid: Shows 2 projects side-by-side to save scrolling time */}
+        <section className="mb-20">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-[2px] w-8 bg-[#e27d60]" />
+            <h3 className="text-xs font-bold uppercase tracking-widest opacity-80 text-slate-500">Main Projects</h3>
+          </div>
 
-          {/* Other Projects - Clean Grid Section */}
-          <section>
-            <h3 className="text-lg font-medium text-slate-500 mb-6">More Explorations</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {rest.map((p, i) => (
-                <motion.div
-                  key={p.id}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.1 + (i * 0.05) }}
-                  viewport={{ once: true }}
-                >
-                  <ProjectCard p={p} onClick={() => setActiveProject(p)} />
-                </motion.div>
-              ))}
-            </div>
-            
-          </section>  
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {featured.map((p) => (
+              <motion.div
+                key={p.id}
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+                className="relative group"
+              >
+                <ProjectCard
+                  p={p}
+                  isFeatured
+                  onClick={() => setActiveProject(p)}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
+        {/* Others Section: A very compact list for everything else */}
+        <section>
+          <div className="flex items-center justify-between mb-8 border-b border-black/5 pb-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">Other Small Builds</h3>
+            <span className="text-[10px] font-mono opacity-30">03 — 07</span>
+          </div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {rest.map((p) => (
+              <motion.div
+                key={p.id}
+                variants={itemVariants}
+                whileHover={{ scale: 0.98 }}
+              >
+                <ProjectCard p={p} onClick={() => setActiveProject(p)} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
       </section>
 
       <section id ="timeline"style={{ padding: "0 clamp(24px,5vw,64px) clamp(60px,8vw,80px)" }}>
