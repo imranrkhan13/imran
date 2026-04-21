@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://imran-silk.vercel.app/sitemap.xml
