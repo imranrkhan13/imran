@@ -2,3 +2,10 @@ User-agent: *
 Allow: /
 
 Sitemap: https://imran-silk.vercel.app/sitemap.xml
+
+# Block access to source maps
+Disallow: /*.map
+
+# Allow all crawlers access to assets
+Allow: /assets/
+Allow: /public/
