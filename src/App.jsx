@@ -5,10 +5,10 @@ import { navItems } from "./data";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/Herosection";
 import Marquee from "./components/Marquee";
-import WorkSection from "./components/WorkSection";
-import TimelineSection from "./components/TimelineSection";
-import SkillsSection from "./components/SkillsSection";
-import ContactSection from "./components/ContactSection";
+import WorkSection from "./components/Worksection";
+import TimelineSection from "./components/Timelinesection";
+import SkillsSection from "./components/Skillssection";
+import ContactSection from "./components/Contactsection";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("about");
