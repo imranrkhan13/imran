@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 
 import { navItems } from "./data";
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
+import HeroSection from "./components/Herosection";
 import Marquee from "./components/Marquee";
 import WorkSection from "./components/WorkSection";
 import TimelineSection from "./components/TimelineSection";
