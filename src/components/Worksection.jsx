@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ProjectCard, Modal } from "./ProjectCard";
+import { ProjectCard, Modal } from "./Projectcard";
 import { projects } from "../data";
 
 const containerVariants = {
