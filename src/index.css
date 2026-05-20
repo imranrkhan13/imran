@@ -18,3 +18,111 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #e27d60;
 }
+
+.site-nav a {
+  text-decoration: none;
+}
+
+@media (max-width: 1180px) {
+  .home-grid-top {
+    grid-template-columns: 1fr 1.45fr !important;
+  }
+
+  .home-grid-top > :nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .site-nav {
+    align-items: flex-start !important;
+    padding: 10px 16px !important;
+  }
+
+  .home-grid-top,
+  .home-grid-bottom,
+  .about-grid,
+  .resume-paper-body {
+    grid-template-columns: 1fr !important;
+  }
+
+  .work-grid {
+    display: none !important;
+  }
+
+  .work-mobile-list {
+    display: flex !important;
+  }
+
+  .tech-card-grid {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .project-signal-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .project-structure-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .about-proof-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .work-grid > :first-child {
+    position: relative !important;
+    top: auto !important;
+    max-height: none !important;
+  }
+
+  .resume-paper aside {
+    min-height: auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    flex-direction: column;
+  }
+
+  .page-shell {
+    padding-top: 132px !important;
+  }
+
+  .site-nav-links {
+    width: 100%;
+    justify-content: flex-start !important;
+  }
+
+  .intro-line {
+    align-items: flex-start !important;
+    flex-direction: column;
+  }
+
+  .intro-line p {
+    font-size: 17px !important;
+  }
+
+  .resume-sheet {
+    max-height: 92vh !important;
+    border-radius: 18px 18px 0 0 !important;
+    padding: 12px 12px 0 !important;
+  }
+
+  .resume-paper main {
+    padding: 24px 20px !important;
+  }
+
+  .resume-paper main section div[style*="repeat(3"],
+  .resume-paper main section div[style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

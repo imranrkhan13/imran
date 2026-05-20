@@ -1,109 +1,380 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- Primary SEO -->
-  <title>Imran Khan — Full Stack Developer Mumbai | React, Node.js, PHP, AI</title>
+  <!-- ═══════════════════════════════════════════════════════
+       PRIMARY SEO — Title, Description, Keywords
+  ═══════════════════════════════════════════════════════ -->
+  <title>Imran Khan — Full Stack Developer Mumbai | React, Node.js, PHP, PostgreSQL, AI</title>
+
   <meta name="description"
-    content="Imran Khan is a Full Stack Developer based in Mumbai, India. Specializing in React, Node.js, PHP, TypeScript, and AI integrations. Built production SaaS, real-time systems, and scalable web applications. Available for freelance and full-time roles." />
+    content="Imran Khan is a Full Stack Developer based in Mumbai, India with 1+ year of production experience. Expert in React, Node.js, PHP, PostgreSQL, Django, WebRTC & AI integrations. Built production SaaS (DriveAccessible), multi-tenant billing engines, real-time P2P systems, and fintech payout pipelines. Available for freelance, contract & full-time roles globally." />
+
   <meta name="keywords"
-    content="Imran Khan developer, full stack developer Mumbai, React developer India, Node.js developer Mumbai, PHP developer, freelance developer Mumbai, hire developer India, SaaS developer, AI developer, TypeScript developer, web developer Mumbai" />
+    content="Imran Khan, Imran Khan developer, Imran Khan Mumbai, full stack developer Mumbai, React developer India, Node.js developer Mumbai, PHP developer India, freelance developer Mumbai, hire developer India, hire React developer, hire full stack developer, SaaS developer India, AI developer Mumbai, TypeScript developer, web developer Mumbai, fintech developer India, backend developer Mumbai, frontend developer India, JavaScript developer Mumbai, PostgreSQL developer, Django developer India, real-time systems developer, WebRTC developer, API developer Mumbai, software engineer Mumbai, associate software engineer, Swayambhutech, Drive Accessible, BillingOS, Payout Engine, Kanban Pro, Techiesaie, imran-silk.vercel.app, full stack engineer India, BSc IT Mumbai University, production engineer Mumbai, freelance web developer India, remote developer India" />
+
   <meta name="author" content="Imran Khan" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="bingbot" content="index, follow" />
   <link rel="canonical" href="https://imran-silk.vercel.app/" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
+  <!-- Language & Region -->
+  <meta name="language" content="English" />
+  <meta name="geo.region" content="IN-MH" />
+  <meta name="geo.placename" content="Mumbai, Maharashtra, India" />
+  <meta name="geo.position" content="19.0760;72.8777" />
+  <meta name="ICBM" content="19.0760, 72.8777" />
+
+  <!-- ═══════════════════════════════════════════════════════
+       OPEN GRAPH — Facebook, LinkedIn, WhatsApp
+  ═══════════════════════════════════════════════════════ -->
+  <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://imran-silk.vercel.app/" />
-  <meta property="og:title" content="Imran Khan — Full Stack Developer Mumbai" />
+  <meta property="og:title" content="Imran Khan — Full Stack Developer Mumbai | React · Node.js · PHP · AI" />
   <meta property="og:description"
-    content="Full Stack Developer specializing in React, Node.js, PHP & AI. Built production SaaS for fleet management, multi-LLM pipelines, and real-time P2P systems. Based in Mumbai, available globally." />
+    content="Full Stack Developer with 1+ year production experience. Built DriveAccessible (fleet SaaS), multi-tenant BillingOS, WebRTC P2P systems, and fintech payout engines. React, Node.js, PHP, PostgreSQL, Django, AI. Based in Mumbai — available globally for freelance, contract & full-time." />
   <meta property="og:image" content="https://imran-silk.vercel.app/og-image.png" />
+  <meta property="og:image:secure_url" content="https://imran-silk.vercel.app/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Imran Khan — Full Stack Developer Mumbai" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:locale" content="en_IN" />
-  <meta property="og:site_name" content="Imran Khan Portfolio" />
-  <meta name="google-site-verification" content="PTdhv14SvuqUHmntWvGGmUo5lYX5fdzOog9JiZrWz4c" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="Imran Khan · Full Stack Developer" />
+  <meta property="profile:first_name" content="Imran" />
+  <meta property="profile:last_name" content="Khan" />
+  <meta property="profile:username" content="imranrkhan13" />
 
-  <!-- Twitter Card -->
+  <!-- ═══════════════════════════════════════════════════════
+       TWITTER / X CARD
+  ═══════════════════════════════════════════════════════ -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@imran_k_12" />
   <meta name="twitter:creator" content="@imran_k_12" />
   <meta name="twitter:title" content="Imran Khan — Full Stack Developer Mumbai" />
   <meta name="twitter:description"
-    content="Full Stack Developer: React, Node.js, PHP, AI integrations. Built production SaaS, real-time systems. Mumbai based, available globally." />
+    content="Built production SaaS, fintech payout engines, WebRTC P2P systems, and multi-LLM AI platforms. React · Node.js · PHP · PostgreSQL · Django. Mumbai-based, available globally." />
   <meta name="twitter:image" content="https://imran-silk.vercel.app/og-image.png" />
+  <meta name="twitter:image:alt" content="Imran Khan Full Stack Developer Mumbai" />
+  <meta name="twitter:domain" content="imran-silk.vercel.app" />
 
-  <!-- Theme -->
-  <meta name="theme-color" content="#0a0a0a" />
+  <!-- ═══════════════════════════════════════════════════════
+       THEME & APP
+  ═══════════════════════════════════════════════════════ -->
+  <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0c0c0f" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light" />
+  <meta name="application-name" content="Imran Khan Portfolio" />
+  <meta name="apple-mobile-web-app-title" content="Imran Khan" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=yes" />
+
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="PTdhv14SvuqUHmntWvGGmUo5lYX5fdzOog9JiZrWz4c" />
 
   <!-- Sitemap -->
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-  <!-- Structured Data: Person -->
+  <!-- Preconnect for performance (helps Core Web Vitals / SEO) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — Person (Rich Result)
+  ═══════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Imran Khan",
-      "url": "https://imran-silk.vercel.app",
-      "image": "https://imran-silk.vercel.app/og-image.png",
-      "jobTitle": "Full Stack Developer",
-      "description": "Full Stack Developer based in Mumbai, India. Specializing in React, Node.js, PHP, TypeScript, and AI integrations.",
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://imran-silk.vercel.app/#person",
+    "name": "Imran Khan",
+    "givenName": "Imran",
+    "familyName": "Khan",
+    "url": "https://imran-silk.vercel.app",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://imran-silk.vercel.app/og-image.png",
+      "width": 1200,
+      "height": 630
+    },
+    "jobTitle": "Full Stack Software Engineer",
+    "description": "Full Stack Developer based in Mumbai, India with 1+ year of production experience. Specializes in React, Node.js, PHP, PostgreSQL, Django, WebRTC, and AI integrations. Built production SaaS platforms, fintech payout systems, multi-tenant billing engines, and real-time collaborative tools.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mumbai",
+      "addressRegion": "Maharashtra",
+      "addressCountry": "IN",
+      "postalCode": "400001"
+    },
+    "telephone": "+917506190224",
+    "email": "muhammadimrank034@gmail.com",
+    "sameAs": [
+      "https://linkedin.com/in/imranrkhan13",
+      "https://github.com/imranrkhan13",
+      "https://x.com/imran_k_12",
+      "https://techiesaie.com",
+      "https://imran-silk.vercel.app"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "MVM College, University of Mumbai",
+      "url": "https://mu.ac.in",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Mumbai",
         "addressCountry": "IN"
+      }
+    },
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "degree",
+      "name": "Bachelor of Science in Information Technology",
+      "recognizedBy": {
+        "@type": "EducationalOrganization",
+        "name": "University of Mumbai"
+      }
+    },
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Swayambhutech",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mumbai",
+        "addressCountry": "IN"
+      }
+    },
+    "knowsAbout": [
+      "React", "Node.js", "PHP", "TypeScript", "JavaScript", "Python",
+      "Django", "FastAPI", "PostgreSQL", "MySQL", "MongoDB", "Redis",
+      "Supabase", "WebRTC", "WebSockets", "Docker", "GitHub Actions",
+      "Celery", "Stripe API", "LLM APIs", "REST APIs", "SaaS Development",
+      "Fintech Engineering", "Real-Time Systems", "Multi-Tenant Architecture",
+      "Full Stack Development", "AI Integration", "Freelance Web Development",
+      "Production Systems", "Database Design", "API Design"
+    ],
+    "knowsLanguage": [
+      { "@type": "Language", "name": "English" },
+      { "@type": "Language", "name": "Hindi" }
+    ],
+    "seeks": {
+      "@type": "Demand",
+      "name": "Full-time, contract, or freelance software engineering roles in fintech, SaaS, or real-time systems"
+    }
+  }
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — Website
+  ═══════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://imran-silk.vercel.app/#website",
+    "name": "Imran Khan — Full Stack Developer",
+    "alternateName": ["Imran Khan Portfolio", "Imran Khan Dev"],
+    "url": "https://imran-silk.vercel.app",
+    "description": "Portfolio of Imran Khan, Full Stack Software Engineer from Mumbai, India. React, Node.js, PHP, PostgreSQL, Django, AI.",
+    "inLanguage": "en-IN",
+    "author": { "@id": "https://imran-silk.vercel.app/#person" },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://imran-silk.vercel.app/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — ProfilePage (NEW Google type)
+  ═══════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://imran-silk.vercel.app/#profilepage",
+    "dateCreated": "2024-01-01",
+    "dateModified": "2026-05-20",
+    "mainEntity": { "@id": "https://imran-silk.vercel.app/#person" }
+  }
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — ItemList of Projects (CreativeWork)
+  ═══════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Projects by Imran Khan",
+    "description": "Production software projects built by Imran Khan — Full Stack Developer Mumbai",
+    "url": "https://imran-silk.vercel.app/#work",
+    "numberOfItems": 11,
+    "itemListElement": [
+      {
+        "@type": "ListItem", "position": 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Drive Accessible",
+          "description": "Full-scale fleet and car rental SaaS managing vehicles, bookings, billing, and renewals. Used in production with paying customers. Built with PHP, JavaScript, MySQL.",
+          "url": "https://driveaccessible.com",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "creator": { "@id": "https://imran-silk.vercel.app/#person" },
+          "programmingLanguage": ["PHP", "JavaScript", "MySQL"]
+        }
       },
-      "sameAs": [
-        "https://linkedin.com/in/imranrkhan13",
-        "https://github.com/imranrkhan13",
-        "https://x.com/imran_k_12",
-        "https://techiesaie.com"
-      ],
-      "knowsAbout": [
-        "React", "Node.js", "PHP", "TypeScript", "JavaScript",
-        "MySQL", "MongoDB", "PostgreSQL", "Supabase", "WebRTC",
-        "Python", "Django", "REST APIs", "Full Stack Development",
-        "SaaS Development", "AI Integration", "Freelance Web Development"
-      ],
-      "email": "muhammadimrank034@gmail.com"
-    }
-    </script>
+      {
+        "@type": "ListItem", "position": 2,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "BillingOS",
+          "description": "Multi-tenant billing engine modelled on Stripe Billing with subscription lifecycle, proration, exponential-backoff retries, PostgreSQL RLS, and PDF invoicing.",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "creator": { "@id": "https://imran-silk.vercel.app/#person" },
+          "programmingLanguage": ["Node.js", "React", "PostgreSQL", "Redis", "Stripe"]
+        }
+      },
+      {
+        "@type": "ListItem", "position": 3,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Payout Engine",
+          "description": "Fintech merchant payout engine with integer paise arithmetic, SELECT FOR UPDATE locking, idempotency keys, and atomic failure recovery built in Django + PostgreSQL.",
+          "url": "https://payout-engine-ten.vercel.app/",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Web",
+          "creator": { "@id": "https://imran-silk.vercel.app/#person" },
+          "programmingLanguage": ["Django", "PostgreSQL", "Celery", "Redis"]
+        }
+      },
+      {
+        "@type": "ListItem", "position": 4,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Vault — P2P File Sharing",
+          "description": "Peer-to-peer encrypted file sharing via WebRTC data channels. No files stored on server. Token-based rooms, chunked transfer, progress tracking.",
+          "url": "https://file-sharing-vu8t.onrender.com/",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Web",
+          "creator": { "@id": "https://imran-silk.vercel.app/#person" },
+          "programmingLanguage": ["Node.js", "WebRTC", "WebSockets"]
+        }
+      },
+      {
+        "@type": "ListItem", "position": 5,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "AI Check Data",
+          "description": "Multi-LLM validation platform routing requests across Gemini, Groq, Mistral and OpenRouter in parallel with weighted consensus scoring.",
+          "url": "https://aicheckdata.netlify.app/",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Web",
+          "creator": { "@id": "https://imran-silk.vercel.app/#person" },
+          "programmingLanguage": ["React", "Supabase", "LLM APIs"]
+        }
+      }
+    ]
+  }
+  </script>
 
-  <!-- Structured Data: WebSite -->
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — BreadcrumbList
+  ═══════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Imran Khan — Full Stack Developer",
-      "url": "https://imran-silk.vercel.app",
-      "description": "Portfolio of Imran Khan, Full Stack Developer from Mumbai, India."
-    }
-    </script>
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",    "item": "https://imran-silk.vercel.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Work",    "item": "https://imran-silk.vercel.app/#work" },
+      { "@type": "ListItem", "position": 3, "name": "About",   "item": "https://imran-silk.vercel.app/#about" },
+      { "@type": "ListItem", "position": 4, "name": "Resume",  "item": "https://imran-silk.vercel.app/#resume" },
+      { "@type": "ListItem", "position": 5, "name": "Contact", "item": "https://imran-silk.vercel.app/#contact" }
+    ]
+  }
+  </script>
 
-  <!-- Structured Data: BreadcrumbList (for SPA sections) -->
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — FAQPage (targets "People Also Ask")
+  ═══════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "About", "item": "https://imran-silk.vercel.app/#about" },
-        { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://imran-silk.vercel.app/#work" },
-        { "@type": "ListItem", "position": 3, "name": "Timeline", "item": "https://imran-silk.vercel.app/#timeline" },
-        { "@type": "ListItem", "position": 4, "name": "Skills", "item": "https://imran-silk.vercel.app/#skills" },
-        { "@type": "ListItem", "position": 5, "name": "Contact", "item": "https://imran-silk.vercel.app/#contact" }
-      ]
-    }
-    </script>
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is Imran Khan the developer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Imran Khan is a Full Stack Software Engineer based in Mumbai, India. He has 1+ year of production experience building SaaS platforms, fintech payout engines, real-time WebRTC systems, and multi-tenant billing infrastructure. He currently works at Swayambhutech and is available for freelance, contract, and full-time roles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What technologies does Imran Khan specialize in?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Imran Khan specializes in React, Node.js, PHP, TypeScript, Python, Django, PostgreSQL, MySQL, MongoDB, Redis, Supabase, WebRTC, WebSockets, and AI/LLM API integrations. He is experienced with Docker, Celery, GitHub Actions, and Stripe API."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Imran Khan available for freelance or full-time work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Imran Khan is open to freelance contracts, remote contract roles, and full-time positions — especially in fintech, SaaS infrastructure, or real-time systems. Contact him at muhammadimrank034@gmail.com."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What has Imran Khan built in production?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Imran Khan built DriveAccessible (a production fleet rental SaaS with paying customers), BillingOS (a Stripe-modelled multi-tenant billing engine), a fintech Payout Engine with atomic transactions, Vault (WebRTC P2P file sharing), AI Check Data (multi-LLM validation), and 10+ other shipped projects."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is Imran Khan based?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Imran Khan is based in Mumbai, Maharashtra, India. He is available for remote work globally and local opportunities in Mumbai."
+        }
+      }
+    ]
+  }
+  </script>
 
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- ═══════════════════════════════════════════════════════
+       STRUCTURED DATA — HowTo (targets skill-search queries)
+       "How to hire a full stack developer in Mumbai"
+  ═══════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to hire Imran Khan as a Full Stack Developer",
+    "description": "Steps to engage Imran Khan for freelance, contract, or full-time software engineering work.",
+    "step": [
+      { "@type": "HowToStep", "position": 1, "name": "Review portfolio", "text": "Browse Imran's 11+ shipped projects at imran-silk.vercel.app including production SaaS, fintech, and real-time systems." },
+      { "@type": "HowToStep", "position": 2, "name": "Download resume",   "text": "Download his full CV from imran-silk.vercel.app/resume covering experience, projects, and technical skills." },
+      { "@type": "HowToStep", "position": 3, "name": "Get in touch",      "text": "Email muhammadimrank034@gmail.com or connect on LinkedIn at linkedin.com/in/imranrkhan13." }
+    ]
+  }
+  </script>
+
 </head>
 
 <body>
