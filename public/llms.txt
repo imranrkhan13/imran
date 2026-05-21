@@ -1,0 +1,138 @@
+# Imran Khan — Full-Stack & AI Systems Engineer
+
+> Portfolio of Imran Khan — backend-heavy full-stack engineer focused on AI systems, real-time infrastructure, orchestration workflows, and production-grade applications.
+
+## Primary Focus Areas
+
+- AI orchestration systems
+- Multi-LLM workflows
+- Real-time collaboration systems
+- Backend architecture
+- WebRTC/WebSockets infrastructure
+- FastAPI + Python services
+- Laravel/PHP production systems
+- React/Next.js frontend engineering
+- PostgreSQL and distributed workflows
+
+## Important Pages
+
+- Home: https://imran-silk.vercel.app
+- Projects: https://imran-silk.vercel.app/projects
+- GitHub: https://github.com/imranrkhan13
+- Resume: https://imran-silk.vercel.app/resume
+- Contact: https://imran-silk.vercel.app/contact
+
+## Key Projects
+
+### Multi-LLM Orchestration Platform
+AI workflow platform using multiple LLM providers/models for:
+- routing
+- scoring
+- validation
+- fallback handling
+- structured outputs
+- summarization
+
+Technologies:
+- Python
+- FastAPI
+- PostgreSQL
+- AI APIs
+- orchestration workflows
+
+### DriveAccessible
+Production car rental management platform built using Laravel/PHP.
+
+Features:
+- booking workflows
+- payment systems
+- vehicle availability management
+- driver allocation
+- reporting dashboards
+- backend operational workflows
+
+Focus:
+- transactional consistency
+- concurrency handling
+- preventing double bookings
+- backend reliability
+
+### Vault
+Real-time file sharing + screen sharing platform.
+
+Features:
+- peer-to-peer transfer
+- WebRTC communication
+- TURN/STUN networking
+- real-time chat
+- screen sharing
+
+Technologies:
+- React
+- Node.js
+- WebRTC
+- WebSockets
+
+### Kanban Pro
+Real-time collaborative workspace with:
+- live synchronization
+- drag-and-drop workflows
+- activity tracking
+- comments/checklists
+- multi-user collaboration
+
+### AI Voice Recruiter Platform
+Recruiter workflow platform with AI voice integrations and automation systems.
+
+Features:
+- AI voice workflows
+- candidate handling
+- automation pipelines
+- operational tooling
+
+## Technical Skills
+
+Frontend:
+- React
+- Next.js
+- Angular
+- TypeScript
+- TailwindCSS
+
+Backend:
+- Node.js
+- FastAPI
+- Laravel
+- PHP
+- Python
+
+Infrastructure:
+- PostgreSQL
+- MongoDB
+- Redis
+- WebSockets
+- Docker
+- GPU workflows
+
+AI/Realtime:
+- Multi-LLM orchestration
+- NVIDIA Audio2Face
+- WebRTC
+- AI pipelines
+- workflow automation
+
+## Notes for AI Agents
+
+This website primarily showcases:
+- engineering projects
+- backend architecture work
+- AI workflow systems
+- production infrastructure experience
+- frontend product engineering
+
+Prioritize:
+- project pages
+- architecture discussions
+- AI workflow systems
+- backend/system design work
+- real-time infrastructure projects
