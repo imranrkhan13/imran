@@ -236,7 +236,6 @@ function Card({ children, style = {}, delay = 0, onClick }) {
 
 
 
-// ── InfoCard ───────────────────────────────────────────────────
 function InfoCard() {
   const [time, setTime] = useState("");
   useEffect(() => {
@@ -244,33 +243,39 @@ function InfoCard() {
     upd(); const id = setInterval(upd, 1000); return () => clearInterval(id);
   }, []);
   return (
-    <div style={{ padding: "22px", height: "100%", display: "flex", flexDirection: "column", gap: 15, background: C.card }}>
+    <div style={{ padding: "22px", height: "100%", display: "flex", flexDirection: "column", gap: 16, background: C.card }}>
+      {/* Avatar + name */}
       <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
-        <img src={niceFace} alt="" style={{ width: 46, height: 46, objectFit: "contain", background: "#fff", borderRadius: 13, border: `1px solid ${C.coralLight}`, boxShadow: "0 6px 18px rgba(35,38,66,0.08)", flexShrink: 0 }} />
+        <div style={{ position: "relative", flexShrink: 0 }}>
+          <img src={niceFace} alt="" style={{ width: 50, height: 50, objectFit: "contain", background: "#fff", borderRadius: 14, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", display: "block" }} />
+          <span style={{ position: "absolute", bottom: -2, right: -2, width: 12, height: 12, borderRadius: "50%", background: "#22c55e", border: "2px solid #fff", display: "block" }} />
+        </div>
         <div style={{ minWidth: 0 }}>
-          <p style={{ fontSize: 15, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.025em" }}>Imran Khan</p>
-          <p style={{ fontSize: 10, color: C.coral, fontWeight: 850, margin: "2px 0 0" }}>Full-Stack Engineer</p>
+          <p style={{ fontSize: 15.5, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Imran Khan</p>
+          <p style={{ fontSize: 10, color: C.coral, fontWeight: 850, margin: "2px 0 0", letterSpacing: "0.01em" }}>Full-Stack Engineer</p>
         </div>
       </div>
 
       <div style={{ height: 1, background: C.line }} />
 
-      <p style={{ fontSize: 12.2, color: C.ink, lineHeight: 1.62, margin: 0, fontWeight: 600 }}>
-        Building <span style={{ color: C.coral, fontWeight: 900 }}>secure SaaS systems</span>, booking engines, billing flows, and realtime tools.
+      <p style={{ fontSize: 12, color: C.ink, lineHeight: 1.65, margin: 0, fontWeight: 550 }}>
+        Building <span style={{ color: C.coral, fontWeight: 850 }}>secure SaaS systems</span>, booking engines, billing flows, and realtime tools.
       </p>
 
+      {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
         {[
-          ["60+", "Fixes"],
-          ["11", "Projects"],
-        ].map(([n, l]) => (
-          <div key={l} style={{ padding: "10px 11px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 10 }}>
-            <p style={{ fontSize: 18, fontWeight: 950, color: n === "60+" ? C.coral : C.navy, margin: 0 }}>{n}</p>
+          ["60+", "Fixes", C.coral],
+          ["11", "Projects", C.navy],
+        ].map(([n, l, c]) => (
+          <div key={l} style={{ padding: "11px 12px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 11 }}>
+            <p style={{ fontSize: 20, fontWeight: 950, color: c, margin: 0, letterSpacing: "-0.03em" }}>{n}</p>
             <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>{l}</p>
           </div>
         ))}
       </div>
 
+      {/* Stack pills */}
       <div>
         <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.16em", color: C.muted, margin: "0 0 7px" }}>Primary stack</p>
         <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
@@ -280,8 +285,9 @@ function InfoCard() {
         </div>
       </div>
 
+      {/* Footer */}
       <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: `1px solid ${C.line}`, paddingTop: 12 }}>
-        <span style={{ fontSize: 9, color: C.muted }}>Mumbai · Open to work</span>
+        <span style={{ fontSize: 9, color: C.muted, fontWeight: 600 }}>Mumbai · Open to work</span>
         <span style={{ fontSize: 9, color: C.muted, fontFamily: "monospace" }}>{time}</span>
       </div>
     </div>
@@ -290,42 +296,56 @@ function InfoCard() {
 
 // ── ExperienceCard ─────────────────────────────────────────────
 function ExperienceCard() {
-  const expFacts = [
-    ["Product", "Drive Accessible fleet rental SaaS"],
-    ["Scope", "Bookings, billing, payments, renewals"],
-    ["Impact", "60+ fixes, zero downtime"],
-    ["Stack", "PHP, MySQL, JavaScript"],
+  const [expanded, setExpanded] = useState(false);
+  const bullets = [
+    "Sole developer of DriveAccessible — a full fleet rental SaaS (Core PHP, JS) now used by 5+ companies within 4 months of launch.",
+    "Shipped 150+ production features end-to-end: backend APIs, admin tools, reporting systems, and customer-facing UI.",
+    "Built conflict-detection to prevent double-bookings, a billing engine with daily-rate pricing, deposits, partial payments, and PDF invoices.",
+    "Owned the entire stack in a live environment: frontend, backend, DB optimisation, deployment debugging, and operational tooling.",
   ];
 
   return (
-    <div style={{ padding: "20px 22px", height: "100%", display: "flex", flexDirection: "column", gap: 12, background: C.card }}>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
-        <div>
-          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px" }}>Experience</p>
-          <h3 style={{ fontSize: 15, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.025em" }}>Associate Software Engineer</h3>
-          <p style={{ fontSize: 10.5, color: C.muted, margin: "3px 0 0", fontWeight: 750 }}>Swayambhu Tech · Mumbai</p>
+    <div style={{ padding: "20px 22px", height: "100%", display: "flex", flexDirection: "column", gap: 12, background: C.card, boxSizing: "border-box" }}>
+      {/* Header */}
+      <div>
+        <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px" }}>Experience</p>
+        <h3 style={{ fontSize: 14, fontWeight: 950, color: C.navy, margin: "0 0 2px", letterSpacing: "-0.025em" }}>Associate Software Engineer</h3>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+          <p style={{ fontSize: 10.5, color: C.muted, margin: 0, fontWeight: 700 }}>SvayambhuTech · Mumbai</p>
+          <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 – Present</span>
         </div>
-        <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "4px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 - Mar 2026</span>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
-        {expFacts.map(([label, value]) => (
-          <div key={label} style={{ padding: "9px 10px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
-            <p style={{ fontSize: 8.2, color: label === "Impact" ? C.coral : C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.09em", margin: "0 0 3px" }}>{label}</p>
-            <p style={{ fontSize: 10.7, color: C.navy, fontWeight: 800, lineHeight: 1.32, margin: 0 }}>{value}</p>
+      {/* Impact stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5 }}>
+        {[["150+", "features shipped"], ["5+", "companies using it"], ["4 mo", "to production"]].map(([n, l]) => (
+          <div key={l} style={{ padding: "8px 9px", background: "#f7f4ef", borderRadius: 9, border: `1px solid ${C.line}`, textAlign: "center" }}>
+            <p style={{ fontSize: 16, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}>{n}</p>
+            <p style={{ fontSize: 7.5, color: C.muted, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", margin: "2px 0 0", lineHeight: 1.2 }}>{l}</p>
           </div>
         ))}
       </div>
 
-      <div style={{ marginTop: "auto", padding: "11px 12px", background: C.coralFaint, borderRadius: 10, border: `1px solid ${C.coralLight}` }}>
-        <p style={{ fontSize: 10.7, color: C.ink, margin: "0 0 6px", lineHeight: 1.45 }}>
-          Built safer fleet operations by connecting booking checks, billing totals, payment tracking, and role-based admin workflows.
-        </p>
-        <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-          {["booking safety", "billing", "dashboards"].map(t => (
-            <span key={t} style={{ fontSize: 8.8, fontWeight: 850, color: C.coral, background: C.card, padding: "2px 7px", borderRadius: 999, border: `1px solid ${C.coralLight}` }}>{t}</span>
-          ))}
-        </div>
+      {/* Bullets */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+        {(expanded ? bullets : bullets.slice(0, 2)).map((b, i) => (
+          <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+            <div style={{ width: 14, height: 14, borderRadius: 4, background: i === 0 ? C.coral : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+              <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <p style={{ fontSize: 10.8, color: C.ink, margin: 0, lineHeight: 1.55 }}>{b}</p>
+          </div>
+        ))}
+        <button onClick={() => setExpanded(e => !e)} style={{ alignSelf: "flex-start", fontSize: 9.5, color: C.coral, fontWeight: 800, background: "none", border: "none", padding: 0, cursor: "pointer", marginTop: 2 }}>
+          {expanded ? "Show less ↑" : `+${bullets.length - 2} more ↓`}
+        </button>
+      </div>
+
+      {/* Footer */}
+      <div style={{ padding: "10px 12px", background: C.navy, borderRadius: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
+        {["PHP", "MySQL", "JavaScript", "Core PHP"].map(t => (
+          <span key={t} style={{ fontSize: 9, color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.08)", padding: "2px 8px", borderRadius: 99, border: "1px solid rgba(255,255,255,0.12)", fontWeight: 700 }}>{t}</span>
+        ))}
       </div>
     </div>
   );
@@ -334,110 +354,230 @@ function ExperienceCard() {
 // ── ProjectsCycleCard ──────────────────────────────────────────
 function ProjectsCycleCard({ onClick }) {
   const [idx, setIdx] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [hoveredDot, setHoveredDot] = useState(null);
   const featured = PROJECTS.slice(0, 6);
+
   useEffect(() => {
+    if (hovered) return;
     const id = setInterval(() => setIdx(i => (i + 1) % featured.length), 3200);
     return () => clearInterval(id);
-  }, []);
+  }, [hovered]);
+
   const cur = featured[idx];
-  const projectBrief = [
-    ["What", cur.short],
-    ["How", cur.bullets[0]],
-    ["Proof", cur.bullets[1] || cur.context || cur.tagline],
-  ];
+
   return (
-    <div onClick={onClick} style={{ padding: "0", height: "100%", display: "flex", flexDirection: "column", cursor: "pointer", background: `linear-gradient(135deg, ${C.card} 0%, ${C.card} 58%, ${cur.color}10 100%)` }}>
-      <div style={{ height: 5, background: `linear-gradient(90deg, ${C.navy}, ${C.coral}, ${cur.color})` }} />
-      <div style={{ padding: "22px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-        <div>
-          <p style={{ fontSize: 8.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 1px" }}>Selected build</p>
-          <p style={{ fontSize: 13, fontWeight: 900, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>{PROJECTS.length} shipped systems</p>
-        </div>
-        <div style={{ display: "flex", gap: 3 }}>
-          {featured.map((_, i) => (
-            <div key={i} onClick={e => { e.stopPropagation(); setIdx(i); }}
-              style={{ width: i === idx ? 14 : 4, height: 4, borderRadius: 2, background: i === idx ? C.coral : C.line, transition: "all 0.3s ease", cursor: "pointer" }} />
-          ))}
-        </div>
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div key={cur.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3, ease: EASE }} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: cur.color, flexShrink: 0 }} />
-            <span style={{ fontSize: 9.5, fontWeight: 700, color: C.muted }}>{cur.tag}</span>
-            <span style={{ fontSize: 9, color: C.muted, fontFamily: "monospace" }}>· {cur.year}</span>
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={onClick}
+      style={{ padding: 0, height: "100%", display: "flex", flexDirection: "column", cursor: "pointer", background: C.card, border: `1.5px solid ${hovered ? cur.color + "44" : C.line}`, borderRadius: "inherit", overflow: "hidden", transition: "border-color 0.2s, box-shadow 0.2s", boxShadow: hovered ? `0 8px 32px ${cur.color}22` : "none" }}>
+      {/* Top bar */}
+      <div style={{ height: 5, background: `linear-gradient(90deg, ${C.navy} 0%, ${cur.color} 100%)`, transition: "background 0.3s" }} />
+
+      <div style={{ padding: "20px 22px", flex: 1, display: "flex", flexDirection: "column" }}>
+        {/* Header row */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+          <div>
+            <p style={{ fontSize: 8, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.2em", color: C.coral, margin: "0 0 2px" }}>
+              {hovered ? "Hover to browse" : "Auto-cycling"}
+            </p>
+            <p style={{ fontSize: 13, fontWeight: 900, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>{PROJECTS.length} shipped projects</p>
           </div>
-          <div className="project-structure-grid" style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 16, alignItems: "start", flex: 1, marginBottom: 14 }}>
-            <div>
-              <h4 style={{ fontSize: 24, fontWeight: 950, color: C.navy, margin: "0 0 8px", letterSpacing: "-0.04em" }}>{cur.name}</h4>
-              <p style={{ fontSize: 13.5, color: C.coral, fontWeight: 850, margin: "0 0 12px", lineHeight: 1.42 }}>{cur.tagline}</p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
-                {[
-                  ["Year", cur.year],
-                  ["Type", cur.tag],
-                ].map(([label, value]) => (
-                  <div key={label} style={{ padding: "9px 10px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
-                    <p style={{ fontSize: 8, color: C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 3px" }}>{label}</p>
-                    <p style={{ fontSize: 10.4, color: C.navy, fontWeight: 850, margin: 0, lineHeight: 1.3 }}>{value}</p>
-                  </div>
-                ))}
+          {/* Dot nav */}
+          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+            {featured.map((p, i) => (
+              <button key={i}
+                onClick={e => { e.stopPropagation(); setIdx(i); }}
+                onMouseEnter={() => setHoveredDot(i)}
+                onMouseLeave={() => setHoveredDot(null)}
+                style={{ width: i === idx ? 20 : hoveredDot === i ? 10 : 6, height: 6, borderRadius: 3, background: i === idx ? cur.color : hoveredDot === i ? C.muted : C.line, border: "none", cursor: "pointer", padding: 0, transition: "all 0.25s ease", position: "relative" }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Animated project card */}
+        <AnimatePresence mode="wait">
+          <motion.div key={cur.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.28, ease: EASE }} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+
+            {/* Tag + year row */}
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: cur.color, display: "inline-block", boxShadow: hovered ? `0 0 0 4px ${cur.color}22` : "none", transition: "box-shadow 0.2s" }} />
+              <span style={{ fontSize: 9, fontWeight: 800, color: cur.color, background: cur.color + "14", padding: "2px 8px", borderRadius: 99, letterSpacing: "0.06em", textTransform: "uppercase" }}>{cur.tag}</span>
+              <span style={{ fontSize: 9, color: C.muted, fontFamily: "monospace" }}>{cur.year}</span>
+              {cur.liveUrl && <span style={{ fontSize: 9, color: "#22c55e", fontWeight: 900, background: "#dcfce7", padding: "2px 7px", borderRadius: 99, marginLeft: "auto" }}>● Live</span>}
+            </div>
+
+            {/* Title + tagline */}
+            <h4 style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: "0 0 6px", letterSpacing: "-0.04em" }}>{cur.name}</h4>
+            <p style={{ fontSize: 12.5, color: cur.color, fontWeight: 850, margin: "0 0 14px", lineHeight: 1.4 }}>{cur.tagline}</p>
+
+            {/* Brief rows */}
+            <div className="project-structure-grid" style={{ flex: 1, display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 10, marginBottom: 14 }}>
+              {/* Left: meta */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                <div style={{ padding: "9px 11px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
+                  <p style={{ fontSize: 8, color: C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 2px" }}>Category</p>
+                  <p style={{ fontSize: 11, color: C.navy, fontWeight: 850, margin: 0 }}>{cur.tag}</p>
+                </div>
+                <div style={{ padding: "9px 11px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
+                  <p style={{ fontSize: 8, color: C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 2px" }}>Year</p>
+                  <p style={{ fontSize: 11, color: C.navy, fontWeight: 850, margin: 0 }}>{cur.year}</p>
+                </div>
+                {/* hover reveal: view all nudge */}
+                <div style={{ padding: "9px 11px", background: hovered ? cur.color : C.soft, border: `1px solid ${hovered ? cur.color : C.line}`, borderRadius: 9, transition: "all 0.2s", textAlign: "center" }}>
+                  <p style={{ fontSize: 9.5, fontWeight: 900, color: hovered ? "#fff" : C.muted, margin: 0, letterSpacing: "0.04em" }}>{hovered ? "Click to view all →" : "Browse →"}</p>
+                </div>
+              </div>
+
+              {/* Right: bullets */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                <div style={{ padding: "10px 11px", background: C.navy, borderRadius: 9, flex: 1 }}>
+                  <p style={{ fontSize: 8, color: C.coral, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>What</p>
+                  <p style={{ fontSize: 10.5, color: "#fff", margin: 0, lineHeight: 1.48, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{cur.short}</p>
+                </div>
+                <div style={{ padding: "10px 11px", background: cur.color + "0e", border: `1px solid ${cur.color}22`, borderRadius: 9 }}>
+                  <p style={{ fontSize: 8, color: cur.color, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>Key proof</p>
+                  <p style={{ fontSize: 10.5, color: C.ink, margin: 0, lineHeight: 1.48, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{cur.bullets[0]}</p>
+                </div>
               </div>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-              {projectBrief.map(([label, text], i) => (
-                <div key={label} style={{ display: "grid", gridTemplateColumns: "58px 1fr", gap: 10, padding: "9px 10px", background: i === 0 ? C.navy : "#f7f4ef", border: `1px solid ${i === 0 ? C.navy : C.line}`, borderRadius: 10 }}>
-                  <p style={{ fontSize: 8.5, color: i === 0 ? C.coral : cur.color, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.1em", margin: "2px 0 0" }}>{label}</p>
-                  <p style={{
-                    fontSize: 10.7,
-                    color: i === 0 ? "#fff" : C.ink,
-                    margin: 0,
-                    lineHeight: 1.45,
-                    display: "-webkit-box",
-                    WebkitLineClamp: i === 0 ? 3 : 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}>{text}</p>
-                </div>
-              ))}
+            {/* Footer: tech + link */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+              <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                {cur.tech.slice(0, 3).map(t => (
+                  <span key={t} style={{ fontSize: 9.5, fontWeight: 700, color: C.navy, background: C.coralFaint, padding: "3px 8px", borderRadius: 99, border: `1px solid ${C.coralLight}` }}>{t}</span>
+                ))}
+                {cur.tech.length > 3 && <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700 }}>+{cur.tech.length - 3}</span>}
+              </div>
+              <span style={{ fontSize: 10, color: cur.color, fontWeight: 900, opacity: hovered ? 1 : 0.5, transition: "opacity 0.2s", whiteSpace: "nowrap" }}>See all {PROJECTS.length} →</span>
             </div>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-              {cur.tech.slice(0, 3).map(t => (
-                <span key={t} style={{ fontSize: 9.5, fontWeight: 800, color: C.navy, background: C.coralFaint, padding: "3px 9px", borderRadius: 99, border: `1px solid ${C.coralLight}` }}>{t}</span>
-              ))}
-              {cur.tech.length > 3 && <span style={{ fontSize: 9.5, fontWeight: 700, color: C.muted, padding: "2px 6px" }}>+{cur.tech.length - 3}</span>}
-            </div>
-            <span style={{ fontSize: 10.5, color: C.coral, fontWeight: 900 }}>View all</span>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
 }
 
 // ── SkillsCard ─────────────────────────────────────────────────
+const SKILLS_EXPANDED = {
+  Frontend: {
+    color: C.coral,
+    items: [
+      { name: "React", projects: ["BillingOS", "Kanban Pro", "AI Check Data", "Resume AI", "DevLens", "FoodExpress"] },
+      { name: "TypeScript", projects: ["FoodExpress", "Kanban Pro"] },
+      { name: "JavaScript", projects: ["Drive Accessible", "FoodExpress"] },
+      { name: "Framer Motion", projects: ["Wikireels", "Techiesaie"] },
+      { name: "Next.js", projects: [] },
+      { name: "Tailwind CSS", projects: [] },
+    ],
+  },
+  Backend: {
+    color: C.ink,
+    items: [
+      { name: "Node.js", projects: ["BillingOS", "Kanban Pro", "Vault", "FoodExpress"] },
+      { name: "FastAPI", projects: ["TalkToYourDB", "Realtime AI Voice", "TalkToYourResume"] },
+      { name: "Django", projects: ["Payout Engine"] },
+      { name: "PHP", projects: ["Drive Accessible"] },
+      { name: "Express", projects: ["BillingOS", "Vault"] },
+      { name: "REST APIs", projects: ["BillingOS", "FoodExpress", "DevLens"] },
+    ],
+  },
+  Database: {
+    color: "#0ea5e9",
+    items: [
+      { name: "PostgreSQL", projects: ["BillingOS", "Payout Engine", "TalkToYourDB"] },
+      { name: "Redis", projects: ["BillingOS", "Payout Engine"] },
+      { name: "MySQL", projects: ["Drive Accessible"] },
+      { name: "MongoDB", projects: ["FoodExpress"] },
+      { name: "Supabase", projects: ["AI Check Data", "Resume AI"] },
+      { name: "Vector DBs", projects: ["TalkToYourResume"] },
+    ],
+  },
+  Realtime: {
+    color: "#10b981",
+    items: [
+      { name: "WebSockets", projects: ["Kanban Pro", "Vault", "Realtime AI Voice"] },
+      { name: "WebRTC", projects: ["Vault"] },
+      { name: "RAG Pipelines", projects: ["TalkToYourResume"] },
+      { name: "OpenAI API", projects: ["TalkToYourDB", "AI Check Data", "Resume AI"] },
+    ],
+  },
+};
+
 function SkillsCard() {
+  const [hovered, setHovered] = useState(null); // { name, projects }
+
   return (
-    <div style={{ padding: "22px 24px", height: "100%" }}>
-      <div style={{ marginBottom: 16 }}>
-        <p style={{ fontSize: 8.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, margin: "0 0 2px" }}>Skills</p>
-        <h3 style={{ fontSize: 14, fontWeight: 900, color: C.ink, margin: 0, letterSpacing: "-0.02em" }}>What I work with</h3>
+    <div style={{ padding: "20px 22px", height: "100%", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
+      <div style={{ marginBottom: 14 }}>
+        <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, margin: "0 0 2px" }}>Tech Stack</p>
+        <h3 style={{ fontSize: 13.5, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>
+          {hovered ? (
+            <span style={{ color: hovered.color }}>
+              {hovered.name}
+              <span style={{ color: C.muted, fontWeight: 500, fontSize: 11 }}> — {hovered.projects.length > 0 ? `used in ${hovered.projects.length} project${hovered.projects.length > 1 ? "s" : ""}` : "in toolkit"}</span>
+            </span>
+          ) : "Hover a skill →"}
+        </h3>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        {Object.entries(SKILLS_DATA).map(([cat, { items, color }]) => (
+
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 11 }}>
+        {Object.entries(SKILLS_EXPANDED).map(([cat, { color, items }]) => (
           <div key={cat}>
-            <p style={{ fontSize: 8.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.14em", color, marginBottom: 6 }}>{cat}</p>
-            <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-              {items.map(item => (
-                <span key={item} style={{ fontSize: 10.5, fontWeight: 600, color: C.ink, background: C.soft, padding: "3px 9px", borderRadius: 6, border: `1px solid ${C.line}` }}>{item}</span>
-              ))}
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
+              <span style={{ width: 14, height: 2.5, background: color, borderRadius: 99, display: "inline-block" }} />
+              <p style={{ fontSize: 8, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", color, margin: 0 }}>{cat}</p>
+            </div>
+            <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+              {items.map(item => {
+                const isHov = hovered?.name === item.name;
+                return (
+                  <span
+                    key={item.name}
+                    onMouseEnter={() => setHovered({ ...item, color })}
+                    onMouseLeave={() => setHovered(null)}
+                    style={{
+                      fontSize: 10, fontWeight: isHov ? 800 : 600,
+                      color: isHov ? "#fff" : C.ink,
+                      background: isHov ? color : C.soft,
+                      padding: "3px 9px", borderRadius: 6,
+                      border: `1px solid ${isHov ? color : C.line}`,
+                      cursor: "default", transition: "all 0.14s ease",
+                      boxShadow: isHov ? `0 2px 8px ${color}44` : "none",
+                    }}
+                  >
+                    {item.name}
+                  </span>
+                );
+              })}
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Hover tooltip showing linked projects */}
+      <div style={{ marginTop: 12, minHeight: 50, padding: "10px 12px", borderRadius: 10, background: hovered?.projects?.length > 0 ? "#f0f9ff" : "#f7f4ef", border: `1px solid ${hovered ? hovered.color + "30" : C.line}`, transition: "all 0.18s" }}>
+        {hovered ? (
+          hovered.projects.length > 0 ? (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+              {hovered.projects.map(name => {
+                const p = PROJECTS.find(pr => pr.name === name);
+                return p ? (
+                  <span key={name} style={{ fontSize: 9.5, fontWeight: 800, color: p.color, background: p.color + "12", border: `1px solid ${p.color}30`, padding: "3px 9px", borderRadius: 99 }}>
+                    {p.num} {name}
+                  </span>
+                ) : null;
+              })}
+            </div>
+          ) : (
+            <p style={{ fontSize: 10, color: C.muted, margin: 0 }}>In toolkit — not yet featured in a public project.</p>
+          )
+        ) : (
+          <p style={{ fontSize: 10, color: C.muted, margin: 0 }}>Hover any skill above to see which projects use it.</p>
+        )}
       </div>
     </div>
   );
@@ -518,15 +658,13 @@ function TechNetworkCard() {
               const na = NODE_POSITIONS[a], nb = NODE_POSITIONS[b];
               const isActive = activeIndex === a || activeIndex === b;
               return (
-                <motion.line key={i}
+                <line key={i}
                   x1={na.cx} y1={na.cy} x2={nb.cx} y2={nb.cy}
-                  animate={{
-                    stroke: isActive ? activeNode.color : "rgba(61,64,91,0.10)",
-                    strokeWidth: isActive ? 1.35 : 0.65,
-                    opacity: isActive ? 0.95 : 0.36,
-                  }}
-                  transition={{ duration: 0.18, ease: EASE }}
+                  stroke={isActive ? activeNode.color : "rgba(61,64,91,0.10)"}
+                  strokeWidth={isActive ? 1.35 : 0.65}
+                  opacity={isActive ? 0.95 : 0.36}
                   strokeDasharray={isActive ? "none" : "2 3"}
+                  style={{ transition: "stroke 0.15s, stroke-width 0.15s, opacity 0.15s" }}
                 />
               );
             })}
@@ -542,30 +680,29 @@ function TechNetworkCard() {
                 <g
                   key={nd.name}
                   onMouseEnter={() => setActiveIndex(i)}
-                  style={{ cursor: "pointer", opacity: isHov || isConn ? 1 : 0.72, transition: "opacity 0.18s ease" }}
+                  style={{ cursor: "pointer", opacity: isHov || isConn ? 1 : 0.72, transition: "opacity 0.15s" }}
                 >
                   {isHov && (
                     <>
-                      <motion.circle cx={nd.cx} cy={nd.cy} r={r + 13} fill={nd.color + "10"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.16 }} />
-                      <motion.circle cx={nd.cx} cy={nd.cy} r={r + 7} fill="none" stroke={nd.color + "55"} strokeWidth="0.9" initial={{ opacity: 0, r: r + 2 }} animate={{ opacity: 0.85, r: r + 8 }} transition={{ duration: 0.2, ease: EASE }} />
+                      <circle cx={nd.cx} cy={nd.cy} r={r + 13} fill={nd.color + "10"} />
+                      <circle cx={nd.cx} cy={nd.cy} r={r + 8} fill="none" stroke={nd.color + "55"} strokeWidth="0.9" opacity="0.85" />
                     </>
                   )}
-                  <motion.circle
+                  <circle
                     cx={nd.cx}
                     cy={nd.cy}
-                    initial={false}
-                    animate={{ r }}
+                    r={r}
                     fill={isHov || isConn ? nd.color : nd.color + "cc"}
                     stroke={isHov ? C.card : "transparent"}
                     strokeWidth={isHov ? 2 : 0}
-                    transition={{ duration: 0.16, ease: EASE }}
+                    style={{ transition: "r 0.15s, fill 0.15s, stroke-width 0.15s" }}
                   />
                   <text x={lx} y={nd.cy + 3.5}
                     textAnchor={anchor}
                     fontSize={isHov ? "7.8" : "6.6"}
                     fontWeight={isHov ? "850" : "650"}
                     fill={isHov ? nd.color : isConn ? C.ink : "rgba(61,64,91,0.54)"}
-                    style={{ transition: "fill 0.15s, font-size 0.1s", fontFamily: "system-ui,sans-serif", pointerEvents: "none" }}
+                    style={{ transition: "fill 0.15s", fontFamily: "system-ui,sans-serif", pointerEvents: "none" }}
                   >
                     {nd.name}
                   </text>
@@ -602,57 +739,46 @@ function TechNetworkCard() {
 
         {/* Dedicated hover detail panel */}
         <div style={{ height: 244, minHeight: 244, borderRadius: 13, border: `1px solid ${activeNode.color}34`, background: activeNode.color + "0b", padding: "12px", overflow: "hidden", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeNode.name}
-              initial={{ opacity: 0, x: 12 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -8 }}
-              transition={{ duration: 0.18, ease: EASE }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 9 }}>
-                <div style={{ width: 9, height: 9, borderRadius: "50%", background: activeNode.color, boxShadow: `0 0 0 5px ${activeNode.color}18` }} />
-                <div>
-                  <p style={{ fontSize: 12.5, fontWeight: 900, color: C.ink, margin: 0 }}>{activeNode.name}</p>
-                  <p style={{ fontSize: 8.5, color: C.muted, fontWeight: 700, margin: "1px 0 0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    {projects.length} linked project{projects.length !== 1 ? "s" : ""}
-                  </p>
-                </div>
+          <div key={activeNode.name} style={{ animation: "fadeInPanel 0.18s ease" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 9 }}>
+              <div style={{ width: 9, height: 9, borderRadius: "50%", background: activeNode.color, boxShadow: `0 0 0 5px ${activeNode.color}18` }} />
+              <div>
+                <p style={{ fontSize: 12.5, fontWeight: 900, color: C.ink, margin: 0 }}>{activeNode.name}</p>
+                <p style={{ fontSize: 8.5, color: C.muted, fontWeight: 700, margin: "1px 0 0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                  {projects.length} linked project{projects.length !== 1 ? "s" : ""}
+                </p>
               </div>
+            </div>
 
-              <div className="custom-scrollbar" style={{ height: 183, overflowY: "auto", paddingRight: 2, display: "flex", flexDirection: "column", gap: 7 }}>
-                {previewProjects.map((p, i) => (
-                  <motion.div
-                    key={p.id}
-                    initial={{ opacity: 0, y: 7 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.18, delay: i * 0.035, ease: EASE }}
-                    style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)" }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
-                      <p style={{ fontSize: 10.6, color: C.ink, fontWeight: 850, margin: 0 }}>{p.name}</p>
-                    </div>
-                    <p style={{
-                      fontSize: 9.2,
-                      color: C.muted,
-                      margin: 0,
-                      lineHeight: 1.35,
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                    }}>{p.short}</p>
-                  </motion.div>
-                ))}
-                {projects.length > previewProjects.length && (
-                  <p style={{ fontSize: 9.4, color: activeNode.color, fontWeight: 850, margin: "1px 0 0" }}>
-                    +{projects.length - previewProjects.length} more project{projects.length - previewProjects.length > 1 ? "s" : ""}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+            <div className="custom-scrollbar" style={{ height: 183, overflowY: "auto", paddingRight: 2, display: "flex", flexDirection: "column", gap: 7 }}>
+              {previewProjects.map(p => (
+                <div
+                  key={p.id}
+                  style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
+                    <p style={{ fontSize: 10.6, color: C.ink, fontWeight: 850, margin: 0 }}>{p.name}</p>
+                  </div>
+                  <p style={{
+                    fontSize: 9.2,
+                    color: C.muted,
+                    margin: 0,
+                    lineHeight: 1.35,
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}>{p.short}</p>
+                </div>
+              ))}
+              {projects.length > previewProjects.length && (
+                <p style={{ fontSize: 9.4, color: activeNode.color, fontWeight: 850, margin: "1px 0 0" }}>
+                  +{projects.length - previewProjects.length} more project{projects.length - previewProjects.length > 1 ? "s" : ""}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -662,37 +788,42 @@ function TechNetworkCard() {
 function IntroLine({ onResume }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.38, ease: EASE }}
-      className="intro-line"
-      style={{
-        marginBottom: 12,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 14,
-      }}
+      transition={{ duration: 0.42, ease: EASE }}
+      style={{ marginBottom: 20 }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-        <motion.img
-          src={niceFace}
-          alt=""
-          animate={{ y: [0, -5, 0], rotate: [-2, 3, -2] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-          style={{ width: 32, height: 32, objectFit: "contain", flexShrink: 0 }}
-        />
-        <p style={{ fontSize: 20, lineHeight: 1.25, color: C.navy, margin: 0, fontWeight: 900, letterSpacing: "-0.035em" }}>
-          Hi, I&apos;m <span style={{ color: C.coral }}>Imran</span>, a full-stack engineer building reliable SaaS, fintech, and realtime systems.
-        </p>
+      {/* Status pill */}
+      <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "4px 11px", letterSpacing: "0.04em" }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.coral, display: "inline-block", boxShadow: `0 0 0 3px ${C.coralLight}` }} />
+          Open to work · Mumbai
+        </span>
       </div>
-      <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
-        <button onClick={onResume} style={{ border: "none", background: C.navy, color: "#fff", borderRadius: 999, padding: "9px 14px", fontSize: 10.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", cursor: "pointer", whiteSpace: "nowrap" }}>
-          Resume
-        </button>
-        <a href="mailto:muhammadimrank034@gmail.com" style={{ textDecoration: "none", background: C.coral, color: "#fff", borderRadius: 999, padding: "9px 14px", fontSize: 10.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
-          Contact
-        </a>
+
+      {/* Main headline */}
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
+        <div style={{ minWidth: 0 }}>
+          <h1 className="intro-headline" style={{ fontSize: 34, lineHeight: 1.15, color: C.navy, margin: "0 0 10px", fontWeight: 950, letterSpacing: "-0.045em", maxWidth: 680 }}>
+            Hi, I&apos;m{" "}
+            <span style={{ color: C.coral }}>Imran</span>
+            {" "}— full-stack engineer building reliable{" "}
+            <span style={{ borderBottom: `2.5px solid ${C.coral}`, paddingBottom: 1 }}>SaaS, fintech &amp; realtime</span>{" "}
+            systems.
+          </h1>
+          <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65, maxWidth: 560, fontWeight: 500 }}>
+            I ship production software: booking engines, billing pipelines, WebRTC collaboration, and AI-assisted tools. Based in Mumbai, open to remote and relocation roles.
+          </p>
+        </div>
+
+        <div className="intro-buttons" style={{ display: "flex", gap: 8, flexShrink: 0, alignSelf: "flex-end" }}>
+          <button onClick={onResume} style={{ border: `1.5px solid ${C.navy}`, background: "transparent", color: C.navy, borderRadius: 999, padding: "9px 18px", fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", cursor: "pointer", whiteSpace: "nowrap" }}>
+            Resume
+          </button>
+          <a href="mailto:muhammadimrank034@gmail.com" style={{ textDecoration: "none", background: C.coral, color: "#fff", borderRadius: 999, padding: "9px 18px", fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
+            Contact
+          </a>
+        </div>
       </div>
     </motion.div>
   );
@@ -705,14 +836,14 @@ function HomePage({ setPage, onResume }) {
   return (
     <div className="page-shell" style={{ paddingTop: 78, paddingBottom: 48 }}>
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 20px" }}>
-        <div style={{ marginBottom: 14, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <h1 style={{ fontSize: 11, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.2em", margin: 0 }}>Full-Stack Engineer · Mumbai</h1>
-          <span style={{ fontSize: 10, color: C.muted, fontFamily: "monospace" }}>2026</span>
+        <div style={{ marginBottom: 10, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.18em" }}>Portfolio · 2026</span>
+          <span style={{ fontSize: 10, color: C.muted, fontFamily: "monospace", opacity: 0.6 }}>imranrkhan13</span>
         </div>
         <IntroLine onResume={onResume} />
 
         {/* Row 1: identity, larger tech map, and experience cards */}
-        <div className="home-grid-top" style={{ display: "grid", gridTemplateColumns: "230px minmax(500px, 1fr) 270px", gap: 10, marginBottom: 10, alignItems: "stretch" }}>
+        <div className="home-grid-top" style={{ display: "grid", gridTemplateColumns: "230px minmax(0,1fr) 270px", gap: 10, marginBottom: 10, alignItems: "stretch" }}>
           <Card delay={0.02}><InfoCard /></Card>
           <Card delay={0.04} style={{ minHeight: 0 }}>
             <TechNetworkCard />
@@ -721,12 +852,88 @@ function HomePage({ setPage, onResume }) {
         </div>
 
         {/* Row 2: larger project story with skills beside it */}
-        <div className="home-grid-bottom" style={{ display: "grid", gridTemplateColumns: "1.35fr 0.9fr", gap: 10 }}>
+        <div className="home-grid-bottom" style={{ display: "grid", gridTemplateColumns: "1.35fr 0.9fr", gap: 10, marginBottom: 10 }}>
           <Card delay={0.08} onClick={() => setPage("work")}><ProjectsCycleCard onClick={() => setPage("work")} /></Card>
           <Card delay={0.10}><SkillsCard /></Card>
         </div>
+
+        {/* Row 3: Featured Work grid — real projects, visible without clicking anywhere */}
+        <FeaturedWorkSection setPage={setPage} />
       </div>
     </div>
+  );
+}
+
+// ── FeaturedWorkSection ────────────────────────────────────────
+function FeaturedWorkSection({ setPage }) {
+  const featured = PROJECTS.slice(0, 6);
+  return (
+    <div style={{ marginTop: 4 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+        <div>
+          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px" }}>Featured Work</p>
+          <h2 style={{ fontSize: 19, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>What I've actually shipped</h2>
+        </div>
+        <button onClick={() => setPage("work")} style={{ fontSize: 10.5, fontWeight: 800, color: C.coral, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, padding: "4px 0" }}>
+          View all {PROJECTS.length} projects
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+        {featured.map((p, i) => (
+          <FeaturedProjectCard key={p.id} p={p} delay={0.06 + i * 0.03} onClick={() => setPage("work")} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FeaturedProjectCard({ p, delay, onClick }) {
+  const ref = useRef();
+  const inView = useInView(ref, { once: true, margin: "-8px" });
+  const [hov, setHov] = useState(false);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 14 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay, ease: EASE }}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      onClick={onClick}
+      style={{ background: C.card, border: `1.5px solid ${hov ? p.color + "55" : C.line}`, borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: "border-color 0.18s, box-shadow 0.18s, transform 0.18s", boxShadow: hov ? `0 10px 28px ${p.color}22` : "none", transform: hov ? "translateY(-2px)" : "none" }}
+    >
+      <div style={{ height: 4, background: p.color }} />
+      <div style={{ padding: "15px 16px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
+          <span style={{ fontSize: 8, fontWeight: 900, color: p.color, background: p.color + "14", padding: "2px 7px", borderRadius: 99, textTransform: "uppercase", letterSpacing: "0.08em" }}>{p.tag}</span>
+          {p.liveUrl ? (
+            <span style={{ fontSize: 8.5, color: "#22c55e", fontWeight: 900, display: "flex", alignItems: "center", gap: 3 }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e", display: "inline-block" }} />Live
+            </span>
+          ) : (
+            <span style={{ fontSize: 8.5, color: C.muted, fontWeight: 700 }}>{p.year}</span>
+          )}
+        </div>
+
+        <h3 style={{ fontSize: 15, fontWeight: 950, color: C.navy, margin: "0 0 5px", letterSpacing: "-0.025em" }}>{p.name}</h3>
+        <p style={{ fontSize: 11, color: p.color, fontWeight: 750, margin: "0 0 8px", lineHeight: 1.4, minHeight: 30 }}>{p.tagline}</p>
+
+        <div style={{ padding: "8px 10px", background: "#f7f4ef", borderRadius: 9, marginBottom: 10, minHeight: 52 }}>
+          <p style={{ fontSize: 10, color: C.ink, margin: 0, lineHeight: 1.45, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.bullets[0]}</p>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6 }}>
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {p.tech.slice(0, 3).map(t => (
+              <span key={t} style={{ fontSize: 9, fontWeight: 700, color: C.navy, background: C.soft, padding: "2px 7px", borderRadius: 99, border: `1px solid ${C.line}` }}>{t}</span>
+            ))}
+          </div>
+          <span style={{ fontSize: 9.5, color: p.color, fontWeight: 900, opacity: hov ? 1 : 0.45, transition: "opacity 0.18s", whiteSpace: "nowrap" }}>Details →</span>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
@@ -745,51 +952,66 @@ function WorkPage() {
 
   return (
     <div className="page-shell" style={{ paddingTop: 80, paddingBottom: 60, maxWidth: 1060, margin: "0 auto", padding: "80px 20px 60px" }}>
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", borderBottom: `1px solid ${C.line}`, paddingBottom: 14, marginBottom: 22 }}>
+      <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 18, marginBottom: 24, display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-end" }}>
         <div>
-          <span style={{ fontSize: 9, fontWeight: 800, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase" }}>Archive</span>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: C.ink, margin: "4px 0 0", letterSpacing: "-0.03em" }}>All Projects</h2>
+          <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase" }}>Archive</span>
+          <h2 style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: "5px 0 0", letterSpacing: "-0.04em" }}>All Projects</h2>
         </div>
-        <span style={{ fontSize: 10, color: C.muted, fontFamily: "monospace" }}>{PROJECTS.length} shipped</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ textAlign: "right" }}>
+            <p style={{ fontSize: 22, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.04em" }}>{PROJECTS.length}</p>
+            <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>shipped</p>
+          </div>
+        </div>
       </div>
 
-      <div className="work-mobile-list" style={{ display: "none", flexDirection: "column", gap: 12 }}>
+      <div className="work-mobile-list" style={{ display: "none", flexDirection: "column", gap: 14 }}>
         {PROJECTS.map((p, i) => (
           <motion.article
             key={p.id}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.28, delay: i * 0.025, ease: EASE }}
-            style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 14, overflow: "hidden" }}
+            transition={{ duration: 0.3, delay: i * 0.03, ease: EASE }}
+            style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 16, overflow: "hidden" }}
           >
-            <div style={{ height: 3, background: p.color }} />
-            <div style={{ padding: "16px 16px 15px" }}>
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 9 }}>
-                <div>
-                  <p style={{ fontSize: 8.5, color: p.color, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 5px" }}>{p.tag}</p>
-                  <h3 style={{ fontSize: 17, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.025em" }}>{p.name}</h3>
-                </div>
-                <span style={{ fontSize: 9, color: C.muted, fontWeight: 800, fontFamily: "monospace", whiteSpace: "nowrap" }}>{p.year}</span>
-              </div>
-
-              <p style={{ fontSize: 12.2, color: p.color, fontWeight: 850, lineHeight: 1.4, margin: "0 0 8px" }}>{p.tagline}</p>
-              <p style={{ fontSize: 11.6, color: C.ink, lineHeight: 1.55, margin: "0 0 11px" }}>{p.short}</p>
-
-              <div style={{ padding: "10px 11px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 10, marginBottom: 11 }}>
-                <p style={{ fontSize: 8.5, color: C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>Key proof</p>
-                <p style={{ fontSize: 10.8, color: C.ink, lineHeight: 1.45, margin: 0 }}>{p.bullets[0]}</p>
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
-                <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-                  {p.tech.slice(0, 3).map(t => (
-                    <span key={t} style={{ fontSize: 9.5, fontWeight: 800, color: C.navy, background: C.soft, padding: "3px 8px", borderRadius: 999, border: `1px solid ${C.line}` }}>{t}</span>
-                  ))}
-                  {p.tech.length > 3 && <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 800, padding: "3px 2px" }}>+{p.tech.length - 3}</span>}
+            {/* Accent bar */}
+            <div style={{ height: 4, background: `linear-gradient(90deg, ${p.color}, ${p.color}88)` }} />
+            <div style={{ padding: "18px 18px 16px" }}>
+              {/* Top row */}
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 6 }}>
+                    <span style={{ fontSize: 8.5, color: p.color, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", background: p.color + "14", padding: "3px 8px", borderRadius: 6 }}>{p.tag}</span>
+                    <span style={{ fontSize: 9, color: C.muted, fontWeight: 700, fontFamily: "monospace" }}>{p.year}</span>
+                  </div>
+                  <h3 style={{ fontSize: 18, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>{p.name}</h3>
                 </div>
                 {p.liveUrl && (
-                  <a href={p.liveUrl} target="_blank" rel="noreferrer" style={{ fontSize: 10.2, color: p.color, fontWeight: 900, textDecoration: "none", whiteSpace: "nowrap" }}>Live</a>
+                  <a href={p.liveUrl} target="_blank" rel="noreferrer"
+                    style={{ fontSize: 9.5, color: p.color, fontWeight: 900, textDecoration: "none", whiteSpace: "nowrap", background: p.color + "12", border: `1px solid ${p.color}30`, padding: "5px 10px", borderRadius: 8, display: "inline-flex", alignItems: "center", gap: 4 }}>
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    Live
+                  </a>
                 )}
+              </div>
+
+              <p style={{ fontSize: 12.5, color: p.color, fontWeight: 850, lineHeight: 1.38, margin: "0 0 8px" }}>{p.tagline}</p>
+              <p style={{ fontSize: 11.6, color: C.ink, lineHeight: 1.58, margin: "0 0 13px" }}>{p.short}</p>
+
+              {/* Key bullet */}
+              <div style={{ padding: "11px 13px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 10, marginBottom: 13, display: "flex", gap: 10, alignItems: "flex-start" }}>
+                <div style={{ width: 18, height: 18, borderRadius: 5, background: p.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <p style={{ fontSize: 11, color: C.ink, lineHeight: 1.48, margin: 0 }}>{p.bullets[0]}</p>
+              </div>
+
+              {/* Tech pills */}
+              <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                {p.tech.slice(0, 4).map(t => (
+                  <span key={t} style={{ fontSize: 9.5, fontWeight: 700, color: C.navy, background: C.soft, padding: "3px 9px", borderRadius: 999, border: `1px solid ${C.line}` }}>{t}</span>
+                ))}
+                {p.tech.length > 4 && <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700, alignSelf: "center" }}>+{p.tech.length - 4}</span>}
               </div>
             </div>
           </motion.article>
@@ -803,17 +1025,17 @@ function WorkPage() {
             const sel = p.id === activeId;
             return (
               <motion.button key={p.id} onClick={() => select(p.id)} whileHover={{ x: 2 }} transition={SP}
-                style={{ width: "100%", background: sel ? C.card : "transparent", border: sel ? `1px solid ${C.line}` : "1px solid transparent", padding: "10px 13px", borderRadius: 10, cursor: "pointer", textAlign: "left", position: "relative", transition: "background 0.15s" }}>
-                {sel && <motion.div layoutId="sel-bar" style={{ position: "absolute", left: 0, top: "20%", bottom: "20%", width: 3, background: cur.color, borderRadius: 2 }} />}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: sel ? 6 : 0, transition: "padding 0.15s" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ width: 7, height: 7, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
-                    <div>
-                      <p style={{ fontSize: 11.5, fontWeight: sel ? 800 : 600, color: C.ink, margin: 0 }}>{p.name}</p>
-                      <p style={{ fontSize: 9, color: C.muted, margin: "1px 0 0", fontWeight: 600 }}>{p.tag}</p>
+                style={{ width: "100%", background: sel ? C.card : "transparent", border: sel ? `1px solid ${C.line}` : "1px solid transparent", padding: "10px 13px", borderRadius: 11, cursor: "pointer", textAlign: "left", position: "relative", transition: "background 0.15s, box-shadow 0.15s", boxShadow: sel ? "0 2px 10px rgba(61,64,91,0.07)" : "none" }}>
+                {sel && <motion.div layoutId="sel-bar" style={{ position: "absolute", left: 0, top: "18%", bottom: "18%", width: 3, background: cur.color, borderRadius: 2 }} />}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: sel ? 7 : 0, transition: "padding 0.15s" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 9, minWidth: 0 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: p.color, flexShrink: 0, boxShadow: sel ? `0 0 0 3px ${p.color}28` : "none", transition: "box-shadow 0.15s" }} />
+                    <div style={{ minWidth: 0 }}>
+                      <p style={{ fontSize: 12, fontWeight: sel ? 850 : 600, color: sel ? C.navy : C.ink, margin: 0, letterSpacing: sel ? "-0.01em" : "0" }}>{p.name}</p>
+                      <p style={{ fontSize: 8.5, color: sel ? p.color : C.muted, margin: "1px 0 0", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.tag}</p>
                     </div>
                   </div>
-                  <span style={{ fontSize: 9.5, color: C.muted, fontFamily: "monospace" }}>{p.year.slice(-4)}</span>
+                  <span style={{ fontSize: 9, color: sel ? C.muted : C.muted + "88", fontFamily: "monospace", flexShrink: 0 }}>{p.year.slice(-4)}</span>
                 </div>
               </motion.button>
             );
@@ -824,16 +1046,25 @@ function WorkPage() {
         <AnimatePresence mode="wait">
           <motion.div key={cur.id} ref={panelRef} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.22, ease: EASE }}
             style={{ background: C.card, borderRadius: 16, border: `1px solid ${C.line}`, overflow: "hidden" }}>
-            <div style={{ height: 3, background: cur.color }} />
-            <div style={{ padding: "26px 28px" }}>
-              <div style={{ marginBottom: 18 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                  <span style={{ fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", color: cur.color, background: cur.color + "18", padding: "3px 9px", borderRadius: 99 }}>{cur.tag}</span>
-                  <span style={{ fontSize: 9, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{cur.year}</span>
+            <div style={{ height: 4, background: `linear-gradient(90deg, ${cur.color}, ${cur.color}66)` }} />
+            <div style={{ padding: "28px 30px" }}>
+              <div style={{ marginBottom: 22 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: cur.color, background: cur.color + "16", padding: "4px 10px", borderRadius: 99, border: `1px solid ${cur.color}28` }}>{cur.tag}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{cur.year}</span>
+                  </div>
+                  {cur.liveUrl && (
+                    <a href={cur.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
+                      style={{ fontSize: 10.5, fontWeight: 800, color: cur.color, background: cur.color + "10", padding: "6px 14px", borderRadius: 9, textDecoration: "none", border: `1px solid ${cur.color}28`, display: "inline-flex", alignItems: "center", gap: 5 }}>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      {cur.urls?.[0] || "Live Site"}
+                    </a>
+                  )}
                 </div>
-                <h3 style={{ fontSize: 22, fontWeight: 900, color: C.ink, margin: "0 0 6px", letterSpacing: "-0.03em" }}>{cur.name}</h3>
-                <p style={{ fontSize: 13, color: cur.color, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.4 }}>{cur.tagline}</p>
-                <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.6 }}>{cur.short}</p>
+                <h3 style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: "0 0 8px", letterSpacing: "-0.04em" }}>{cur.name}</h3>
+                <p style={{ fontSize: 14, color: cur.color, fontWeight: 750, margin: "0 0 12px", lineHeight: 1.4 }}>{cur.tagline}</p>
+                <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65 }}>{cur.short}</p>
               </div>
 
               {cur.context && (
@@ -843,42 +1074,35 @@ function WorkPage() {
                 </div>
               )}
 
-              {cur.liveUrl && (
-                <div style={{ marginBottom: 22, display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <a href={cur.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
-                    style={{ fontSize: 11, fontWeight: 700, color: cur.color, background: cur.color + "12", padding: "6px 14px", borderRadius: 8, textDecoration: "none", border: `1px solid ${cur.color}28`, display: "inline-flex", alignItems: "center", gap: 5 }}>
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    {cur.urls?.[0] || "Live Site"}
+              {cur.urls?.[1] && (
+                <div style={{ marginBottom: 18 }}>
+                  <a href={cur.fleetUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
+                    style={{ fontSize: 10.5, fontWeight: 700, color: C.muted, background: C.soft, padding: "6px 14px", borderRadius: 8, textDecoration: "none", border: `1px solid ${C.line}`, display: "inline-flex", alignItems: "center", gap: 5 }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    {cur.urls[1]}
                   </a>
-                  {cur.urls?.[1] && (
-                    <a href={cur.fleetUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
-                      style={{ fontSize: 11, fontWeight: 700, color: C.muted, background: C.soft, padding: "6px 14px", borderRadius: 8, textDecoration: "none", border: `1px solid ${C.line}`, display: "inline-flex", alignItems: "center", gap: 5 }}>
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                      {cur.urls[1]}
-                    </a>
-                  )}
                 </div>
               )}
 
               <div style={{ marginBottom: 22 }}>
-                <p style={{ fontSize: 9.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: C.muted, marginBottom: 10 }}>What was built</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                <p style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: C.muted, marginBottom: 12 }}>What was built</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {cur.bullets.map((b, i) => (
-                    <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "12px 14px", background: "#faf9f6", borderRadius: 10, border: `1px solid ${C.line}` }}>
-                      <div style={{ width: 20, height: 20, borderRadius: 6, background: cur.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <div key={i} style={{ display: "flex", gap: 13, alignItems: "flex-start", padding: "13px 15px", background: i === 0 ? cur.color + "0a" : "#faf9f6", borderRadius: 11, border: `1px solid ${i === 0 ? cur.color + "28" : C.line}` }}>
+                      <div style={{ width: 21, height: 21, borderRadius: 7, background: i === 0 ? cur.color : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                       </div>
-                      <p style={{ fontSize: 12, color: C.ink, margin: 0, lineHeight: 1.6 }}>{b}</p>
+                      <p style={{ fontSize: 12.5, color: i === 0 ? C.navy : C.ink, margin: 0, lineHeight: 1.62, fontWeight: i === 0 ? 650 : 450 }}>{b}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div>
-                <p style={{ fontSize: 9.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: C.muted, marginBottom: 8 }}>Stack</p>
+              <div style={{ padding: "16px 18px", background: C.navy, borderRadius: 12 }}>
+                <p style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)", marginBottom: 10 }}>Stack</p>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                   {cur.tech.map(t => (
-                    <span key={t} style={{ fontSize: 11, background: C.soft, color: C.ink, padding: "5px 12px", borderRadius: 7, border: `1px solid ${C.line}`, fontWeight: 600 }}>{t}</span>
+                    <span key={t} style={{ fontSize: 11, background: "rgba(255,255,255,0.1)", color: "#fff", padding: "5px 12px", borderRadius: 7, border: "1px solid rgba(255,255,255,0.12)", fontWeight: 650 }}>{t}</span>
                   ))}
                 </div>
               </div>
@@ -1356,6 +1580,7 @@ function ResumeSheet({ open, onClose }) {
             <div className="resume-paper" style={{ background: C.card, maxWidth: 820, margin: "-22px auto 0", minHeight: 980, boxShadow: "0 18px 60px rgba(35,38,66,0.16), 0 0 0 8px rgba(255,255,255,0.45)", border: `1.5px solid ${C.navy}` }}>
               <div style={{ height: 10, background: `linear-gradient(90deg, ${C.navy} 0 70%, ${C.coral} 70% 100%)` }} />
               <div className="resume-paper-body" style={{ display: "grid", gridTemplateColumns: "235px 1fr" }}>
+                {/* Sidebar */}
                 <aside style={{ background: C.navy, color: "#fff", padding: "28px 24px", minHeight: 960, borderRight: `6px solid ${C.coral}` }}>
                   <img src={niceFace} alt="" style={{ width: 66, height: 66, objectFit: "contain", background: "#fff", borderRadius: 18, border: `2px solid ${C.coral}`, marginBottom: 22 }} />
                   <h2 style={{ fontSize: 27, lineHeight: 1.02, fontWeight: 950, margin: "0 0 6px", letterSpacing: "-0.04em" }}>Imran Khan</h2>
@@ -1366,121 +1591,127 @@ function ResumeSheet({ open, onClose }) {
                     ["Phone", "+91 7506190224"],
                     ["LinkedIn", "linkedin.com/in/imranrkhan13"],
                     ["GitHub", "github.com/imranrkhan13"],
+                    ["Portfolio", "imran-silk.vercel.app"],
                   ].map(([label, value]) => (
-                    <div key={label} style={{ marginBottom: 13 }}>
-                      <p style={{ fontSize: 8.5, color: C.coral, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.12em", margin: "0 0 3px" }}>{label}</p>
-                      <p style={{ fontSize: 10.8, color: "rgba(255,255,255,0.82)", lineHeight: 1.4, margin: 0, wordBreak: "break-word" }}>{value}</p>
+                    <div key={label} style={{ marginBottom: 11 }}>
+                      <p style={{ fontSize: 8.5, color: C.coral, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.12em", margin: "0 0 2px" }}>{label}</p>
+                      <p style={{ fontSize: 10.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.4, margin: 0, wordBreak: "break-word" }}>{value}</p>
                     </div>
                   ))}
 
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "22px 0" }} />
-                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Core Stack</p>
-                  {["React", "Node.js", "PHP", "Django", "PostgreSQL", "Redis", "WebRTC", "Supabase"].map(t => (
-                    <span key={t} style={{ display: "inline-block", fontSize: 10.5, fontWeight: 800, color: "#fff", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 999, padding: "5px 8px", margin: "0 5px 6px 0" }}>{t}</span>
-                  ))}
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "22px 0" }} />
-                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Strengths</p>
-                  {["Multi-tenant SaaS", "Billing workflows", "Financial correctness", "Realtime systems", "Production debugging"].map(item => (
-                    <div key={item} style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
-                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: C.coral, flexShrink: 0 }} />
-                      <span style={{ fontSize: 10.8, color: "rgba(255,255,255,0.84)", lineHeight: 1.35 }}>{item}</span>
+                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "18px 0" }} />
+                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Languages</p>
+                  {[["Python", "FastAPI, Django"], ["JavaScript", "React, Node, Express"], ["PHP", "Core PHP, Laravel"], ["TypeScript", "React, Node"], ["SQL", "PostgreSQL, MySQL"]].map(([lang, note]) => (
+                    <div key={lang} style={{ marginBottom: 8 }}>
+                      <p style={{ fontSize: 10.8, fontWeight: 900, color: "#fff", margin: "0 0 1px" }}>{lang}</p>
+                      <p style={{ fontSize: 9.5, color: "rgba(255,255,255,0.55)", margin: 0 }}>{note}</p>
                     </div>
                   ))}
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "22px 0" }} />
+
+                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "18px 0" }} />
+                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Infrastructure</p>
+                  {["Docker", "GitHub Actions", "CI/CD", "Linux", "Vercel", "Redis", "Celery"].map(t => (
+                    <span key={t} style={{ display: "inline-block", fontSize: 10, fontWeight: 700, color: "#fff", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 6, padding: "3px 7px", margin: "0 4px 5px 0" }}>{t}</span>
+                  ))}
+
+                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "18px 0" }} />
                   <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Education</p>
-                  <p style={{ fontSize: 11.2, color: "#fff", fontWeight: 850, lineHeight: 1.35, margin: "0 0 4px" }}>BSc Information Technology</p>
-                  <p style={{ fontSize: 10.5, color: "rgba(255,255,255,0.72)", lineHeight: 1.4, margin: 0 }}>MVM College, University of Mumbai · 2022-2025</p>
+                  <p style={{ fontSize: 11.5, color: "#fff", fontWeight: 900, lineHeight: 1.35, margin: "0 0 3px" }}>BSc Information Technology</p>
+                  <p style={{ fontSize: 10.5, color: "rgba(255,255,255,0.72)", lineHeight: 1.4, margin: "0 0 2px" }}>University of Mumbai</p>
+                  <p style={{ fontSize: 10, color: C.coral, fontWeight: 800, margin: 0 }}>2022 – 2025</p>
                 </aside>
 
-                <main style={{ padding: "30px 34px" }}>
-                  <section style={{ marginBottom: 22, paddingBottom: 20, borderBottom: `1px solid ${C.line}` }}>
+                {/* Main content */}
+                <main style={{ padding: "28px 30px" }}>
+                  {/* Summary */}
+                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                       <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Profile</p>
+                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Summary</p>
                     </div>
-                    <p style={{ fontSize: 13.2, lineHeight: 1.72, color: C.ink, margin: 0 }}>
-                      Full-stack engineer with production experience shipping SaaS platforms, billing engines, and realtime systems. I focus on backend reliability, database integrity, clean product workflows, and interfaces that make operational work easier.
+                    <p style={{ fontSize: 12.5, lineHeight: 1.72, color: C.ink, margin: 0 }}>
+                      Full-stack engineer with hands-on experience building AI-powered tools, realtime systems, and production-grade web platforms. <strong>Shipped 150+ features</strong> in a live product now used by <strong>5+ companies</strong>. Sole developer of DriveAccessible — a fleet rental SaaS adopted by businesses within 4 months of launch. Proficient in React, FastAPI, PostgreSQL, Redis, WebSockets, and OpenAI/Gemini APIs.
                     </p>
                   </section>
 
-                  <section style={{ marginBottom: 24, paddingBottom: 22, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                      <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Impact Snapshot</p>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-                      {[
-                        ["60+", "production issues resolved across live fleet workflows"],
-                        ["11", "projects shipped across SaaS, fintech, AI, and realtime tooling"],
-                        ["0", "downtime maintained while delivering production fixes"],
-                      ].map(([n, text]) => (
-                        <div key={text} style={{ background: "#f7f4ee", border: `1px solid ${C.line}`, borderTop: `3px solid ${n === "60+" ? C.coral : C.navy}`, borderRadius: 10, padding: "11px 12px" }}>
-                          <p style={{ fontSize: 20, color: n === "60+" ? C.coral : C.navy, fontWeight: 950, margin: 0 }}>{n}</p>
-                          <p style={{ fontSize: 9.8, color: C.ink, lineHeight: 1.35, margin: "3px 0 0" }}>{text}</p>
+                  {/* Impact stats */}
+                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 7 }}>
+                      {[["150+", "production features shipped"], ["5+", "companies using DriveAccessible"], ["11", "portfolio projects"]].map(([n, text]) => (
+                        <div key={text} style={{ background: "#f7f4ee", border: `1px solid ${C.line}`, borderTop: `3px solid ${n === "150+" ? C.coral : C.navy}`, borderRadius: 10, padding: "10px 11px" }}>
+                          <p style={{ fontSize: 20, color: n === "150+" ? C.coral : C.navy, fontWeight: 950, margin: 0 }}>{n}</p>
+                          <p style={{ fontSize: 9.5, color: C.ink, lineHeight: 1.35, margin: "3px 0 0" }}>{text}</p>
                         </div>
                       ))}
                     </div>
                   </section>
 
-                  <section style={{ marginBottom: 24, paddingBottom: 22, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  {/* Experience */}
+                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                       <span style={{ width: 26, height: 2, background: C.coral }} />
                       <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Experience</p>
                     </div>
-                    <div style={{ borderLeft: `3px solid ${C.coral}`, paddingLeft: 15, background: "#faf9f6", padding: "14px 16px", borderRadius: 0 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, marginBottom: 6 }}>
-                        <h3 style={{ fontSize: 15, color: C.navy, fontWeight: 950, margin: 0 }}>Associate Software Engineer</h3>
-                        <span style={{ fontSize: 10, color: C.muted, fontWeight: 800, whiteSpace: "nowrap" }}>Oct 2025 - Mar 2026</span>
+                    <div style={{ borderLeft: `3px solid ${C.coral}`, paddingLeft: 14, background: "#faf9f6", padding: "14px 16px", borderRadius: 8 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginBottom: 5, flexWrap: "wrap" }}>
+                        <h3 style={{ fontSize: 14.5, color: C.navy, fontWeight: 950, margin: 0 }}>Associate Software Engineer</h3>
+                        <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 800, whiteSpace: "nowrap", fontFamily: "monospace" }}>Oct 2025 – Present</span>
                       </div>
-                      <p style={{ fontSize: 11.5, color: C.coral, fontWeight: 900, margin: "0 0 9px" }}>Swayambhu Tech · Mumbai</p>
-                      <ul style={{ margin: 0, paddingLeft: 17, display: "flex", flexDirection: "column", gap: 6 }}>
+                      <p style={{ fontSize: 11.5, color: C.coral, fontWeight: 900, margin: "0 0 10px" }}>SvayambhuTech · Mumbai, India</p>
+                      <ul style={{ margin: 0, paddingLeft: 16, display: "flex", flexDirection: "column", gap: 5 }}>
                         {[
-                          "Built and maintained Drive Accessible, a production fleet rental SaaS with live customers.",
-                          "Delivered booking conflict prevention, billing workflows, payment tracking, renewals, and role-based dashboards.",
-                          "Resolved 60+ production bugs and feature issues while keeping the live portal stable.",
-                          "Shipped SEO-focused public pages with structured data and scroll-triggered UI polish.",
-                          "Worked across PHP, MySQL, JavaScript, deployment fixes, customer-facing pages, and admin operations.",
-                        ].map(item => <li key={item} style={{ fontSize: 12, lineHeight: 1.55, color: C.ink }}>{item}</li>)}
+                          "Sole developer of DriveAccessible — a full fleet rental and operations SaaS (Core PHP, JavaScript) handling bookings, invoices, dashboards, and realtime business workflows, adopted by 5+ companies within 4 months of launch.",
+                          "Shipped 150+ production features end-to-end: backend APIs, reporting systems, admin tools, workflow automations, and customer-facing UI improvements.",
+                          "Worked directly with business stakeholders to surface operational pain points, rapidly prototype solutions, and cut manual work for daily rental operations.",
+                          "Owned the full stack in a live production environment: frontend, backend, database optimisation, deployment debugging, and operational tooling.",
+                        ].map(item => <li key={item.slice(0, 20)} style={{ fontSize: 11.5, lineHeight: 1.58, color: C.ink, marginBottom: 2 }}>{item}</li>)}
                       </ul>
                     </div>
                   </section>
 
-                  <section style={{ marginBottom: 24, paddingBottom: 22, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  {/* Projects */}
+                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                       <span style={{ width: 26, height: 2, background: C.coral }} />
                       <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Selected Projects</p>
                     </div>
-                    {PROJECTS.slice(0, 5).map((p, i) => (
-                      <div key={p.id} style={{ display: "grid", gridTemplateColumns: "22px 1fr", gap: 11, padding: "0 0 13px", marginBottom: 13, borderBottom: i < 4 ? `1px dashed ${C.line}` : "none" }}>
-                        <span style={{ width: 22, height: 22, borderRadius: 7, background: i % 2 === 0 ? C.navy : C.coral, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 950 }}>{p.num}</span>
-                        <div>
-                          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10, marginBottom: 3 }}>
-                            <h3 style={{ fontSize: 13.5, color: C.navy, fontWeight: 950, margin: 0 }}>{p.name}</h3>
-                            <span style={{ fontSize: 9.5, color: C.coral, fontWeight: 900, whiteSpace: "nowrap" }}>{p.year}</span>
-                          </div>
-                          <p style={{ fontSize: 11.4, color: C.ink, lineHeight: 1.52, margin: "0 0 5px" }}>{p.tagline}</p>
-                          <p style={{ fontSize: 10.7, color: C.muted, lineHeight: 1.45, margin: "0 0 5px" }}>{p.bullets[0]}</p>
-                          <p style={{ fontSize: 10.5, color: C.coral, fontWeight: 850, lineHeight: 1.45, margin: 0 }}>{p.tech.slice(0, 5).join(" · ")}</p>
+                    {[
+                      { name: "TalkToYourDB", tech: "FastAPI · PostgreSQL · OpenAI · React", bullets: ["Natural-language interface for PostgreSQL — users ask in plain English and receive SQL-backed answers via a conversational AI workflow.", "Built query validation, retry logic, structured observability logging, and a secure SQL execution pipeline to prevent injection."] },
+                      { name: "Realtime AI Voice System", tech: "FastAPI · Redis · WebSockets", bullets: ["Conversational AI with streaming voice I/O, persistent session memory, and sub-second latency via async orchestration.", "Designed orchestration pipeline to handle concurrent sessions, reconnects, and graceful degradation under load."] },
+                      { name: "BillingOS", tech: "Node.js · PostgreSQL · Redis · Stripe", bullets: ["Multi-tenant SaaS billing engine with subscription lifecycle, proration, exponential-backoff retries, idempotent Stripe webhooks, and PostgreSQL Row-Level Security."] },
+                      { name: "Payout Engine", tech: "Django · PostgreSQL · Celery · Redis", bullets: ["Integer paise storage, SELECT FOR UPDATE locking, idempotency keys, atomic failure-handling, and auto-recovery scheduler."] },
+                      { name: "Kanban Pro", tech: "React · TypeScript · WebSockets", bullets: ["Real-time collaborative Kanban with live presence, drag-and-drop sync, conflict resolution for concurrent updates, and auto-reconnect recovery."] },
+                    ].map((p, i) => (
+                      <div key={p.name} style={{ marginBottom: 11, paddingBottom: 11, borderBottom: i < 4 ? `1px dashed ${C.line}` : "none" }}>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap", marginBottom: 3 }}>
+                          <h3 style={{ fontSize: 12.5, color: C.navy, fontWeight: 950, margin: 0 }}>{p.name}</h3>
+                          <span style={{ fontSize: 9.5, color: C.coral, fontWeight: 800 }}>{p.tech}</span>
                         </div>
+                        <ul style={{ margin: 0, paddingLeft: 14 }}>
+                          {p.bullets.map(b => <li key={b.slice(0, 20)} style={{ fontSize: 10.8, color: C.ink, lineHeight: 1.52, marginBottom: 2 }}>{b}</li>)}
+                        </ul>
                       </div>
                     ))}
                   </section>
 
+                  {/* Technical Skills */}
                   <section>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                       <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Technical Range</p>
+                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Technical Skills</p>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
                       {[
-                        ["Frontend", "React, TypeScript, Framer Motion, responsive UI"],
-                        ["Backend", "Node.js, Django, PHP, REST APIs, queues"],
-                        ["Database", "PostgreSQL, MySQL, Redis, Supabase, RLS"],
-                        ["Systems", "WebRTC, WebSockets, Stripe webhooks, idempotency"],
+                        ["Frontend", "React, Next.js, TypeScript, JavaScript, Tailwind CSS, Vite, Framer Motion"],
+                        ["Backend", "FastAPI, Node.js, Express, Django, PHP, Laravel, REST APIs"],
+                        ["Databases", "PostgreSQL, Redis, MySQL, MongoDB, Supabase, Vector Databases"],
+                        ["Realtime & AI", "WebSockets, WebRTC, OpenAI APIs, Gemini APIs, RAG Pipelines, Conversational AI"],
+                        ["Infrastructure", "Docker, Linux, GitHub Actions, CI/CD, Celery"],
+                        ["Languages", "Python, JavaScript, TypeScript, PHP, SQL"],
                       ].map(([label, text]) => (
-                        <div key={label} style={{ background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 12, padding: "12px 13px" }}>
-                          <p style={{ fontSize: 9.5, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 5px" }}>{label}</p>
-                          <p style={{ fontSize: 11, color: C.ink, lineHeight: 1.42, margin: 0 }}>{text}</p>
+                        <div key={label} style={{ background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 9, padding: "10px 12px" }}>
+                          <p style={{ fontSize: 8.5, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>{label}</p>
+                          <p style={{ fontSize: 10.5, color: C.ink, lineHeight: 1.42, margin: 0 }}>{text}</p>
                         </div>
                       ))}
                     </div>
@@ -1497,29 +1728,54 @@ function ResumeSheet({ open, onClose }) {
 
 // ── Nav ────────────────────────────────────────────────────────
 function Nav({ page, setPage, onResume }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const close = () => setMenuOpen(false);
   return (
-    <header className="site-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 200, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "0 24px", background: "rgba(250,249,246,0.92)", backdropFilter: "blur(16px)", borderBottom: `1px solid ${C.line}` }}>
-      <button onClick={() => setPage("home")} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 800, color: C.ink, background: "none", border: "none", cursor: "pointer", letterSpacing: "-0.01em" }}>
-        <img src={niceFace} alt="" style={{ width: 29, height: 29, objectFit: "contain", borderRadius: 8, background: C.navy, border: `1px solid ${C.coralLight}` }} />
-        Imran Khan
-      </button>
-      <nav className="site-nav-links" style={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
-        {[["home","Home"],["work","Work"],["about","About"]].map(([id, label]) => (
-          <button key={id} onClick={() => setPage(id)}
-            style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: page === id ? 700 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.ink : C.muted, transition: "all 0.15s" }}>
-            {label}
-          </button>
-        ))}
-        <button onClick={onResume}
-          style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 650, background: "transparent", color: C.muted, transition: "all 0.15s" }}>
-          Resume
+    <>
+      <header className="site-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 200, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "0 20px", background: "rgba(250,249,246,0.94)", backdropFilter: "blur(16px)", borderBottom: `1px solid ${C.line}` }}>
+        <button onClick={() => { setPage("home"); close(); }} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 800, color: C.ink, background: "none", border: "none", cursor: "pointer", letterSpacing: "-0.01em" }}>
+          <img src={niceFace} alt="" style={{ width: 29, height: 29, objectFit: "contain", borderRadius: 8, background: C.navy, border: `1px solid ${C.coralLight}` }} />
+          Imran Khan
         </button>
-        <a href="mailto:muhammadimrank034@gmail.com"
-          style={{ marginLeft: 6, padding: "5px 14px", borderRadius: 99, border: "none", background: C.coral, color: "#fff", fontSize: 10, fontWeight: 800, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase" }}>
-          Contact
-        </a>
-      </nav>
-    </header>
+        {/* Desktop nav */}
+        <nav className="site-nav-links" style={{ display: "flex", gap: 2, alignItems: "center" }}>
+          {[["home","Home"],["work","Work"],["about","About"]].map(([id, label]) => (
+            <button key={id} onClick={() => setPage(id)}
+              style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: page === id ? 700 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.ink : C.muted, transition: "all 0.15s" }}>
+              {label}
+            </button>
+          ))}
+          <button onClick={onResume} style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 650, background: "transparent", color: C.muted, transition: "all 0.15s" }}>Resume</button>
+          <a href="mailto:muhammadimrank034@gmail.com" style={{ marginLeft: 6, padding: "5px 14px", borderRadius: 99, border: "none", background: C.coral, color: "#fff", fontSize: 10, fontWeight: 800, textDecoration: "none", letterSpacing: "0.04em", textTransform: "uppercase" }}>Contact</a>
+        </nav>
+        {/* Mobile hamburger */}
+        <button className="mobile-menu-btn" onClick={() => setMenuOpen(o => !o)}
+          style={{ display: "none", flexDirection: "column", gap: 4.5, background: "none", border: "none", cursor: "pointer", padding: 4 }}>
+          {[0,1,2].map(i => (
+            <span key={i} style={{ display: "block", width: 22, height: 2, background: C.navy, borderRadius: 2, transition: "all 0.2s",
+              transform: menuOpen ? (i === 0 ? "rotate(45deg) translate(4.5px, 4.5px)" : i === 2 ? "rotate(-45deg) translate(4.5px, -4.5px)" : "scaleX(0)") : "none",
+              opacity: menuOpen && i === 1 ? 0 : 1,
+            }} />
+          ))}
+        </button>
+      </header>
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.18 }}
+            style={{ position: "fixed", top: 52, left: 0, right: 0, zIndex: 199, background: "rgba(250,249,246,0.98)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.line}`, padding: "12px 20px 18px", display: "flex", flexDirection: "column", gap: 4 }}>
+            {[["home","Home"],["work","Work"],["about","About"]].map(([id, label]) => (
+              <button key={id} onClick={() => { setPage(id); close(); }}
+                style={{ width: "100%", textAlign: "left", padding: "10px 14px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 14, fontWeight: page === id ? 800 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.navy : C.ink }}>
+                {label}
+              </button>
+            ))}
+            <button onClick={() => { onResume(); close(); }} style={{ width: "100%", textAlign: "left", padding: "10px 14px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 14, fontWeight: 500, background: "transparent", color: C.ink }}>Resume</button>
+            <a href="mailto:muhammadimrank034@gmail.com" onClick={close} style={{ display: "block", margin: "6px 0 0", padding: "11px 14px", background: C.coral, color: "#fff", borderRadius: 10, textDecoration: "none", fontSize: 13, fontWeight: 800, textAlign: "center", textTransform: "uppercase", letterSpacing: "0.06em" }}>Contact</a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -1528,6 +1784,69 @@ export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
   return (
     <div style={{ background: C.bg, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', color: C.ink, minHeight: "100vh" }}>
+      <style>{`
+        *,*::before,*::after{box-sizing:border-box;}
+        body{margin:0;overflow-x:hidden;}
+
+        @keyframes fadeInPanel{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:translateX(0);}}
+
+        /* ── Scrollbar ── */
+        .custom-scrollbar::-webkit-scrollbar{width:4px;}
+        .custom-scrollbar::-webkit-scrollbar-track{background:transparent;}
+        .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(61,64,91,0.18);border-radius:99px;}
+
+        /* ── Desktop: home top grid ── */
+        .home-grid-top{display:grid;grid-template-columns:230px minmax(0,1fr) 270px;gap:10px;margin-bottom:10px;align-items:stretch;}
+        .home-grid-bottom{display:grid;grid-template-columns:1.35fr 0.9fr;gap:10px;}
+        .featured-work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+
+        /* ── Desktop: work page ── */
+        .work-grid{display:grid;grid-template-columns:248px 1fr;gap:14px;align-items:start;}
+        .work-mobile-list{display:none!important;}
+
+        /* ── Desktop: project cycle card grid ── */
+        .project-structure-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:16px;align-items:start;}
+
+        /* ── Desktop: resume paper ── */
+        .resume-paper-body{display:grid;grid-template-columns:235px 1fr;}
+
+        /* ── Nav ── */
+        .site-nav-links{display:flex;}
+        .mobile-menu-btn{display:none!important;}
+
+        /* ── Tablet (≤ 860px) ── */
+        @media(max-width:860px){
+          .home-grid-top{grid-template-columns:1fr 1fr!important;}
+          .home-grid-bottom{grid-template-columns:1fr!important;}
+          .featured-work-grid{grid-template-columns:1fr 1fr!important;}
+          .work-grid{display:none!important;}
+          .work-mobile-list{display:flex!important;}
+          .project-structure-grid{grid-template-columns:1fr!important;}
+          .resume-paper-body{grid-template-columns:1fr!important;}
+          .resume-paper-body aside{min-height:unset!important;border-right:none!important;border-bottom:6px solid #e27d60;}
+        }
+
+        /* ── Mobile (≤ 600px) ── */
+        @media(max-width:600px){
+          .tech-card-grid{grid-template-columns:1fr!important;height:auto!important;}
+          .tech-card-grid > div:first-child{height:200px!important;min-height:200px!important;}
+          .home-grid-top{grid-template-columns:1fr!important;}
+          .home-grid-bottom{grid-template-columns:1fr!important;}
+          .featured-work-grid{grid-template-columns:1fr!important;}
+          .site-nav-links{display:none!important;}
+          .mobile-menu-btn{display:flex!important;}
+          .page-shell{padding-top:64px!important;}
+          .intro-headline{font-size:26px!important;letter-spacing:-0.035em!important;}
+          .intro-buttons{flex-direction:column;width:100%;}
+          .intro-buttons a,.intro-buttons button{width:100%;text-align:center;}
+          .about-proof-grid{grid-template-columns:1fr!important;}
+        }
+
+        /* ── Very small (≤ 400px) ── */
+        @media(max-width:400px){
+          .intro-headline{font-size:22px!important;}
+        }
+      `}</style>
       <Nav page={page} setPage={setPage} onResume={() => setResumeOpen(true)} />
       <AnimatePresence mode="wait">
         <motion.div key={page} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.24, ease: EASE }}>
@@ -1537,7 +1856,7 @@ export default function App() {
         </motion.div>
       </AnimatePresence>
       <ResumeSheet open={resumeOpen} onClose={() => setResumeOpen(false)} />
-      <footer style={{ borderTop: `1px solid ${C.line}`, padding: "16px 32px", display: "flex", justifyContent: "space-between", maxWidth: 1060, margin: "0 auto" }}>
+      <footer style={{ borderTop: `1px solid ${C.line}`, padding: "16px 20px", display: "flex", justifyContent: "space-between", maxWidth: 1060, margin: "0 auto", flexWrap: "wrap", gap: 8 }}>
         <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Imran Khan · 2026</span>
         <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Maintained by TechiesAIE</span>
       </footer>
