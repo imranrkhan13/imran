@@ -21,18 +21,18 @@ const SP = { type: "spring", stiffness: 380, damping: 28, mass: 0.7 };
 
 // Tech → projects mapping for hover tooltips
 const TECH_PROJECTS = {
-  "React":       ["BillingOS","Kanban Pro","AI Check Data","Resume AI","DevLens","FoodExpress","Wikireels","Techiesaie"],
-  "Node.js":     ["BillingOS","Kanban Pro","Vault","FoodExpress"],
-  "PostgreSQL":  ["BillingOS","Payout Engine"],
-  "PHP":         ["Drive Accessible"],
-  "Django":      ["Payout Engine"],
-  "WebRTC":      ["Vault"],
-  "Redis":       ["BillingOS","Payout Engine"],
-  "TypeScript":  ["FoodExpress"],
-  "MySQL":       ["Drive Accessible"],
-  "Supabase":    ["AI Check Data","Resume AI"],
-  "WebSockets":  ["Kanban Pro","Vault"],
-  "Stripe":      ["BillingOS"],
+  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "Resume AI", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On"],
+  "Node.js": ["BillingOS", "Kanban Pro", "Vault", "FoodExpress"],
+  "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform"],
+  "PHP": ["Drive Accessible"],
+  "Django": ["Payout Engine"],
+  "WebRTC": ["Vault"],
+  "Redis": ["BillingOS", "Payout Engine"],
+  "TypeScript": ["FoodExpress"],
+  "MySQL": ["Drive Accessible"],
+  "Supabase": ["AI Check Data", "Resume AI"],
+  "WebSockets": ["Kanban Pro", "Vault"],
+  "Stripe": ["BillingOS"],
 };
 
 const PROJECTS = [
@@ -177,6 +177,29 @@ const PROJECTS = [
       "Full ordering flow in React + TypeScript: menu filtering, real-time cart updates, order confirmation.",
     ],
   },
+  {
+    id: "modelgov", num: "12", name: "AI Model Governance Platform", tag: "AI · Enterprise", year: "2026", color: "#14b8a6",
+    tagline: "Bank-grade model risk governance — workflow state machine, RAG Q&A, full audit trail.",
+    short: "An internal-tool-style platform for bank model risk governance: a model registry with an explicit workflow state machine enforcing role-based transition rules server-side, every action recorded in a full append-only audit trail.",
+    context: "Modelled on how a real bank's model risk team would actually govern, review, and ask questions about ML models in production — not a toy CRUD app.",
+    liveUrl: "", tech: ["FastAPI", "PostgreSQL", "pgvector", "React"],
+    bullets: [
+      "Built a model registry and explicit workflow state machine enforcing role-based transition rules server-side, with a full append-only audit trail.",
+      "Designed a RAG pipeline — local sentence-transformer embeddings, pgvector similarity search, a 5-provider LLM fallback router — for grounded document Q&A.",
+      "Every AI response is schema-validated with a confidence score and source citations, falling back to 'insufficient context' instead of guessing.",
+    ],
+  },
+  {
+    id: "tryon", num: "13", name: "AI Try-On", tag: "AI · Consumer", year: "2026", color: "#ec4899",
+    tagline: "Free-tier virtual try-on — community AI models, automatic fallback, zero paid APIs.",
+    short: "A free-tier AI virtual try-on backend that calls community-hosted Hugging Face models with automatic provider fallback and background job processing, so people can try it without needing a paid AI API key.",
+    context: "Most virtual try-on demos die the moment a paid API quota runs out. This one is built entirely on free, community-hosted models with fallback baked in.",
+    liveUrl: "", tech: ["React", "FastAPI", "Python", "Hugging Face"],
+    bullets: [
+      "Calls community-hosted Hugging Face models with automatic provider fallback and background job processing for try-on generation.",
+      "Diagnosed and patched a schema-parsing bug in a third-party AI client library (gradio_client) affecting multiple library versions.",
+    ],
+  },
 ];
 
 const SKILLS_DATA = {
@@ -187,18 +210,18 @@ const SKILLS_DATA = {
 };
 
 const TECH_NODES = [
-  { name: "React",      color: "#61dafb" },
-  { name: "Node.js",    color: "#68a063" },
+  { name: "React", color: "#61dafb" },
+  { name: "Node.js", color: "#68a063" },
   { name: "PostgreSQL", color: "#336791" },
-  { name: "PHP",        color: "#8892bf" },
-  { name: "Django",     color: "#0c4b33" },
-  { name: "WebRTC",     color: "#e27d60" },
-  { name: "Redis",      color: "#d82c20" },
+  { name: "PHP", color: "#8892bf" },
+  { name: "Django", color: "#0c4b33" },
+  { name: "WebRTC", color: "#e27d60" },
+  { name: "Redis", color: "#d82c20" },
   { name: "TypeScript", color: "#3178c6" },
-  { name: "MySQL",      color: "#00758f" },
-  { name: "Supabase",   color: "#3ecf8e" },
+  { name: "MySQL", color: "#00758f" },
+  { name: "Supabase", color: "#3ecf8e" },
   { name: "WebSockets", color: "#8b5cf6" },
-  { name: "Stripe",     color: "#6772e5" },
+  { name: "Stripe", color: "#6772e5" },
 ];
 
 // ── Card wrapper ───────────────────────────────────────────────
@@ -236,67 +259,13 @@ function Card({ children, style = {}, delay = 0, onClick }) {
 
 
 
-function InfoCard() {
+function ProfileStrip() {
   const [time, setTime] = useState("");
+  const [expanded, setExpanded] = useState(false);
   useEffect(() => {
     const upd = () => setTime(new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" }));
     upd(); const id = setInterval(upd, 1000); return () => clearInterval(id);
   }, []);
-  return (
-    <div style={{ padding: "22px", height: "100%", display: "flex", flexDirection: "column", gap: 16, background: C.card }}>
-      {/* Avatar + name */}
-      <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
-        <div style={{ position: "relative", flexShrink: 0 }}>
-          <img src={niceFace} alt="" style={{ width: 50, height: 50, objectFit: "contain", background: "#fff", borderRadius: 14, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", display: "block" }} />
-          <span style={{ position: "absolute", bottom: -2, right: -2, width: 12, height: 12, borderRadius: "50%", background: "#22c55e", border: "2px solid #fff", display: "block" }} />
-        </div>
-        <div style={{ minWidth: 0 }}>
-          <p style={{ fontSize: 15.5, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Imran Khan</p>
-          <p style={{ fontSize: 10, color: C.coral, fontWeight: 850, margin: "2px 0 0", letterSpacing: "0.01em" }}>Full-Stack Engineer</p>
-        </div>
-      </div>
-
-      <div style={{ height: 1, background: C.line }} />
-
-      <p style={{ fontSize: 12, color: C.ink, lineHeight: 1.65, margin: 0, fontWeight: 550 }}>
-        Building <span style={{ color: C.coral, fontWeight: 850 }}>secure SaaS systems</span>, booking engines, billing flows, and realtime tools.
-      </p>
-
-      {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
-        {[
-          ["60+", "Fixes", C.coral],
-          ["11", "Projects", C.navy],
-        ].map(([n, l, c]) => (
-          <div key={l} style={{ padding: "11px 12px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 11 }}>
-            <p style={{ fontSize: 20, fontWeight: 950, color: c, margin: 0, letterSpacing: "-0.03em" }}>{n}</p>
-            <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>{l}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Stack pills */}
-      <div>
-        <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.16em", color: C.muted, margin: "0 0 7px" }}>Primary stack</p>
-        <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-          {["PHP", "PostgreSQL", "Node.js", "React"].map(t => (
-            <span key={t} style={{ fontSize: 10, fontWeight: 800, color: C.navy, background: C.soft, border: `1px solid ${C.line}`, padding: "3px 9px", borderRadius: 99 }}>{t}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: `1px solid ${C.line}`, paddingTop: 12 }}>
-        <span style={{ fontSize: 9, color: C.muted, fontWeight: 600 }}>Mumbai · Open to work</span>
-        <span style={{ fontSize: 9, color: C.muted, fontFamily: "monospace" }}>{time}</span>
-      </div>
-    </div>
-  );
-}
-
-// ── ExperienceCard ─────────────────────────────────────────────
-function ExperienceCard() {
-  const [expanded, setExpanded] = useState(false);
   const bullets = [
     "Sole developer of DriveAccessible — a full fleet rental SaaS (Core PHP, JS) now used by 5+ companies within 4 months of launch.",
     "Shipped 150+ production features end-to-end: backend APIs, admin tools, reporting systems, and customer-facing UI.",
@@ -305,47 +274,81 @@ function ExperienceCard() {
   ];
 
   return (
-    <div style={{ padding: "20px 22px", height: "100%", display: "flex", flexDirection: "column", gap: 12, background: C.card, boxSizing: "border-box" }}>
-      {/* Header */}
-      <div>
-        <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px" }}>Experience</p>
-        <h3 style={{ fontSize: 14, fontWeight: 950, color: C.navy, margin: "0 0 2px", letterSpacing: "-0.025em" }}>Associate Software Engineer</h3>
-        <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-          <p style={{ fontSize: 10.5, color: C.muted, margin: 0, fontWeight: 700 }}>SvayambhuTech · Mumbai</p>
-          <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 – Present</span>
+    <div className="profile-strip" style={{ padding: "28px 30px", display: "grid", gridTemplateColumns: "270px 1fr", gap: 32 }}>
+      {/* Left: identity */}
+      <div className="profile-strip-left" style={{ display: "flex", flexDirection: "column", gap: 16, borderRight: `1px solid ${C.line}`, paddingRight: 30 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
+          <div style={{ position: "relative", flexShrink: 0 }}>
+            <img src={niceFace} alt="" style={{ width: 50, height: 50, objectFit: "contain", background: "#fff", borderRadius: 14, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", display: "block" }} />
+            <span style={{ position: "absolute", bottom: -2, right: -2, width: 12, height: 12, borderRadius: "50%", background: "#22c55e", border: "2px solid #fff", display: "block" }} />
+          </div>
+          <div style={{ minWidth: 0 }}>
+            <p style={{ fontSize: 16, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Imran Khan</p>
+            <p style={{ fontSize: 10.5, color: C.coral, fontWeight: 850, margin: "2px 0 0", letterSpacing: "0.01em" }}>Full-Stack Engineer</p>
+          </div>
+        </div>
+
+        <p style={{ fontSize: 12.5, color: C.ink, lineHeight: 1.65, margin: 0, fontWeight: 550 }}>
+          Building <span style={{ color: C.coral, fontWeight: 850 }}>secure SaaS systems</span>, booking engines, billing flows, and realtime tools.
+        </p>
+
+        <div style={{ display: "flex", gap: 20 }}>
+          <div>
+            <p style={{ fontSize: 21, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}>60+</p>
+            <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Fixes</p>
+          </div>
+          <div>
+            <p style={{ fontSize: 21, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>{PROJECTS.length}</p>
+            <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Projects</p>
+          </div>
+        </div>
+
+        <p style={{ fontSize: 11, color: C.ink, margin: "auto 0 0", fontWeight: 600 }}>
+          <span style={{ color: C.muted, fontWeight: 700, textTransform: "uppercase", fontSize: 8.5, letterSpacing: "0.1em", display: "block", marginBottom: 6 }}>Primary stack</span>
+          PHP · PostgreSQL · Node.js · React
+        </p>
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: `1px solid ${C.line}`, paddingTop: 12 }}>
+          <span style={{ fontSize: 9, color: C.muted, fontWeight: 600 }}>Mumbai · Open to work</span>
+          <span style={{ fontSize: 9, color: C.muted, fontFamily: "monospace" }}>{time}</span>
         </div>
       </div>
 
-      {/* Impact stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 5 }}>
-        {[["150+", "features shipped"], ["5+", "companies using it"], ["4 mo", "to production"]].map(([n, l]) => (
-          <div key={l} style={{ padding: "8px 9px", background: "#f7f4ef", borderRadius: 9, border: `1px solid ${C.line}`, textAlign: "center" }}>
-            <p style={{ fontSize: 16, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}>{n}</p>
-            <p style={{ fontSize: 7.5, color: C.muted, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", margin: "2px 0 0", lineHeight: 1.2 }}>{l}</p>
+      {/* Right: experience */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div>
+          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px" }}>Experience</p>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+            <h3 style={{ fontSize: 16, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>Associate Software Engineer</h3>
+            <p style={{ fontSize: 11, color: C.muted, margin: 0, fontWeight: 700 }}>SvayambhuTech · Mumbai</p>
+            <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 – Present</span>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* Bullets */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
-        {(expanded ? bullets : bullets.slice(0, 2)).map((b, i) => (
-          <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-            <div style={{ width: 14, height: 14, borderRadius: 4, background: i === 0 ? C.coral : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
-              <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div style={{ display: "flex", gap: 22 }}>
+          {[["150+", "features shipped"], ["5+", "companies using it"], ["4 mo", "to production"]].map(([n, l]) => (
+            <div key={l}>
+              <p style={{ fontSize: 17, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}>{n}</p>
+              <p style={{ fontSize: 8, color: C.muted, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", margin: "2px 0 0" }}>{l}</p>
             </div>
-            <p style={{ fontSize: 10.8, color: C.ink, margin: 0, lineHeight: 1.55 }}>{b}</p>
-          </div>
-        ))}
-        <button onClick={() => setExpanded(e => !e)} style={{ alignSelf: "flex-start", fontSize: 9.5, color: C.coral, fontWeight: 800, background: "none", border: "none", padding: 0, cursor: "pointer", marginTop: 2 }}>
-          {expanded ? "Show less ↑" : `+${bullets.length - 2} more ↓`}
-        </button>
-      </div>
+          ))}
+        </div>
 
-      {/* Footer */}
-      <div style={{ padding: "10px 12px", background: C.navy, borderRadius: 10, display: "flex", gap: 6, flexWrap: "wrap" }}>
-        {["PHP", "MySQL", "JavaScript", "Core PHP"].map(t => (
-          <span key={t} style={{ fontSize: 9, color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.08)", padding: "2px 8px", borderRadius: 99, border: "1px solid rgba(255,255,255,0.12)", fontWeight: 700 }}>{t}</span>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+          {(expanded ? bullets : bullets.slice(0, 2)).map((b, i) => (
+            <div key={i} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
+              <div style={{ width: 14, height: 14, borderRadius: 4, background: i === 0 ? C.coral : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
+                <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+              </div>
+              <p style={{ fontSize: 11.5, color: C.ink, margin: 0, lineHeight: 1.55 }}>{b}</p>
+            </div>
+          ))}
+          <button onClick={() => setExpanded(e => !e)} style={{ alignSelf: "flex-start", fontSize: 9.5, color: C.coral, fontWeight: 800, background: "none", border: "none", padding: 0, cursor: "pointer", marginTop: 2 }}>
+            {expanded ? "Show less ↑" : `+${bullets.length - 2} more ↓`}
+          </button>
+        </div>
+
+        <p style={{ fontSize: 10.5, color: C.muted, margin: "auto 0 0", fontWeight: 600, borderTop: `1px solid ${C.line}`, paddingTop: 10 }}>PHP · MySQL · JavaScript · Core PHP</p>
       </div>
     </div>
   );
@@ -411,41 +414,17 @@ function ProjectsCycleCard({ onClick }) {
 
             {/* Title + tagline */}
             <h4 style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: "0 0 6px", letterSpacing: "-0.04em" }}>{cur.name}</h4>
-            <p style={{ fontSize: 12.5, color: cur.color, fontWeight: 850, margin: "0 0 14px", lineHeight: 1.4 }}>{cur.tagline}</p>
+            <p style={{ fontSize: 12.5, color: cur.color, fontWeight: 850, margin: "0 0 12px", lineHeight: 1.4 }}>{cur.tagline}</p>
 
-            {/* Brief rows */}
-            <div className="project-structure-grid" style={{ flex: 1, display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 10, marginBottom: 14 }}>
-              {/* Left: meta */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-                <div style={{ padding: "9px 11px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
-                  <p style={{ fontSize: 8, color: C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 2px" }}>Category</p>
-                  <p style={{ fontSize: 11, color: C.navy, fontWeight: 850, margin: 0 }}>{cur.tag}</p>
-                </div>
-                <div style={{ padding: "9px 11px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
-                  <p style={{ fontSize: 8, color: C.muted, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 2px" }}>Year</p>
-                  <p style={{ fontSize: 11, color: C.navy, fontWeight: 850, margin: 0 }}>{cur.year}</p>
-                </div>
-                {/* hover reveal: view all nudge */}
-                <div style={{ padding: "9px 11px", background: hovered ? cur.color : C.soft, border: `1px solid ${hovered ? cur.color : C.line}`, borderRadius: 9, transition: "all 0.2s", textAlign: "center" }}>
-                  <p style={{ fontSize: 9.5, fontWeight: 900, color: hovered ? "#fff" : C.muted, margin: 0, letterSpacing: "0.04em" }}>{hovered ? "Click to view all →" : "Browse →"}</p>
-                </div>
-              </div>
-
-              {/* Right: bullets */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-                <div style={{ padding: "10px 11px", background: C.navy, borderRadius: 9, flex: 1 }}>
-                  <p style={{ fontSize: 8, color: C.coral, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>What</p>
-                  <p style={{ fontSize: 10.5, color: "#fff", margin: 0, lineHeight: 1.48, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{cur.short}</p>
-                </div>
-                <div style={{ padding: "10px 11px", background: cur.color + "0e", border: `1px solid ${cur.color}22`, borderRadius: 9 }}>
-                  <p style={{ fontSize: 8, color: cur.color, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>Key proof</p>
-                  <p style={{ fontSize: 10.5, color: C.ink, margin: 0, lineHeight: 1.48, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{cur.bullets[0]}</p>
-                </div>
-              </div>
+            {/* What it does — flowing text, no nested boxes */}
+            <p style={{ fontSize: 12, color: C.ink, lineHeight: 1.62, margin: "0 0 10px", flex: 1 }}>{cur.short}</p>
+            <div style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 16 }}>
+              <span style={{ width: 4, height: 4, borderRadius: "50%", background: cur.color, marginTop: 7, flexShrink: 0 }} />
+              <p style={{ fontSize: 11.5, color: C.muted, margin: 0, lineHeight: 1.55 }}>{cur.bullets[0]}</p>
             </div>
 
             {/* Footer: tech + link */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, borderTop: `1px solid ${C.line}`, paddingTop: 14 }}>
               <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
                 {cur.tech.slice(0, 3).map(t => (
                   <span key={t} style={{ fontSize: 9.5, fontWeight: 700, color: C.navy, background: C.coralFaint, padding: "3px 8px", borderRadius: 99, border: `1px solid ${C.coralLight}` }}>{t}</span>
@@ -478,7 +457,7 @@ const SKILLS_EXPANDED = {
     color: C.ink,
     items: [
       { name: "Node.js", projects: ["BillingOS", "Kanban Pro", "Vault", "FoodExpress"] },
-      { name: "FastAPI", projects: ["TalkToYourDB", "Realtime AI Voice", "TalkToYourResume"] },
+      { name: "FastAPI", projects: ["AI Model Governance Platform", "AI Try-On"] },
       { name: "Django", projects: ["Payout Engine"] },
       { name: "PHP", projects: ["Drive Accessible"] },
       { name: "Express", projects: ["BillingOS", "Vault"] },
@@ -488,21 +467,21 @@ const SKILLS_EXPANDED = {
   Database: {
     color: "#0ea5e9",
     items: [
-      { name: "PostgreSQL", projects: ["BillingOS", "Payout Engine", "TalkToYourDB"] },
+      { name: "PostgreSQL", projects: ["BillingOS", "Payout Engine", "AI Model Governance Platform"] },
       { name: "Redis", projects: ["BillingOS", "Payout Engine"] },
       { name: "MySQL", projects: ["Drive Accessible"] },
       { name: "MongoDB", projects: ["FoodExpress"] },
       { name: "Supabase", projects: ["AI Check Data", "Resume AI"] },
-      { name: "Vector DBs", projects: ["TalkToYourResume"] },
+      { name: "pgvector", projects: ["AI Model Governance Platform"] },
     ],
   },
   Realtime: {
     color: "#10b981",
     items: [
-      { name: "WebSockets", projects: ["Kanban Pro", "Vault", "Realtime AI Voice"] },
+      { name: "WebSockets", projects: ["Kanban Pro", "Vault"] },
       { name: "WebRTC", projects: ["Vault"] },
-      { name: "RAG Pipelines", projects: ["TalkToYourResume"] },
-      { name: "OpenAI API", projects: ["TalkToYourDB", "AI Check Data", "Resume AI"] },
+      { name: "RAG Pipelines", projects: ["AI Model Governance Platform"] },
+      { name: "Hugging Face", projects: ["AI Try-On"] },
     ],
   },
 };
@@ -604,181 +583,153 @@ const NODE_POSITIONS = [
 ];
 
 const EDGES = [
-  [0,1],[0,7],[0,8],[0,9],[1,2],[1,8],[2,3],[2,8],
-  [3,4],[4,5],[4,9],[5,6],[5,9],[6,7],[6,11],[7,10],
-  [8,9],[10,1],[11,6],[3,9],[2,4]
+  [0, 1], [0, 7], [0, 8], [0, 9], [1, 2], [1, 8], [2, 3], [2, 8],
+  [3, 4], [4, 5], [4, 9], [5, 6], [5, 9], [6, 7], [6, 11], [7, 10],
+  [8, 9], [10, 1], [11, 6], [3, 9], [2, 4]
 ];
 
 function TechNetworkCard() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeNode = NODE_POSITIONS[activeIndex];
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const activeNode = hoveredIndex !== null ? NODE_POSITIONS[hoveredIndex] : null;
   const projects = activeNode
     ? (TECH_PROJECTS[activeNode.name] || [])
-        .map(name => PROJECTS.find(p => p.name === name))
-        .filter(Boolean)
+      .map(name => PROJECTS.find(p => p.name === name))
+      .filter(Boolean)
     : [];
   const previewProjects = projects.slice(0, 4);
 
   return (
-    <div style={{ padding: "18px", display: "flex", flexDirection: "column", height: "100%", minHeight: 330, boxSizing: "border-box" }}>
+    <div style={{ padding: "20px", display: "flex", flexDirection: "column", height: "100%", minHeight: 340, boxSizing: "border-box" }}>
       {/* Header row */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 14, flexShrink: 0 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 16, flexShrink: 0 }}>
         <div>
           <p style={{ fontSize: 8.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, margin: "0 0 1px" }}>Tech Stack</p>
-          <p style={{ fontSize: 15, fontWeight: 900, color: C.ink, margin: 0, letterSpacing: "-0.02em" }}>Tech-to-project map</p>
+          <p style={{ fontSize: 16, fontWeight: 900, color: C.ink, margin: 0, letterSpacing: "-0.02em" }}>Hover a node to see what it built</p>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 9, color: activeNode.color, fontWeight: 800, marginTop: 2, whiteSpace: "nowrap", background: activeNode.color + "12", border: `1px solid ${activeNode.color}30`, borderRadius: 99, padding: "4px 8px" }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: activeNode.color }} />
-          {activeNode.name}
-        </div>
+        {activeNode ? (
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 9.5, color: activeNode.color, fontWeight: 800, marginTop: 2, whiteSpace: "nowrap", background: activeNode.color + "12", borderRadius: 99, padding: "5px 10px" }}>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: activeNode.color }} />
+            {activeNode.name}
+          </div>
+        ) : (
+          <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700, marginTop: 2, whiteSpace: "nowrap" }}>hover any node ✨</span>
+        )}
       </div>
 
-      <div className="tech-card-grid" style={{ display: "grid", gridTemplateColumns: "minmax(235px, 1fr) 210px", gap: 12, flex: 1, height: 244, minHeight: 244 }}>
-        {/* Network SVG — larger and always visible */}
-        <div style={{ position: "relative", height: 244, minHeight: 244, borderRadius: 13, background: "#fbfaf7", border: `1px solid ${C.line}`, overflow: "hidden" }}>
-          <div style={{ position: "absolute", left: 12, right: 12, top: 12, display: "flex", justifyContent: "space-between", pointerEvents: "none" }}>
-            {["Frontend", "Backend", "Data"].map(label => (
-              <span key={label} style={{ fontSize: 7.8, color: C.muted, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>{label}</span>
-            ))}
-          </div>
+      <div className="tech-card-grid" style={{ display: "grid", gridTemplateColumns: "minmax(235px, 1fr) 220px", gap: 14, flex: 1, height: 260, minHeight: 260 }}>
+        {/* Network SVG */}
+        <div style={{ position: "relative", height: 260, minHeight: 260, borderRadius: 14, background: "#fbfaf7", border: `1px solid ${C.line}`, overflow: "hidden" }}>
           <svg
             width="100%"
             height="100%"
             viewBox="0 0 260 166"
-            style={{ display: "block", overflow: "visible", height: 222, minHeight: 222, padding: "12px 6px 0", boxSizing: "border-box" }}
+            style={{ display: "block", overflow: "visible", height: 232, minHeight: 232, padding: "14px 8px 0", boxSizing: "border-box" }}
           >
-            {[42,84,126].map(y => (
-              <line key={y} x1="12" y1={y} x2="248" y2={y} stroke="rgba(61,64,91,0.055)" strokeWidth="0.5" />
-            ))}
-            {[65,130,195].map(x => (
-              <line key={x} x1={x} y1="12" x2={x} y2="154" stroke="rgba(61,64,91,0.055)" strokeWidth="0.5" />
-            ))}
-
             {EDGES.map(([a, b], i) => {
               const na = NODE_POSITIONS[a], nb = NODE_POSITIONS[b];
-              const isActive = activeIndex === a || activeIndex === b;
+              const isActive = hoveredIndex === a || hoveredIndex === b;
               return (
                 <line key={i}
                   x1={na.cx} y1={na.cy} x2={nb.cx} y2={nb.cy}
-                  stroke={isActive ? activeNode.color : "rgba(61,64,91,0.10)"}
-                  strokeWidth={isActive ? 1.35 : 0.65}
-                  opacity={isActive ? 0.95 : 0.36}
-                  strokeDasharray={isActive ? "none" : "2 3"}
+                  stroke={isActive ? activeNode.color : "rgba(61,64,91,0.14)"}
+                  strokeWidth={isActive ? 1.4 : 0.7}
+                  opacity={isActive ? 0.95 : 0.55}
                   style={{ transition: "stroke 0.15s, stroke-width 0.15s, opacity 0.15s" }}
                 />
               );
             })}
 
             {NODE_POSITIONS.map((nd, i) => {
-              const isHov = activeIndex === i;
-              const isConn = EDGES.some(([a,b]) => (a===activeIndex&&b===i)||(b===activeIndex&&a===i));
-              const r = isHov ? 7 : isConn ? 5.4 : 4.25;
+              const isHov = hoveredIndex === i;
+              const isConn = hoveredIndex !== null && EDGES.some(([a, b]) => (a === hoveredIndex && b === i) || (b === hoveredIndex && a === i));
+              const r = isHov ? 7.5 : isConn ? 5.6 : 4.6;
               const labelRight = nd.cx > 130;
-              const lx = nd.cx + (labelRight ? r + 5 : -(r + 5));
+              const lx = nd.cx + (labelRight ? r + 6 : -(r + 6));
               const anchor = labelRight ? "start" : "end";
               return (
-                <g
+                <motion.g
                   key={nd.name}
-                  onMouseEnter={() => setActiveIndex(i)}
-                  style={{ cursor: "pointer", opacity: isHov || isConn ? 1 : 0.72, transition: "opacity 0.15s" }}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  animate={{ opacity: hoveredIndex === null || isHov || isConn ? 1 : 0.4 }}
+                  transition={{ duration: 0.15 }}
+                  style={{ cursor: "pointer" }}
                 >
-                  {isHov && (
-                    <>
-                      <circle cx={nd.cx} cy={nd.cy} r={r + 13} fill={nd.color + "10"} />
-                      <circle cx={nd.cx} cy={nd.cy} r={r + 8} fill="none" stroke={nd.color + "55"} strokeWidth="0.9" opacity="0.85" />
-                    </>
-                  )}
+                  {isHov && <circle cx={nd.cx} cy={nd.cy} r={r + 8} fill={nd.color + "1c"} />}
                   <circle
                     cx={nd.cx}
                     cy={nd.cy}
                     r={r}
-                    fill={isHov || isConn ? nd.color : nd.color + "cc"}
-                    stroke={isHov ? C.card : "transparent"}
+                    fill={nd.color}
+                    stroke={isHov ? "#fff" : "transparent"}
                     strokeWidth={isHov ? 2 : 0}
-                    style={{ transition: "r 0.15s, fill 0.15s, stroke-width 0.15s" }}
+                    style={{ transition: "r 0.15s" }}
                   />
                   <text x={lx} y={nd.cy + 3.5}
                     textAnchor={anchor}
-                    fontSize={isHov ? "7.8" : "6.6"}
+                    fontSize={isHov ? "8.2" : "7"}
                     fontWeight={isHov ? "850" : "650"}
-                    fill={isHov ? nd.color : isConn ? C.ink : "rgba(61,64,91,0.54)"}
+                    fill={isHov ? C.navy : isConn ? C.ink : "rgba(61,64,91,0.6)"}
                     style={{ transition: "fill 0.15s", fontFamily: "system-ui,sans-serif", pointerEvents: "none" }}
                   >
                     {nd.name}
                   </text>
-                  <circle cx={nd.cx} cy={nd.cy} r="14" fill="transparent" />
-                </g>
+                  <circle cx={nd.cx} cy={nd.cy} r="15" fill="transparent" />
+                </motion.g>
               );
             })}
-
-            <circle cx="130" cy="83" r="3.8" fill={C.coral} opacity="0.65" />
-            <circle cx="130" cy="83" r="8" fill="none" stroke={C.coral} strokeWidth="0.5" opacity="0.25" />
           </svg>
-          <div style={{ position: "absolute", left: 12, right: 12, bottom: 10, display: "flex", gap: 5, flexWrap: "wrap" }}>
-            {NODE_POSITIONS.slice(0, 6).map((nd, i) => (
-              <button
-                key={nd.name}
-                onMouseEnter={() => setActiveIndex(i)}
-                onClick={() => setActiveIndex(i)}
-                style={{
-                  border: `1px solid ${activeIndex === i ? nd.color + "55" : C.line}`,
-                  background: activeIndex === i ? nd.color + "12" : C.card,
-                  color: activeIndex === i ? nd.color : C.muted,
-                  borderRadius: 99,
-                  padding: "3px 7px",
-                  fontSize: 8.6,
-                  fontWeight: 800,
-                  cursor: "pointer",
-                }}
-              >
-                {nd.name}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Dedicated hover detail panel */}
-        <div style={{ height: 244, minHeight: 244, borderRadius: 13, border: `1px solid ${activeNode.color}34`, background: activeNode.color + "0b", padding: "12px", overflow: "hidden", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
-          <div key={activeNode.name} style={{ animation: "fadeInPanel 0.18s ease" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 9 }}>
-              <div style={{ width: 9, height: 9, borderRadius: "50%", background: activeNode.color, boxShadow: `0 0 0 5px ${activeNode.color}18` }} />
-              <div>
-                <p style={{ fontSize: 12.5, fontWeight: 900, color: C.ink, margin: 0 }}>{activeNode.name}</p>
-                <p style={{ fontSize: 8.5, color: C.muted, fontWeight: 700, margin: "1px 0 0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                  {projects.length} linked project{projects.length !== 1 ? "s" : ""}
-                </p>
+        <div style={{ height: 260, minHeight: 260, borderRadius: 14, border: `1px solid ${activeNode ? activeNode.color + "34" : C.line}`, background: activeNode ? activeNode.color + "0b" : C.soft, padding: "14px", overflow: "hidden", display: "flex", flexDirection: "column", boxSizing: "border-box", transition: "background 0.18s, border-color 0.18s" }}>
+          {activeNode ? (
+            <div key={activeNode.name}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                <div style={{ width: 9, height: 9, borderRadius: "50%", background: activeNode.color, boxShadow: `0 0 0 5px ${activeNode.color}18` }} />
+                <div>
+                  <p style={{ fontSize: 12.5, fontWeight: 900, color: C.ink, margin: 0 }}>{activeNode.name}</p>
+                  <p style={{ fontSize: 8.5, color: C.muted, fontWeight: 700, margin: "1px 0 0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    {projects.length} linked project{projects.length !== 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
+
+              <div className="custom-scrollbar" style={{ height: 195, overflowY: "auto", paddingRight: 2, display: "flex", flexDirection: "column", gap: 7 }}>
+                {previewProjects.map(p => (
+                  <div
+                    key={p.id}
+                    style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)" }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
+                      <p style={{ fontSize: 10.6, color: C.ink, fontWeight: 850, margin: 0 }}>{p.name}</p>
+                    </div>
+                    <p style={{
+                      fontSize: 9.2,
+                      color: C.muted,
+                      margin: 0,
+                      lineHeight: 1.35,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}>{p.short}</p>
+                  </div>
+                ))}
+                {projects.length > previewProjects.length && (
+                  <p style={{ fontSize: 9.4, color: activeNode.color, fontWeight: 850, margin: "1px 0 0" }}>
+                    +{projects.length - previewProjects.length} more project{projects.length - previewProjects.length > 1 ? "s" : ""}
+                  </p>
+                )}
               </div>
             </div>
-
-            <div className="custom-scrollbar" style={{ height: 183, overflowY: "auto", paddingRight: 2, display: "flex", flexDirection: "column", gap: 7 }}>
-              {previewProjects.map(p => (
-                <div
-                  key={p.id}
-                  style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
-                    <p style={{ fontSize: 10.6, color: C.ink, fontWeight: 850, margin: 0 }}>{p.name}</p>
-                  </div>
-                  <p style={{
-                    fontSize: 9.2,
-                    color: C.muted,
-                    margin: 0,
-                    lineHeight: 1.35,
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}>{p.short}</p>
-                </div>
-              ))}
-              {projects.length > previewProjects.length && (
-                <p style={{ fontSize: 9.4, color: activeNode.color, fontWeight: 850, margin: "1px 0 0" }}>
-                  +{projects.length - previewProjects.length} more project{projects.length - previewProjects.length > 1 ? "s" : ""}
-                </p>
-              )}
+          ) : (
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 7, padding: "0 12px" }}>
+              <span style={{ fontSize: 22 }}>🔗</span>
+              <p style={{ fontSize: 11, color: C.muted, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>Hover any node on the map to see which projects use it.</p>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -808,7 +759,15 @@ function IntroLine({ onResume }) {
             Hi, I&apos;m{" "}
             <span style={{ color: C.coral }}>Imran</span>
             {" "}— full-stack engineer building reliable{" "}
-            <span style={{ borderBottom: `2.5px solid ${C.coral}`, paddingBottom: 1 }}>SaaS, fintech &amp; realtime</span>{" "}
+            <span style={{ position: "relative", display: "inline-block" }}>
+              SaaS, fintech &amp; realtime
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
+                style={{ position: "absolute", left: 0, right: 0, bottom: -1, height: 2.5, background: C.coral, transformOrigin: "left", display: "block" }}
+              />
+            </span>{" "}
             systems.
           </h1>
           <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65, maxWidth: 560, fontWeight: 500 }}>
@@ -836,28 +795,25 @@ function HomePage({ setPage, onResume }) {
   return (
     <div className="page-shell" style={{ paddingTop: 78, paddingBottom: 48 }}>
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 20px" }}>
-        <div style={{ marginBottom: 10, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.18em" }}>Portfolio · 2026</span>
-          <span style={{ fontSize: 10, color: C.muted, fontFamily: "monospace", opacity: 0.6 }}>imranrkhan13</span>
-        </div>
         <IntroLine onResume={onResume} />
 
-        {/* Row 1: identity, larger tech map, and experience cards */}
-        <div className="home-grid-top" style={{ display: "grid", gridTemplateColumns: "230px minmax(0,1fr) 270px", gap: 10, marginBottom: 10, alignItems: "stretch" }}>
-          <Card delay={0.02}><InfoCard /></Card>
-          <Card delay={0.04} style={{ minHeight: 0 }}>
-            <TechNetworkCard />
-          </Card>
-          <Card delay={0.06}><ExperienceCard /></Card>
+        {/* Row 1: identity + experience, one clean strip */}
+        <div style={{ marginBottom: 10 }}>
+          <Card delay={0.02}><ProfileStrip /></Card>
         </div>
 
-        {/* Row 2: larger project story with skills beside it */}
+        {/* Row 2: tech-to-project map gets room to breathe */}
+        <div style={{ marginBottom: 10 }}>
+          <Card delay={0.05}><TechNetworkCard /></Card>
+        </div>
+
+        {/* Row 3: larger project story with skills beside it */}
         <div className="home-grid-bottom" style={{ display: "grid", gridTemplateColumns: "1.35fr 0.9fr", gap: 10, marginBottom: 10 }}>
           <Card delay={0.08} onClick={() => setPage("work")}><ProjectsCycleCard onClick={() => setPage("work")} /></Card>
           <Card delay={0.10}><SkillsCard /></Card>
         </div>
 
-        {/* Row 3: Featured Work grid — real projects, visible without clicking anywhere */}
+        {/* Row 4: Featured Work grid — real projects, visible without clicking anywhere */}
         <FeaturedWorkSection setPage={setPage} />
       </div>
     </div>
@@ -876,7 +832,7 @@ function FeaturedWorkSection({ setPage }) {
         </div>
         <button onClick={() => setPage("work")} style={{ fontSize: 10.5, fontWeight: 800, color: C.coral, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, padding: "4px 0" }}>
           View all {PROJECTS.length} projects
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
         </button>
       </div>
 
@@ -920,11 +876,9 @@ function FeaturedProjectCard({ p, delay, onClick }) {
         <h3 style={{ fontSize: 15, fontWeight: 950, color: C.navy, margin: "0 0 5px", letterSpacing: "-0.025em" }}>{p.name}</h3>
         <p style={{ fontSize: 11, color: p.color, fontWeight: 750, margin: "0 0 8px", lineHeight: 1.4, minHeight: 30 }}>{p.tagline}</p>
 
-        <div style={{ padding: "8px 10px", background: "#f7f4ef", borderRadius: 9, marginBottom: 10, minHeight: 52 }}>
-          <p style={{ fontSize: 10, color: C.ink, margin: 0, lineHeight: 1.45, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.bullets[0]}</p>
-        </div>
+        <p style={{ fontSize: 10.8, color: C.ink, margin: "0 0 12px", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.bullets[0]}</p>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6, borderTop: `1px solid ${C.line}`, paddingTop: 11 }}>
           <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
             {p.tech.slice(0, 3).map(t => (
               <span key={t} style={{ fontSize: 9, fontWeight: 700, color: C.navy, background: C.soft, padding: "2px 7px", borderRadius: 99, border: `1px solid ${C.line}` }}>{t}</span>
@@ -989,7 +943,7 @@ function WorkPage() {
                 {p.liveUrl && (
                   <a href={p.liveUrl} target="_blank" rel="noreferrer"
                     style={{ fontSize: 9.5, color: p.color, fontWeight: 900, textDecoration: "none", whiteSpace: "nowrap", background: p.color + "12", border: `1px solid ${p.color}30`, padding: "5px 10px", borderRadius: 8, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
                     Live
                   </a>
                 )}
@@ -1001,7 +955,7 @@ function WorkPage() {
               {/* Key bullet */}
               <div style={{ padding: "11px 13px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 10, marginBottom: 13, display: "flex", gap: 10, alignItems: "flex-start" }}>
                 <div style={{ width: 18, height: 18, borderRadius: 5, background: p.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                 </div>
                 <p style={{ fontSize: 11, color: C.ink, lineHeight: 1.48, margin: 0 }}>{p.bullets[0]}</p>
               </div>
@@ -1057,7 +1011,7 @@ function WorkPage() {
                   {cur.liveUrl && (
                     <a href={cur.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
                       style={{ fontSize: 10.5, fontWeight: 800, color: cur.color, background: cur.color + "10", padding: "6px 14px", borderRadius: 9, textDecoration: "none", border: `1px solid ${cur.color}28`, display: "inline-flex", alignItems: "center", gap: 5 }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
                       {cur.urls?.[0] || "Live Site"}
                     </a>
                   )}
@@ -1078,7 +1032,7 @@ function WorkPage() {
                 <div style={{ marginBottom: 18 }}>
                   <a href={cur.fleetUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
                     style={{ fontSize: 10.5, fontWeight: 700, color: C.muted, background: C.soft, padding: "6px 14px", borderRadius: 8, textDecoration: "none", border: `1px solid ${C.line}`, display: "inline-flex", alignItems: "center", gap: 5 }}>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
                     {cur.urls[1]}
                   </a>
                 </div>
@@ -1090,7 +1044,7 @@ function WorkPage() {
                   {cur.bullets.map((b, i) => (
                     <div key={i} style={{ display: "flex", gap: 13, alignItems: "flex-start", padding: "13px 15px", background: i === 0 ? cur.color + "0a" : "#faf9f6", borderRadius: 11, border: `1px solid ${i === 0 ? cur.color + "28" : C.line}` }}>
                       <div style={{ width: 21, height: 21, borderRadius: 7, background: i === 0 ? cur.color : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                       </div>
                       <p style={{ fontSize: 12.5, color: i === 0 ? C.navy : C.ink, margin: 0, lineHeight: 1.62, fontWeight: i === 0 ? 650 : 450 }}>{b}</p>
                     </div>
@@ -1120,8 +1074,8 @@ function WorkPage() {
 function AboutPage() {
   const proof = [
     { k: "60+", v: "production issues resolved", c: C.coral },
-    { k: "11", v: "projects shipped", c: C.navy },
-    { k: "4", v: "domains: SaaS, fintech, realtime, AI", c: "#0ea5e9" },
+    { k: String(PROJECTS.length), v: "projects shipped", c: C.navy },
+    { k: "5", v: "domains: SaaS, fintech, realtime, AI", c: "#0ea5e9" },
   ];
 
   const operatingPoints = [
@@ -1143,7 +1097,7 @@ function AboutPage() {
     { year: "2023", event: "Shipped first multi-tenant SaaS. Learned about data isolation the hard way." },
     { year: "2024", event: "Deep-dived into fintech — payout engines, ledgers, atomic transactions, float drift." },
     { year: "2025", event: "Joined Swayambhutech as Associate SWE. Resolved 60+ production issues on Drive Accessible." },
-    { year: "2026", event: "Building WebRTC infrastructure, AI tools, and the Techiesaie studio." },
+    { year: "2026", event: "Building model governance, AI try-on tooling, and the Techiesaie studio." },
   ];
 
   return (
@@ -1294,7 +1248,7 @@ Mumbai, India | +91 7506190224 | muhammadimrank034@gmail.com
 linkedin.com/in/imranrkhan13 | github.com/imranrkhan13 | imran-silk.vercel.app
 
 SUMMARY
-Full-stack engineer with 1+ year of production experience shipping SaaS platforms, billing engines, and real-time systems. Resolved 60+ live bugs, designed financial and booking infrastructure from scratch, shipped 10+ projects across Node.js, React, PostgreSQL, Django, and WebRTC.
+Full-stack engineer with 1+ year of production experience shipping SaaS platforms, billing engines, and real-time systems. Resolved 60+ live bugs, designed financial and booking infrastructure from scratch, shipped 13 projects across Node.js, React, PostgreSQL, Django, FastAPI, and WebRTC.
 
 EXPERIENCE
 Swayambhu Tech | Associate Software Engineer | Oct 2025 – Mar 2026 | Mumbai
@@ -1317,8 +1271,12 @@ Payout Engine | Django, PostgreSQL, Celery, Redis
 Vault | Node.js, WebRTC, WebSockets
 • P2P file sharing with encrypted WebRTC data channels — no files touch the server.
 
-AI Check Data | React, Node.js, Supabase, Gemini/Groq/Mistral/Claude
-• Multi-LLM validation platform routing requests in parallel with weighted consensus scoring.
+AI Model Governance Platform | FastAPI, PostgreSQL, pgvector, React
+• Model registry and workflow state machine with role-based transitions and a full append-only audit trail.
+• RAG pipeline with pgvector similarity search and a 5-provider LLM fallback router for grounded document Q&A.
+
+AI Try-On | React, FastAPI, Python, Hugging Face
+• Free-tier virtual try-on backend on community-hosted Hugging Face models with automatic provider fallback.
 
 Kanban Pro | React, Node.js, WebSockets
 • Real-time collaborative Kanban: room-based WebSocket architecture, live presence, auto-reconnection.
@@ -1326,7 +1284,7 @@ Kanban Pro | React, Node.js, WebSockets
 TECHNICAL SKILLS
 Frontend: React, TypeScript, JavaScript, Tailwind CSS, Next.js
 Backend: Node.js, Python, Django, FastAPI, PHP
-Database: PostgreSQL, MySQL, MongoDB, Redis, Supabase
+Database: PostgreSQL, MySQL, MongoDB, Redis, Supabase, pgvector
 Tools/Infra: Git, Docker, Celery, WebSockets, WebRTC, GitHub Actions
 
 EDUCATION
@@ -1348,7 +1306,7 @@ MVM College, University of Mumbai | Mumbai, India`;
         </div>
         <motion.button whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }} onClick={handleDownload}
           style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.coral, color: "#fff", border: "none", borderRadius: 10, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase" }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
           Download .txt
         </motion.button>
       </div>
@@ -1383,7 +1341,7 @@ MVM College, University of Mumbai | Mumbai, India`;
         <div style={{ padding: "28px 36px", display: "flex", flexDirection: "column", gap: 26 }}>
           <Section title="Summary">
             <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.7, margin: 0 }}>
-              Full-stack engineer with 1+ year of production experience shipping SaaS platforms, billing engines, and real-time systems. Built and maintained software used by real customers — resolved 60+ live bugs, designed financial and booking infrastructure from scratch, and shipped 10+ projects across Node.js, React, PostgreSQL, Django, and WebRTC. Comfortable owning features end-to-end, from database schema to deployed UI.
+              Full-stack engineer with 1+ year of production experience shipping SaaS platforms, billing engines, and real-time systems. Built and maintained software used by real customers — resolved 60+ live bugs, designed financial and booking infrastructure from scratch, and shipped 13 projects across Node.js, React, PostgreSQL, Django, FastAPI, and WebRTC. Comfortable owning features end-to-end, from database schema to deployed UI.
             </p>
           </Section>
 
@@ -1403,7 +1361,7 @@ MVM College, University of Mumbai | Mumbai, India`;
                   "Developed role-based admin dashboard surfacing overdue payments, upcoming renewals, and revenue trends.",
                   "Resolved 60+ production issues on live systems, including critical edge-case bugs under deadline pressure.",
                   "Shipped SEO-optimised public website with Intersection Observer animations and structured-data markup."
-                ].map((b,i) => <li key={i} style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
+                ].map((b, i) => <li key={i} style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
               </ul>
             </div>
           </Section>
@@ -1411,16 +1369,30 @@ MVM College, University of Mumbai | Mumbai, India`;
           <Section title="Selected Projects" color="#8b5cf6">
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {[
-                { name: "BillingOS", tech: "Node.js, React, PostgreSQL, Redis, Stripe, PDFKit", color: "#0ea5e9",
-                  bullets: ["Multi-tenant billing engine modelled on Stripe Billing: subscription lifecycle, proration invoices, PostgreSQL Row-Level Security.", "Exponential-backoff retry queues (1h→6h→24h→72h); idempotent Stripe webhook processing with unique stripe_event_id."] },
-                { name: "Payout Engine", tech: "Django, PostgreSQL, Celery, Redis", color: "#10b981",
-                  bullets: ["Integer paise storage (BigIntegerField) to eliminate float drift; SELECT FOR UPDATE inside transaction.atomic() prevents concurrent overdrafts.", "Idempotency keys with DB-level unique constraint; atomic failure-handling — marking failed and crediting refund in one transaction."] },
-                { name: "Vault", tech: "Node.js, WebRTC, WebSockets", color: "#0ea5e9",
-                  bullets: ["P2P file sharing with direct encrypted WebRTC data channels — no files ever touch the server. Token-based room codes, chunked transfer, progress tracking."] },
-                { name: "AI Check Data", tech: "React, Node.js, Supabase, LLM APIs", color: "#6366f1",
-                  bullets: ["Multi-LLM validation platform routing across four providers in parallel; weighted consensus scoring with automatic fallback on rate limits."] },
-                { name: "Kanban Pro", tech: "React, Node.js, WebSockets", color: "#8b5cf6",
-                  bullets: ["Real-time collaborative Kanban: room-based WebSocket architecture, live presence indicators, last-write-wins conflict resolution, auto-reconnection."] },
+                {
+                  name: "BillingOS", tech: "Node.js, React, PostgreSQL, Redis, Stripe, PDFKit", color: "#0ea5e9",
+                  bullets: ["Multi-tenant billing engine modelled on Stripe Billing: subscription lifecycle, proration invoices, PostgreSQL Row-Level Security.", "Exponential-backoff retry queues (1h→6h→24h→72h) via Bull+Redis; idempotent Stripe webhook processing with unique stripe_event_id."]
+                },
+                {
+                  name: "Payout Engine", tech: "Django, PostgreSQL, Celery, Redis", color: "#10b981",
+                  bullets: ["Integer paise storage (BigIntegerField) to eliminate float drift; SELECT FOR UPDATE inside transaction.atomic() prevents concurrent overdrafts.", "Idempotency keys with DB-level unique constraint; atomic failure-handling — marking failed and crediting refund in one transaction."]
+                },
+                {
+                  name: "AI Model Governance Platform", tech: "FastAPI, PostgreSQL, pgvector, React", color: "#14b8a6",
+                  bullets: ["Model registry with an explicit workflow state machine enforcing role-based transition rules server-side, full append-only audit trail.", "RAG pipeline — local embeddings, pgvector similarity search, 5-provider LLM fallback — every answer schema-validated with confidence score and citations."]
+                },
+                {
+                  name: "AI Try-On", tech: "React, FastAPI, Python, Hugging Face", color: "#ec4899",
+                  bullets: ["Free-tier virtual try-on backend calling community-hosted Hugging Face models with automatic provider fallback and background job processing."]
+                },
+                {
+                  name: "Vault", tech: "Node.js, WebRTC, WebSockets", color: "#0ea5e9",
+                  bullets: ["P2P file sharing with direct encrypted WebRTC data channels — no files ever touch the server. Token-based room codes, chunked transfer, progress tracking."]
+                },
+                {
+                  name: "Kanban Pro", tech: "React, Node.js, WebSockets", color: "#8b5cf6",
+                  bullets: ["Real-time collaborative Kanban: room-based WebSocket architecture, live presence indicators, last-write-wins conflict resolution, auto-reconnection."]
+                },
               ].map(p => (
                 <div key={p.name} style={{ padding: "14px 16px", background: C.soft, borderRadius: 10 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 7 }}>
@@ -1429,7 +1401,7 @@ MVM College, University of Mumbai | Mumbai, India`;
                     <span style={{ fontSize: 9.5, color: C.muted, background: C.card, padding: "2px 8px", borderRadius: 5, border: `1px solid ${C.line}` }}>{p.tech}</span>
                   </div>
                   <ul style={{ margin: 0, padding: "0 0 0 15px", display: "flex", flexDirection: "column", gap: 3 }}>
-                    {p.bullets.map((b,i) => <li key={i} style={{ fontSize: 11.5, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
+                    {p.bullets.map((b, i) => <li key={i} style={{ fontSize: 11.5, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
                   </ul>
                 </div>
               ))}
@@ -1441,7 +1413,7 @@ MVM College, University of Mumbai | Mumbai, India`;
               {[
                 { cat: "Frontend", items: "React, TypeScript, JavaScript, Tailwind CSS, Next.js" },
                 { cat: "Backend", items: "Node.js, Python, Django, FastAPI, PHP" },
-                { cat: "Database", items: "PostgreSQL, MySQL, MongoDB, Redis, Supabase" },
+                { cat: "Database", items: "PostgreSQL, MySQL, MongoDB, Redis, Supabase, pgvector" },
                 { cat: "Tools & Infra", items: "Git, Docker, Celery, WebSockets, WebRTC, GitHub Actions" },
               ].map(s => (
                 <div key={s.cat} style={{ padding: "11px 13px", background: C.soft, borderRadius: 9 }}>
@@ -1637,7 +1609,7 @@ function ResumeSheet({ open, onClose }) {
                   {/* Impact stats */}
                   <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 7 }}>
-                      {[["150+", "production features shipped"], ["5+", "companies using DriveAccessible"], ["11", "portfolio projects"]].map(([n, text]) => (
+                      {[["150+", "production features shipped"], ["5+", "companies using DriveAccessible"], [String(PROJECTS.length), "portfolio projects"]].map(([n, text]) => (
                         <div key={text} style={{ background: "#f7f4ee", border: `1px solid ${C.line}`, borderTop: `3px solid ${n === "150+" ? C.coral : C.navy}`, borderRadius: 10, padding: "10px 11px" }}>
                           <p style={{ fontSize: 20, color: n === "150+" ? C.coral : C.navy, fontWeight: 950, margin: 0 }}>{n}</p>
                           <p style={{ fontSize: 9.5, color: C.ink, lineHeight: 1.35, margin: "3px 0 0" }}>{text}</p>
@@ -1676,8 +1648,8 @@ function ResumeSheet({ open, onClose }) {
                       <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Selected Projects</p>
                     </div>
                     {[
-                      { name: "TalkToYourDB", tech: "FastAPI · PostgreSQL · OpenAI · React", bullets: ["Natural-language interface for PostgreSQL — users ask in plain English and receive SQL-backed answers via a conversational AI workflow.", "Built query validation, retry logic, structured observability logging, and a secure SQL execution pipeline to prevent injection."] },
-                      { name: "Realtime AI Voice System", tech: "FastAPI · Redis · WebSockets", bullets: ["Conversational AI with streaming voice I/O, persistent session memory, and sub-second latency via async orchestration.", "Designed orchestration pipeline to handle concurrent sessions, reconnects, and graceful degradation under load."] },
+                      { name: "AI Model Governance Platform", tech: "FastAPI · PostgreSQL · pgvector · React", bullets: ["Model registry with an explicit workflow state machine enforcing role-based transition rules server-side, full append-only audit trail.", "RAG pipeline — local embeddings, pgvector similarity search, 5-provider LLM fallback router — every answer schema-validated with a confidence score and citations."] },
+                      { name: "AI Try-On", tech: "React · FastAPI · Python · Hugging Face", bullets: ["Free-tier virtual try-on backend calling community-hosted Hugging Face models with automatic provider fallback and background job processing.", "Diagnosed and patched a schema-parsing bug in a third-party AI client library (gradio_client) affecting multiple versions."] },
                       { name: "BillingOS", tech: "Node.js · PostgreSQL · Redis · Stripe", bullets: ["Multi-tenant SaaS billing engine with subscription lifecycle, proration, exponential-backoff retries, idempotent Stripe webhooks, and PostgreSQL Row-Level Security."] },
                       { name: "Payout Engine", tech: "Django · PostgreSQL · Celery · Redis", bullets: ["Integer paise storage, SELECT FOR UPDATE locking, idempotency keys, atomic failure-handling, and auto-recovery scheduler."] },
                       { name: "Kanban Pro", tech: "React · TypeScript · WebSockets", bullets: ["Real-time collaborative Kanban with live presence, drag-and-drop sync, conflict resolution for concurrent updates, and auto-reconnect recovery."] },
@@ -1704,8 +1676,8 @@ function ResumeSheet({ open, onClose }) {
                       {[
                         ["Frontend", "React, Next.js, TypeScript, JavaScript, Tailwind CSS, Vite, Framer Motion"],
                         ["Backend", "FastAPI, Node.js, Express, Django, PHP, Laravel, REST APIs"],
-                        ["Databases", "PostgreSQL, Redis, MySQL, MongoDB, Supabase, Vector Databases"],
-                        ["Realtime & AI", "WebSockets, WebRTC, OpenAI APIs, Gemini APIs, RAG Pipelines, Conversational AI"],
+                        ["Databases", "PostgreSQL, Redis, MySQL, MongoDB, Supabase, pgvector"],
+                        ["Realtime & AI", "WebSockets, WebRTC, RAG Pipelines, Hugging Face, OpenAI/Gemini APIs"],
                         ["Infrastructure", "Docker, Linux, GitHub Actions, CI/CD, Celery"],
                         ["Languages", "Python, JavaScript, TypeScript, PHP, SQL"],
                       ].map(([label, text]) => (
@@ -1739,7 +1711,7 @@ function Nav({ page, setPage, onResume }) {
         </button>
         {/* Desktop nav */}
         <nav className="site-nav-links" style={{ display: "flex", gap: 2, alignItems: "center" }}>
-          {[["home","Home"],["work","Work"],["about","About"]].map(([id, label]) => (
+          {[["home", "Home"], ["work", "Work"], ["about", "About"]].map(([id, label]) => (
             <button key={id} onClick={() => setPage(id)}
               style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: page === id ? 700 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.ink : C.muted, transition: "all 0.15s" }}>
               {label}
@@ -1751,8 +1723,9 @@ function Nav({ page, setPage, onResume }) {
         {/* Mobile hamburger */}
         <button className="mobile-menu-btn" onClick={() => setMenuOpen(o => !o)}
           style={{ display: "none", flexDirection: "column", gap: 4.5, background: "none", border: "none", cursor: "pointer", padding: 4 }}>
-          {[0,1,2].map(i => (
-            <span key={i} style={{ display: "block", width: 22, height: 2, background: C.navy, borderRadius: 2, transition: "all 0.2s",
+          {[0, 1, 2].map(i => (
+            <span key={i} style={{
+              display: "block", width: 22, height: 2, background: C.navy, borderRadius: 2, transition: "all 0.2s",
               transform: menuOpen ? (i === 0 ? "rotate(45deg) translate(4.5px, 4.5px)" : i === 2 ? "rotate(-45deg) translate(4.5px, -4.5px)" : "scaleX(0)") : "none",
               opacity: menuOpen && i === 1 ? 0 : 1,
             }} />
@@ -1764,7 +1737,7 @@ function Nav({ page, setPage, onResume }) {
         {menuOpen && (
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.18 }}
             style={{ position: "fixed", top: 52, left: 0, right: 0, zIndex: 199, background: "rgba(250,249,246,0.98)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.line}`, padding: "12px 20px 18px", display: "flex", flexDirection: "column", gap: 4 }}>
-            {[["home","Home"],["work","Work"],["about","About"]].map(([id, label]) => (
+            {[["home", "Home"], ["work", "Work"], ["about", "About"]].map(([id, label]) => (
               <button key={id} onClick={() => { setPage(id); close(); }}
                 style={{ width: "100%", textAlign: "left", padding: "10px 14px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 14, fontWeight: page === id ? 800 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.navy : C.ink }}>
                 {label}
@@ -1795,17 +1768,14 @@ export default function App() {
         .custom-scrollbar::-webkit-scrollbar-track{background:transparent;}
         .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(61,64,91,0.18);border-radius:99px;}
 
-        /* ── Desktop: home top grid ── */
-        .home-grid-top{display:grid;grid-template-columns:230px minmax(0,1fr) 270px;gap:10px;margin-bottom:10px;align-items:stretch;}
+        /* ── Desktop: home rows ── */
+        .profile-strip{display:grid;grid-template-columns:270px 1fr;gap:32px;}
         .home-grid-bottom{display:grid;grid-template-columns:1.35fr 0.9fr;gap:10px;}
         .featured-work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 
         /* ── Desktop: work page ── */
         .work-grid{display:grid;grid-template-columns:248px 1fr;gap:14px;align-items:start;}
         .work-mobile-list{display:none!important;}
-
-        /* ── Desktop: project cycle card grid ── */
-        .project-structure-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:16px;align-items:start;}
 
         /* ── Desktop: resume paper ── */
         .resume-paper-body{display:grid;grid-template-columns:235px 1fr;}
@@ -1816,12 +1786,12 @@ export default function App() {
 
         /* ── Tablet (≤ 860px) ── */
         @media(max-width:860px){
-          .home-grid-top{grid-template-columns:1fr 1fr!important;}
+          .profile-strip{grid-template-columns:1fr!important;gap:20px!important;}
+          .profile-strip-left{border-right:none!important;border-bottom:1px solid rgba(61,64,91,0.08);padding-right:0!important;padding-bottom:20px!important;}
           .home-grid-bottom{grid-template-columns:1fr!important;}
           .featured-work-grid{grid-template-columns:1fr 1fr!important;}
           .work-grid{display:none!important;}
           .work-mobile-list{display:flex!important;}
-          .project-structure-grid{grid-template-columns:1fr!important;}
           .resume-paper-body{grid-template-columns:1fr!important;}
           .resume-paper-body aside{min-height:unset!important;border-right:none!important;border-bottom:6px solid #e27d60;}
         }
@@ -1830,7 +1800,6 @@ export default function App() {
         @media(max-width:600px){
           .tech-card-grid{grid-template-columns:1fr!important;height:auto!important;}
           .tech-card-grid > div:first-child{height:200px!important;min-height:200px!important;}
-          .home-grid-top{grid-template-columns:1fr!important;}
           .home-grid-bottom{grid-template-columns:1fr!important;}
           .featured-work-grid{grid-template-columns:1fr!important;}
           .site-nav-links{display:none!important;}
@@ -1850,9 +1819,9 @@ export default function App() {
       <Nav page={page} setPage={setPage} onResume={() => setResumeOpen(true)} />
       <AnimatePresence mode="wait">
         <motion.div key={page} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.24, ease: EASE }}>
-          {page === "home"    && <HomePage setPage={setPage} onResume={() => setResumeOpen(true)} />}
-          {page === "work"    && <WorkPage />}
-          {page === "about"   && <AboutPage />}
+          {page === "home" && <HomePage setPage={setPage} onResume={() => setResumeOpen(true)} />}
+          {page === "work" && <WorkPage />}
+          {page === "about" && <AboutPage />}
         </motion.div>
       </AnimatePresence>
       <ResumeSheet open={resumeOpen} onClose={() => setResumeOpen(false)} />
