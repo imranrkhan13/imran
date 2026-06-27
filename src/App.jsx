@@ -17,12 +17,13 @@ const C = {
 };
 
 const EASE = [0.25, 1, 0.5, 1];
-const SP = { type: "spring", stiffness: 380, damping: 28, mass: 0.7 };
 
 // Tech → projects mapping for hover tooltips
 const TECH_PROJECTS = {
-  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "Resume AI", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On"],
+  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "Resume AI", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow"],
   "Node.js": ["BillingOS", "Kanban Pro", "Vault", "FoodExpress"],
+  "Python": ["MindFlow", "AI Try-On", "AI Model Governance Platform"],
+  "FastAPI": ["MindFlow", "AI Try-On", "AI Model Governance Platform"],
   "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform"],
   "PHP": ["Drive Accessible"],
   "Django": ["Payout Engine"],
@@ -33,6 +34,19 @@ const TECH_PROJECTS = {
   "Supabase": ["AI Check Data", "Resume AI"],
   "WebSockets": ["Kanban Pro", "Vault"],
   "Stripe": ["BillingOS"],
+  "Docker": ["MindFlow", "AI Model Governance Platform"],
+  "React Flow": ["MindFlow"],
+  "NetworkX": ["MindFlow"],
+  "LLMs": ["MindFlow", "AI Model Governance Platform"],
+  "Hugging Face": ["MindFlow", "AI Try-On"],
+  "Express": ["BillingOS", "Vault"],
+  "REST APIs": ["BillingOS", "FoodExpress", "DevLens"],
+  "MongoDB": ["FoodExpress"],
+  "pgvector": ["AI Model Governance Platform"],
+  "Next.js": [],
+  "Tailwind CSS": [],
+  "Framer Motion": ["Wikireels", "Techiesaie"],
+  "JavaScript": ["Drive Accessible", "FoodExpress"],
 };
 
 const PROJECTS = [
@@ -198,6 +212,21 @@ const PROJECTS = [
     bullets: [
       "Calls community-hosted Hugging Face models with automatic provider fallback and background job processing for try-on generation.",
       "Diagnosed and patched a schema-parsing bug in a third-party AI client library (gradio_client) affecting multiple library versions.",
+    ],
+  },
+  {
+    id: "mindflow", num: "14", name: "MindFlow", tag: "AI · Developer Tool", year: "2026", color: "#06b6d4",
+    tagline: "Turns any README into an interactive, narrated learning experience.",
+    short: "An AI-powered developer tool that transforms README and Markdown files into interactive project maps with beginner-friendly explanations, architecture walkthroughs, interview prep, and AI-generated learning videos.",
+    context: "Understanding a new codebase usually means reading hundreds of lines of documentation and figuring the rest out manually. MindFlow turns that documentation into visual graphs, AI explanations, interview prep, and narrated videos instead.",
+    liveUrl: "https://mindflow-eight-green.vercel.app", tech: ["React", "FastAPI", "Python", "React Flow", "NetworkX", "Hugging Face"],
+    bullets: [
+      "Built a Markdown parsing engine that converts README files into a structured knowledge graph with heading hierarchy, concept detection, and connected project sections.",
+      "Designed an interactive React Flow visualization where developers can explore project architecture visually instead of reading long documentation.",
+      "Implemented a multi-provider AI routing system with automatic fallback across Gemini, Groq, Mistral, Cohere, and OpenRouter for reliable AI explanations.",
+      "Built an AI-powered video generation pipeline producing narrated explainer videos via LLM-generated scripts, Gemini Text-to-Speech, custom frame rendering, and FFmpeg encoding.",
+      "Developed asynchronous background job processing with progress tracking so long-running AI video generation never blocks the UI.",
+      "Deployed the frontend on Vercel and the AI backend on Hugging Face Spaces with Docker-based deployment and environment-based provider configuration.",
     ],
   },
 ];
@@ -442,52 +471,17 @@ function ProjectsCycleCard({ onClick }) {
 
 // ── SkillsCard ─────────────────────────────────────────────────
 const SKILLS_EXPANDED = {
-  Frontend: {
-    color: C.coral,
-    items: [
-      { name: "React", projects: ["BillingOS", "Kanban Pro", "AI Check Data", "Resume AI", "DevLens", "FoodExpress"] },
-      { name: "TypeScript", projects: ["FoodExpress", "Kanban Pro"] },
-      { name: "JavaScript", projects: ["Drive Accessible", "FoodExpress"] },
-      { name: "Framer Motion", projects: ["Wikireels", "Techiesaie"] },
-      { name: "Next.js", projects: [] },
-      { name: "Tailwind CSS", projects: [] },
-    ],
-  },
-  Backend: {
-    color: C.ink,
-    items: [
-      { name: "Node.js", projects: ["BillingOS", "Kanban Pro", "Vault", "FoodExpress"] },
-      { name: "FastAPI", projects: ["AI Model Governance Platform", "AI Try-On"] },
-      { name: "Django", projects: ["Payout Engine"] },
-      { name: "PHP", projects: ["Drive Accessible"] },
-      { name: "Express", projects: ["BillingOS", "Vault"] },
-      { name: "REST APIs", projects: ["BillingOS", "FoodExpress", "DevLens"] },
-    ],
-  },
-  Database: {
-    color: "#0ea5e9",
-    items: [
-      { name: "PostgreSQL", projects: ["BillingOS", "Payout Engine", "AI Model Governance Platform"] },
-      { name: "Redis", projects: ["BillingOS", "Payout Engine"] },
-      { name: "MySQL", projects: ["Drive Accessible"] },
-      { name: "MongoDB", projects: ["FoodExpress"] },
-      { name: "Supabase", projects: ["AI Check Data", "Resume AI"] },
-      { name: "pgvector", projects: ["AI Model Governance Platform"] },
-    ],
-  },
-  Realtime: {
-    color: "#10b981",
-    items: [
-      { name: "WebSockets", projects: ["Kanban Pro", "Vault"] },
-      { name: "WebRTC", projects: ["Vault"] },
-      { name: "RAG Pipelines", projects: ["AI Model Governance Platform"] },
-      { name: "Hugging Face", projects: ["AI Try-On"] },
-    ],
-  },
+  Frontend: { color: C.coral, items: ["React", "TypeScript", "JavaScript", "Framer Motion", "Next.js", "Tailwind CSS"] },
+  Backend: { color: C.ink, items: ["Node.js", "FastAPI", "Python", "Django", "PHP", "Express", "REST APIs"] },
+  Database: { color: "#0ea5e9", items: ["PostgreSQL", "Redis", "MySQL", "MongoDB", "Supabase", "pgvector"] },
+  AI: { color: "#8b5cf6", items: ["LLMs", "Hugging Face", "React Flow", "NetworkX", "WebSockets", "WebRTC", "Docker"] },
 };
 
-function SkillsCard() {
-  const [hovered, setHovered] = useState(null); // { name, projects }
+function SkillsCard({ goToProject }) {
+  const [hovered, setHovered] = useState(null); // { name, color }
+  const hoveredProjects = hovered
+    ? (TECH_PROJECTS[hovered.name] || []).map(name => PROJECTS.find(p => p.name === name)).filter(Boolean)
+    : [];
 
   return (
     <div style={{ padding: "20px 22px", height: "100%", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
@@ -497,7 +491,7 @@ function SkillsCard() {
           {hovered ? (
             <span style={{ color: hovered.color }}>
               {hovered.name}
-              <span style={{ color: C.muted, fontWeight: 500, fontSize: 11 }}> — {hovered.projects.length > 0 ? `used in ${hovered.projects.length} project${hovered.projects.length > 1 ? "s" : ""}` : "in toolkit"}</span>
+              <span style={{ color: C.muted, fontWeight: 500, fontSize: 11 }}> — {hoveredProjects.length > 0 ? `used in ${hoveredProjects.length} project${hoveredProjects.length > 1 ? "s" : ""}` : "in toolkit"}</span>
             </span>
           ) : "Hover a skill →"}
         </h3>
@@ -511,13 +505,12 @@ function SkillsCard() {
               <p style={{ fontSize: 8, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.15em", color, margin: 0 }}>{cat}</p>
             </div>
             <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-              {items.map(item => {
-                const isHov = hovered?.name === item.name;
+              {items.map(name => {
+                const isHov = hovered?.name === name;
                 return (
                   <span
-                    key={item.name}
-                    onMouseEnter={() => setHovered({ ...item, color })}
-                    onMouseLeave={() => setHovered(null)}
+                    key={name}
+                    onMouseEnter={() => setHovered({ name, color })}
                     style={{
                       fontSize: 10, fontWeight: isHov ? 800 : 600,
                       color: isHov ? "#fff" : C.ink,
@@ -528,7 +521,7 @@ function SkillsCard() {
                       boxShadow: isHov ? `0 2px 8px ${color}44` : "none",
                     }}
                   >
-                    {item.name}
+                    {name}
                   </span>
                 );
               })}
@@ -537,19 +530,20 @@ function SkillsCard() {
         ))}
       </div>
 
-      {/* Hover tooltip showing linked projects */}
-      <div style={{ marginTop: 12, minHeight: 50, padding: "10px 12px", borderRadius: 10, background: hovered?.projects?.length > 0 ? "#f0f9ff" : "#f7f4ef", border: `1px solid ${hovered ? hovered.color + "30" : C.line}`, transition: "all 0.18s" }}>
+      {/* Linked projects — stays showing the last-hovered skill, click to open */}
+      <div style={{ marginTop: 12, minHeight: 50, padding: "10px 12px", borderRadius: 10, background: hoveredProjects.length > 0 ? "#f0f9ff" : "#f7f4ef", border: `1px solid ${hovered ? hovered.color + "30" : C.line}`, transition: "all 0.18s" }}>
         {hovered ? (
-          hovered.projects.length > 0 ? (
+          hoveredProjects.length > 0 ? (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-              {hovered.projects.map(name => {
-                const p = PROJECTS.find(pr => pr.name === name);
-                return p ? (
-                  <span key={name} style={{ fontSize: 9.5, fontWeight: 800, color: p.color, background: p.color + "12", border: `1px solid ${p.color}30`, padding: "3px 9px", borderRadius: 99 }}>
-                    {p.num} {name}
-                  </span>
-                ) : null;
-              })}
+              {hoveredProjects.map(p => (
+                <button
+                  key={p.id}
+                  onClick={() => goToProject?.(p)}
+                  style={{ fontSize: 9.5, fontWeight: 800, color: p.color, background: p.color + "12", border: `1px solid ${p.color}30`, padding: "3px 9px", borderRadius: 99, cursor: "pointer", fontFamily: "inherit" }}
+                >
+                  {p.num} {p.name}
+                </button>
+              ))}
             </div>
           ) : (
             <p style={{ fontSize: 10, color: C.muted, margin: 0 }}>In toolkit — not yet featured in a public project.</p>
@@ -588,7 +582,7 @@ const EDGES = [
   [8, 9], [10, 1], [11, 6], [3, 9], [2, 4]
 ];
 
-function TechNetworkCard() {
+function TechNetworkCard({ goToProject }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const activeNode = hoveredIndex !== null ? NODE_POSITIONS[hoveredIndex] : null;
   const projects = activeNode
@@ -650,7 +644,6 @@ function TechNetworkCard() {
                 <motion.g
                   key={nd.name}
                   onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
                   animate={{ opacity: hoveredIndex === null || isHov || isConn ? 1 : 0.4 }}
                   transition={{ duration: 0.15 }}
                   style={{ cursor: "pointer" }}
@@ -697,13 +690,15 @@ function TechNetworkCard() {
 
               <div className="custom-scrollbar" style={{ height: 195, overflowY: "auto", paddingRight: 2, display: "flex", flexDirection: "column", gap: 7 }}>
                 {previewProjects.map(p => (
-                  <div
+                  <button
                     key={p.id}
-                    style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)" }}
+                    onClick={() => goToProject?.(p)}
+                    style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)", textAlign: "left", cursor: "pointer", width: "100%", display: "block" }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
                       <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
                       <p style={{ fontSize: 10.6, color: C.ink, fontWeight: 850, margin: 0 }}>{p.name}</p>
+                      <span style={{ marginLeft: "auto", fontSize: 9, color: p.color, fontWeight: 800 }}>View →</span>
                     </div>
                     <p style={{
                       fontSize: 9.2,
@@ -715,7 +710,7 @@ function TechNetworkCard() {
                       WebkitBoxOrient: "vertical",
                       overflow: "hidden",
                     }}>{p.short}</p>
-                  </div>
+                  </button>
                 ))}
                 {projects.length > previewProjects.length && (
                   <p style={{ fontSize: 9.4, color: activeNode.color, fontWeight: 850, margin: "1px 0 0" }}>
@@ -863,7 +858,10 @@ function FeaturedProjectCard({ p, delay, onClick }) {
       <div style={{ height: 4, background: p.color }} />
       <div style={{ padding: "15px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
-          <span style={{ fontSize: 8, fontWeight: 900, color: p.color, background: p.color + "14", padding: "2px 7px", borderRadius: 99, textTransform: "uppercase", letterSpacing: "0.08em" }}>{p.tag}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontSize: 8.5, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{p.num}</span>
+            <span style={{ fontSize: 8, fontWeight: 900, color: p.color, background: p.color + "14", padding: "2px 7px", borderRadius: 99, textTransform: "uppercase", letterSpacing: "0.08em" }}>{p.tag}</span>
+          </div>
           {p.liveUrl ? (
             <span style={{ fontSize: 8.5, color: "#22c55e", fontWeight: 900, display: "flex", alignItems: "center", gap: 3 }}>
               <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e", display: "inline-block" }} />Live
@@ -895,157 +893,113 @@ function FeaturedProjectCard({ p, delay, onClick }) {
 // WORK PAGE
 // ══════════════════════════════════════════════════════════════
 function WorkPage() {
-  const [activeId, setActiveId] = useState(PROJECTS[0].id);
-  const cur = PROJECTS.find(p => p.id === activeId);
-  const panelRef = useRef();
-
-  const select = id => {
-    setActiveId(id);
-    setTimeout(() => panelRef.current?.scrollTo({ top: 0, behavior: "smooth" }), 10);
-  };
+  const [activeProject, setActiveProject] = useState(null);
 
   return (
     <div className="page-shell" style={{ paddingTop: 80, paddingBottom: 60, maxWidth: 1060, margin: "0 auto", padding: "80px 20px 60px" }}>
-      <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 18, marginBottom: 24, display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-end" }}>
+      <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 18, marginBottom: 24, display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-end", flexWrap: "wrap" }}>
         <div>
           <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase" }}>Archive</span>
           <h2 style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: "5px 0 0", letterSpacing: "-0.04em" }}>All Projects</h2>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ textAlign: "right" }}>
-            <p style={{ fontSize: 22, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.04em" }}>{PROJECTS.length}</p>
-            <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>shipped</p>
+        <div style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 14 }}>
+            <div style={{ textAlign: "right" }}>
+              <p style={{ fontSize: 22, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.04em" }}>{PROJECTS.length}</p>
+              <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>shipped</p>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <p style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.04em" }}>{PROJECTS.filter(p => p.liveUrl).length}</p>
+              <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>live now</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="work-mobile-list" style={{ display: "none", flexDirection: "column", gap: 14 }}>
+      <p style={{ fontSize: 11, color: C.muted, fontWeight: 600, margin: "0 0 14px" }}>Tap any project for the full build breakdown.</p>
+
+      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
         {PROJECTS.map((p, i) => (
-          <motion.article
-            key={p.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: i * 0.03, ease: EASE }}
-            style={{ background: C.card, border: `1px solid ${C.line}`, borderRadius: 16, overflow: "hidden" }}
-          >
-            {/* Accent bar */}
-            <div style={{ height: 4, background: `linear-gradient(90deg, ${p.color}, ${p.color}88)` }} />
-            <div style={{ padding: "18px 18px 16px" }}>
-              {/* Top row */}
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 6 }}>
-                    <span style={{ fontSize: 8.5, color: p.color, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", background: p.color + "14", padding: "3px 8px", borderRadius: 6 }}>{p.tag}</span>
-                    <span style={{ fontSize: 9, color: C.muted, fontWeight: 700, fontFamily: "monospace" }}>{p.year}</span>
-                  </div>
-                  <h3 style={{ fontSize: 18, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>{p.name}</h3>
-                </div>
-                {p.liveUrl && (
-                  <a href={p.liveUrl} target="_blank" rel="noreferrer"
-                    style={{ fontSize: 9.5, color: p.color, fontWeight: 900, textDecoration: "none", whiteSpace: "nowrap", background: p.color + "12", border: `1px solid ${p.color}30`, padding: "5px 10px", borderRadius: 8, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                    Live
-                  </a>
-                )}
-              </div>
-
-              <p style={{ fontSize: 12.5, color: p.color, fontWeight: 850, lineHeight: 1.38, margin: "0 0 8px" }}>{p.tagline}</p>
-              <p style={{ fontSize: 11.6, color: C.ink, lineHeight: 1.58, margin: "0 0 13px" }}>{p.short}</p>
-
-              {/* Key bullet */}
-              <div style={{ padding: "11px 13px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 10, marginBottom: 13, display: "flex", gap: 10, alignItems: "flex-start" }}>
-                <div style={{ width: 18, height: 18, borderRadius: 5, background: p.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-                </div>
-                <p style={{ fontSize: 11, color: C.ink, lineHeight: 1.48, margin: 0 }}>{p.bullets[0]}</p>
-              </div>
-
-              {/* Tech pills */}
-              <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-                {p.tech.slice(0, 4).map(t => (
-                  <span key={t} style={{ fontSize: 9.5, fontWeight: 700, color: C.navy, background: C.soft, padding: "3px 9px", borderRadius: 999, border: `1px solid ${C.line}` }}>{t}</span>
-                ))}
-                {p.tech.length > 4 && <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700, alignSelf: "center" }}>+{p.tech.length - 4}</span>}
-              </div>
-            </div>
-          </motion.article>
+          <FeaturedProjectCard key={p.id} p={p} delay={Math.min(i * 0.02, 0.3)} onClick={() => setActiveProject(p)} />
         ))}
       </div>
 
-      <div className="work-grid" style={{ display: "grid", gridTemplateColumns: "248px 1fr", gap: 14, alignItems: "start" }}>
-        {/* Sidebar */}
-        <div style={{ position: "sticky", top: 68, maxHeight: "calc(100vh - 90px)", overflowY: "auto", display: "flex", flexDirection: "column", gap: 2 }}>
-          {PROJECTS.map(p => {
-            const sel = p.id === activeId;
-            return (
-              <motion.button key={p.id} onClick={() => select(p.id)} whileHover={{ x: 2 }} transition={SP}
-                style={{ width: "100%", background: sel ? C.card : "transparent", border: sel ? `1px solid ${C.line}` : "1px solid transparent", padding: "10px 13px", borderRadius: 11, cursor: "pointer", textAlign: "left", position: "relative", transition: "background 0.15s, box-shadow 0.15s", boxShadow: sel ? "0 2px 10px rgba(61,64,91,0.07)" : "none" }}>
-                {sel && <motion.div layoutId="sel-bar" style={{ position: "absolute", left: 0, top: "18%", bottom: "18%", width: 3, background: cur.color, borderRadius: 2 }} />}
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingLeft: sel ? 7 : 0, transition: "padding 0.15s" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 9, minWidth: 0 }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: p.color, flexShrink: 0, boxShadow: sel ? `0 0 0 3px ${p.color}28` : "none", transition: "box-shadow 0.15s" }} />
-                    <div style={{ minWidth: 0 }}>
-                      <p style={{ fontSize: 12, fontWeight: sel ? 850 : 600, color: sel ? C.navy : C.ink, margin: 0, letterSpacing: sel ? "-0.01em" : "0" }}>{p.name}</p>
-                      <p style={{ fontSize: 8.5, color: sel ? p.color : C.muted, margin: "1px 0 0", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.tag}</p>
-                    </div>
-                  </div>
-                  <span style={{ fontSize: 9, color: sel ? C.muted : C.muted + "88", fontFamily: "monospace", flexShrink: 0 }}>{p.year.slice(-4)}</span>
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
+      <ProjectDetailSheet project={activeProject} onClose={() => setActiveProject(null)} />
+    </div>
+  );
+}
 
-        {/* Detail panel */}
-        <AnimatePresence mode="wait">
-          <motion.div key={cur.id} ref={panelRef} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} transition={{ duration: 0.22, ease: EASE }}
-            style={{ background: C.card, borderRadius: 16, border: `1px solid ${C.line}`, overflow: "hidden" }}>
-            <div style={{ height: 4, background: `linear-gradient(90deg, ${cur.color}, ${cur.color}66)` }} />
-            <div style={{ padding: "28px 30px" }}>
+// ── ProjectDetailSheet ──────────────────────────────────────────
+function ProjectDetailSheet({ project, onClose }) {
+  return (
+    <AnimatePresence>
+      {project && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          style={{ position: "fixed", inset: 0, zIndex: 400, background: "rgba(35,38,66,0.38)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "0" }}
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 320, damping: 32 }}
+            onClick={e => e.stopPropagation()}
+            style={{ width: "100%", maxWidth: 760, maxHeight: "92vh", overflowY: "auto", background: C.bg, borderRadius: "22px 22px 0 0", border: `1px solid ${C.line}`, boxShadow: "0 -24px 80px rgba(35,38,66,0.28)" }}
+          >
+            <div style={{ position: "sticky", top: 0, zIndex: 2, background: C.bg, paddingTop: 14, paddingBottom: 2 }}>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
+                <div style={{ width: 48, height: 4, borderRadius: 999, background: "rgba(35,38,66,0.18)" }} />
+              </div>
+              <div style={{ height: 4, background: `linear-gradient(90deg, ${project.color}, ${project.color}66)` }} />
+            </div>
+
+            <div className="work-detail-padding" style={{ padding: "26px 30px 36px" }}>
               <div style={{ marginBottom: 22 }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: cur.color, background: cur.color + "16", padding: "4px 10px", borderRadius: 99, border: `1px solid ${cur.color}28` }}>{cur.tag}</span>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{cur.year}</span>
+                    <span style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, background: project.color + "16", padding: "4px 10px", borderRadius: 99, border: `1px solid ${project.color}28` }}>{project.tag}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{project.year}</span>
                   </div>
-                  {cur.liveUrl && (
-                    <a href={cur.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
-                      style={{ fontSize: 10.5, fontWeight: 800, color: cur.color, background: cur.color + "10", padding: "6px 14px", borderRadius: 9, textDecoration: "none", border: `1px solid ${cur.color}28`, display: "inline-flex", alignItems: "center", gap: 5 }}>
+                  {project.liveUrl && (
+                    <a href={project.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
+                      style={{ fontSize: 10.5, fontWeight: 800, color: project.color, background: project.color + "10", padding: "6px 14px", borderRadius: 9, textDecoration: "none", border: `1px solid ${project.color}28`, display: "inline-flex", alignItems: "center", gap: 5 }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                      {cur.urls?.[0] || "Live Site"}
+                      {project.urls?.[0] || "Live Site"}
                     </a>
                   )}
                 </div>
-                <h3 style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: "0 0 8px", letterSpacing: "-0.04em" }}>{cur.name}</h3>
-                <p style={{ fontSize: 14, color: cur.color, fontWeight: 750, margin: "0 0 12px", lineHeight: 1.4 }}>{cur.tagline}</p>
-                <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65 }}>{cur.short}</p>
+                <h3 style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: "0 0 8px", letterSpacing: "-0.04em" }}>{project.name}</h3>
+                <p style={{ fontSize: 14, color: project.color, fontWeight: 750, margin: "0 0 12px", lineHeight: 1.4 }}>{project.tagline}</p>
+                <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65 }}>{project.short}</p>
               </div>
 
-              {cur.context && (
-                <div style={{ marginBottom: 22, padding: "14px 16px", background: cur.color + "0d", borderLeft: `3px solid ${cur.color}`, borderRadius: "0 10px 10px 0" }}>
-                  <p style={{ fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: cur.color, margin: "0 0 5px" }}>Why it was built</p>
-                  <p style={{ fontSize: 12, color: C.ink, margin: 0, lineHeight: 1.58 }}>{cur.context}</p>
+              {project.context && (
+                <div style={{ marginBottom: 22, padding: "14px 16px", background: project.color + "0d", borderLeft: `3px solid ${project.color}`, borderRadius: "0 10px 10px 0" }}>
+                  <p style={{ fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, margin: "0 0 5px" }}>Why it was built</p>
+                  <p style={{ fontSize: 12, color: C.ink, margin: 0, lineHeight: 1.58 }}>{project.context}</p>
                 </div>
               )}
 
-              {cur.urls?.[1] && (
+              {project.urls?.[1] && (
                 <div style={{ marginBottom: 18 }}>
-                  <a href={cur.fleetUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
+                  <a href={project.fleetUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
                     style={{ fontSize: 10.5, fontWeight: 700, color: C.muted, background: C.soft, padding: "6px 14px", borderRadius: 8, textDecoration: "none", border: `1px solid ${C.line}`, display: "inline-flex", alignItems: "center", gap: 5 }}>
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
-                    {cur.urls[1]}
+                    {project.urls[1]}
                   </a>
                 </div>
               )}
 
               <div style={{ marginBottom: 22 }}>
                 <p style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: C.muted, marginBottom: 12 }}>What was built</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {cur.bullets.map((b, i) => (
-                    <div key={i} style={{ display: "flex", gap: 13, alignItems: "flex-start", padding: "13px 15px", background: i === 0 ? cur.color + "0a" : "#faf9f6", borderRadius: 11, border: `1px solid ${i === 0 ? cur.color + "28" : C.line}` }}>
-                      <div style={{ width: 21, height: 21, borderRadius: 7, background: i === 0 ? cur.color : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-                      </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+                  {project.bullets.map((b, i) => (
+                    <div key={i} style={{ display: "flex", gap: 11, alignItems: "flex-start" }}>
+                      <span style={{ width: i === 0 ? 5 : 4, height: i === 0 ? 5 : 4, borderRadius: "50%", background: i === 0 ? project.color : C.muted, marginTop: 7, flexShrink: 0 }} />
                       <p style={{ fontSize: 12.5, color: i === 0 ? C.navy : C.ink, margin: 0, lineHeight: 1.62, fontWeight: i === 0 ? 650 : 450 }}>{b}</p>
                     </div>
                   ))}
@@ -1055,16 +1009,16 @@ function WorkPage() {
               <div style={{ padding: "16px 18px", background: C.navy, borderRadius: 12 }}>
                 <p style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)", marginBottom: 10 }}>Stack</p>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {cur.tech.map(t => (
+                  {project.tech.map(t => (
                     <span key={t} style={{ fontSize: 11, background: "rgba(255,255,255,0.1)", color: "#fff", padding: "5px 12px", borderRadius: 7, border: "1px solid rgba(255,255,255,0.12)", fontWeight: 650 }}>{t}</span>
                   ))}
                 </div>
               </div>
             </div>
           </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -1461,7 +1415,7 @@ function ContactPage() {
         <h2 style={{ fontSize: 22, fontWeight: 900, color: C.ink, margin: "4px 0 0", letterSpacing: "-0.03em" }}>Let's talk</h2>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 240px", gap: 16 }}>
+      <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 240px", gap: 16 }}>
         <Card style={{ padding: "28px 30px" }}>
           <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.7, margin: "0 0 22px" }}>
             Open to backend engineering contracts, infrastructure work, and full-time roles in fintech or real-time systems.
@@ -1702,6 +1656,14 @@ function ResumeSheet({ open, onClose }) {
 function Nav({ page, setPage, onResume }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const close = () => setMenuOpen(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  const navItems = [["home", "Home"], ["work", "Work"], ["about", "About"], ["resume", "Resume"]];
+
   return (
     <>
       <header className="site-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 200, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "0 20px", background: "rgba(250,249,246,0.94)", backdropFilter: "blur(16px)", borderBottom: `1px solid ${C.line}` }}>
@@ -1721,30 +1683,72 @@ function Nav({ page, setPage, onResume }) {
           <a href="mailto:muhammadimrank034@gmail.com" style={{ marginLeft: 6, padding: "5px 14px", borderRadius: 99, border: "none", background: C.coral, color: "#fff", fontSize: 10, fontWeight: 800, textDecoration: "none", letterSpacing: "0.04em", textTransform: "uppercase" }}>Contact</a>
         </nav>
         {/* Mobile hamburger */}
-        <button className="mobile-menu-btn" onClick={() => setMenuOpen(o => !o)}
-          style={{ display: "none", flexDirection: "column", gap: 4.5, background: "none", border: "none", cursor: "pointer", padding: 4 }}>
+        <button
+          onClick={() => setMenuOpen(true)}
+          className="hidden max-[600px]:flex absolute right-5 top-1/2 -translate-y-1/2 flex-col gap-1"
+        >
           {[0, 1, 2].map(i => (
-            <span key={i} style={{
-              display: "block", width: 22, height: 2, background: C.navy, borderRadius: 2, transition: "all 0.2s",
-              transform: menuOpen ? (i === 0 ? "rotate(45deg) translate(4.5px, 4.5px)" : i === 2 ? "rotate(-45deg) translate(4.5px, -4.5px)" : "scaleX(0)") : "none",
-              opacity: menuOpen && i === 1 ? 0 : 1,
-            }} />
+            <span
+              key={i}
+              className="w-6 h-0.5 rounded bg-[#232642]"
+            />
           ))}
         </button>
       </header>
-      {/* Mobile drawer */}
+
+      {/* Mobile full-screen takeover menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.18 }}
-            style={{ position: "fixed", top: 52, left: 0, right: 0, zIndex: 199, background: "rgba(250,249,246,0.98)", backdropFilter: "blur(20px)", borderBottom: `1px solid ${C.line}`, padding: "12px 20px 18px", display: "flex", flexDirection: "column", gap: 4 }}>
-            {[["home", "Home"], ["work", "Work"], ["about", "About"]].map(([id, label]) => (
-              <button key={id} onClick={() => { setPage(id); close(); }}
-                style={{ width: "100%", textAlign: "left", padding: "10px 14px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 14, fontWeight: page === id ? 800 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.navy : C.ink }}>
-                {label}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: EASE }}
+            style={{ position: "fixed", inset: 0, zIndex: 300, background: C.navy, display: "flex", flexDirection: "column" }}
+          >
+            {/* Top row: brand + close */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px", minHeight: 56, flexShrink: 0 }}>
+              <span style={{ color: "#fff", fontWeight: 800, fontSize: 13, letterSpacing: "-0.01em" }}>Imran Khan</span>
+              <button onClick={close} aria-label="Close menu" style={{ width: 38, height: 38, borderRadius: "50%", background: "rgba(255,255,255,0.08)", border: "none", color: "#fff", fontSize: 18, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                ✕
               </button>
-            ))}
-            <button onClick={() => { onResume(); close(); }} style={{ width: "100%", textAlign: "left", padding: "10px 14px", borderRadius: 10, border: "none", cursor: "pointer", fontSize: 14, fontWeight: 500, background: "transparent", color: C.ink }}>Resume</button>
-            <a href="mailto:muhammadimrank034@gmail.com" onClick={close} style={{ display: "block", margin: "6px 0 0", padding: "11px 14px", background: C.coral, color: "#fff", borderRadius: 10, textDecoration: "none", fontSize: 13, fontWeight: 800, textAlign: "center", textTransform: "uppercase", letterSpacing: "0.06em" }}>Contact</a>
+            </div>
+
+            {/* Big numbered nav */}
+            <nav style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 26px", gap: 2 }}>
+              {navItems.map(([id, label], i) => {
+                const isActive = id !== "resume" && page === id;
+                return (
+                  <motion.button
+                    key={id}
+                    initial={{ opacity: 0, x: -18 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + i * 0.06, duration: 0.32, ease: EASE }}
+                    onClick={() => { id === "resume" ? onResume() : setPage(id); close(); }}
+                    style={{ display: "flex", alignItems: "baseline", gap: 14, background: "none", border: "none", padding: "13px 0", cursor: "pointer", textAlign: "left", width: "100%" }}
+                  >
+                    <span style={{ fontSize: 12, fontWeight: 700, color: isActive ? C.coral : "rgba(255,255,255,0.32)", fontFamily: "monospace", flexShrink: 0 }}>0{i + 1}</span>
+                    <span style={{ fontSize: 38, fontWeight: 850, color: isActive ? "#fff" : "rgba(255,255,255,0.55)", letterSpacing: "-0.03em" }}>{label}</span>
+                  </motion.button>
+                );
+              })}
+            </nav>
+
+            {/* Footer: casual sign-off + contact */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.32, duration: 0.3, ease: EASE }}
+              style={{ padding: "0 26px 36px", display: "flex", flexDirection: "column", gap: 14, flexShrink: 0 }}
+            >
+              <a href="mailto:muhammadimrank034@gmail.com" onClick={close}
+                style={{ background: C.coral, color: "#fff", textAlign: "center", padding: "15px 0", borderRadius: 999, fontWeight: 800, fontSize: 13.5, textDecoration: "none", letterSpacing: "0.01em" }}>
+                Say hi →
+              </a>
+              <p style={{ color: "rgba(255,255,255,0.38)", fontSize: 11, textAlign: "center", margin: 0, fontWeight: 500 }}>
+                Mumbai · usually online, mostly caffeinated
+              </p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1774,13 +1778,23 @@ export default function App() {
         .featured-work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 
         /* ── Desktop: work page ── */
-        .work-grid{display:grid;grid-template-columns:248px 1fr;gap:14px;align-items:start;}
-        .work-mobile-list{display:none!important;}
+        .work-detail-padding{padding:28px 30px;}
+
+        /* ── Desktop: about / contact page ── */
+        .about-grid{display:grid;grid-template-columns:1fr 310px;gap:18px;}
+        .contact-grid{display:grid;grid-template-columns:1fr 240px;gap:16px;}
 
         /* ── Desktop: resume paper ── */
         .resume-paper-body{display:grid;grid-template-columns:235px 1fr;}
 
         /* ── Nav ── */
+        .mobile-menu-btn{
+          display:none!important;
+          position:absolute;
+          top:24px;
+          right:24px;
+          z-index:1000;
+        }
         .site-nav-links{display:flex;}
         .mobile-menu-btn{display:none!important;}
 
@@ -1790,8 +1804,8 @@ export default function App() {
           .profile-strip-left{border-right:none!important;border-bottom:1px solid rgba(61,64,91,0.08);padding-right:0!important;padding-bottom:20px!important;}
           .home-grid-bottom{grid-template-columns:1fr!important;}
           .featured-work-grid{grid-template-columns:1fr 1fr!important;}
-          .work-grid{display:none!important;}
-          .work-mobile-list{display:flex!important;}
+          .about-grid{grid-template-columns:1fr!important;}
+          .contact-grid{grid-template-columns:1fr!important;}
           .resume-paper-body{grid-template-columns:1fr!important;}
           .resume-paper-body aside{min-height:unset!important;border-right:none!important;border-bottom:6px solid #e27d60;}
         }
@@ -1809,6 +1823,8 @@ export default function App() {
           .intro-buttons{flex-direction:column;width:100%;}
           .intro-buttons a,.intro-buttons button{width:100%;text-align:center;}
           .about-proof-grid{grid-template-columns:1fr!important;}
+          .profile-strip{padding:20px!important;}
+          .work-detail-padding{padding:20px 18px!important;}
         }
 
         /* ── Very small (≤ 400px) ── */
