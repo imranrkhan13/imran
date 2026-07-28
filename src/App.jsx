@@ -1,5 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+// `motion.*` is referenced through JSX member expressions; the local ESLint setup does not detect those usages.
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion, animate } from "framer-motion";
+import {
+  ArrowUpRight, Boxes, BriefcaseBusiness, Braces, Building2, Code2,
+  Database, Download, ExternalLink, FileText, FolderKanban, Github,
+  Globe2, GraduationCap, House, Linkedin, Mail, Phone, Rocket, Send,
+  ShieldCheck, Sparkles, Trophy, UserRound,
+} from "lucide-react";
 import niceFace from "./assets/nice.png";
 
 // ── Original white/warm theme ──────────────────────────────────
@@ -17,6 +25,141 @@ const C = {
 };
 
 const EASE = [0.25, 1, 0.5, 1];
+
+const HACKATHON_PROJECTS = [
+  {
+    id: "ship-or-donate", num: "H1", name: "Ship or Donate", tag: "Spark · Monad Hackathon", year: "2026", color: "#8b5cf6",
+    tagline: "Stake a deadline. Ship, or send the stake to open source.",
+    short: "Ship or Donate is an onchain commitment escrow where builders lock test MON against a personal shipping deadline. A verifier checks the proof, then the stake is refunded for a completed build or routed to an open-source recipient.",
+    context: "Built to make a personal shipping commitment concrete: proof is reviewed by a verifier, then the stake is refunded or donated.",
+    liveUrl: "https://ship-or-donate.vercel.app/", tech: ["Solidity", "Next.js", "wagmi", "viem"],
+    bullets: ["Built an onchain escrow that locks test MON against a builder-defined shipping deadline.", "Deployed on Monad testnet with a real, verified refund transaction: 0x3e232e…616176.", "Designed a verifier-reviewed proof flow before a refund is released."],
+  },
+  {
+    id: "dealmemory", num: "H2", name: "DealMemory / Activation Memory", tag: "Supermemory × Dodo", year: "2026", color: "#0ea5e9",
+    tagline: "Remembers where a trial user got stuck, so onboarding can continue.",
+    short: "DealMemory is an activation-intelligence SDK for SaaS trials that remembers a user's goal, progress, and blocker across sessions. It gives product teams enough context to resume onboarding at the next useful step instead of starting over.",
+    context: "Instead of restarting onboarding from scratch, DealMemory brings a user back to the exact milestone and blocker they last reached.",
+    liveUrl: "https://dealmemory.vercel.app/", tech: ["TypeScript", "Next.js", "Prisma"],
+    bullets: ["Tracked explicit activation events, user goals, and blockers across trial sessions.", "Gated checkout until activation milestones were reached.", "Built for the Supermemory × Dodo Hackathon."],
+  },
+  {
+    id: "vendor-risk-agent", num: "H3", name: "Vendor Risk Assessment Agent", tag: "RAISE Summit · Vultr", year: "2026", color: "#14b8a6",
+    tagline: "A source-grounded vendor-risk review in under 24 hours.",
+    short: "Vendor Risk Assessment Agent ingests SOC 2 reports, extracts relevant evidence through a multi-step agentic workflow, and turns it into deterministic vendor-risk scoring. The result is a review that can be inspected rather than treated as a black box.",
+    context: "Created during the RAISE Summit Hackathon's Vultr Track, prioritising traceable assessment logic over an opaque score.",
+    tech: ["Python", "FastAPI", "Next.js"],
+    bullets: ["Built the prototype in under 24 hours.", "Ingests SOC 2 reports and runs a multi-step review workflow.", "Pairs agentic extraction with deterministic scoring for a more explainable assessment."],
+  },
+  {
+    id: "voxstep", num: "H4", name: "Voxstep", tag: "Voice AI Challenge", year: "2026", color: "#f59e0b",
+    tagline: "Pronunciation scoring with a reliable speech-to-text fallback chain.",
+    short: "Voxstep is a pronunciation assessment app that transcribes speech through a multi-provider fallback chain, then compares the result using deterministic phoneme alignment. It is designed to keep feedback dependable even when one speech-to-text provider is unavailable.",
+    context: "The app is designed to keep assessment feedback dependable when a primary transcription provider is unavailable.",
+    liveUrl: "https://voxstep.vercel.app/", tech: ["Next.js", "TypeScript", "STT APIs"],
+    bullets: ["Built a multi-provider STT fallback chain.", "Implemented deterministic phoneme alignment for pronunciation feedback.", "Shipped for the Voice AI Assessment Challenge."],
+  },
+  {
+    id: "truthlens", num: "H5", name: "TruthLens AI", tag: "VideoDB Hackathon", year: "2026", color: "#ec4899",
+    tagline: "Video forensics through six agents sharing one evidence layer.",
+    short: "TruthLens AI is a video-forensics platform where six specialist agents share one evidence layer. It combines face detection, audio analysis, and frame-continuity checks so an investigator can examine several signals together rather than rely on one verdict.",
+    context: "TruthLens is built to inspect video evidence from several angles rather than relying on a single black-box verdict.",
+    tech: ["Python", "FastAPI", "Next.js", "VideoDB"],
+    bullets: ["Implemented six forensic agents backed by one shared memory layer.", "Added OpenCV face detection with a reported 99.8% confidence result.", "Included DSP audio checks and pixel-level frame-continuity analysis."],
+  },
+];
+
+const NAV_ITEMS = [
+  ["home", "Home", House],
+  ["work", "Work", FolderKanban],
+  ["about", "About", UserRound],
+  ["resume", "Resume", FileText],
+];
+
+function CountUp({ value, style = {} }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-12px" });
+  const reduceMotion = useReducedMotion();
+  const text = String(value);
+  const target = Number(text.match(/\d+/)?.[0] || 0);
+  const suffix = text.replace(String(target), "");
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return undefined;
+    if (reduceMotion) return undefined;
+    const controls = animate(0, target, {
+      duration: 0.85,
+      ease: EASE,
+      onUpdate: (latest) => setDisplay(Math.round(latest)),
+    });
+    return () => controls.stop();
+  }, [inView, reduceMotion, target]);
+
+  return <span ref={ref} style={{ fontVariantNumeric: "tabular-nums", ...style }}>{reduceMotion ? target : display}{suffix}</span>;
+}
+
+function ProjectIcon({ project, size = 13 }) {
+  const source = `${project.tag} ${project.tech.join(" ")}`.toLowerCase();
+  const Icon = source.includes("hackathon") || source.includes("challenge") || source.includes("spark")
+    ? Rocket
+    : source.includes("fintech") || source.includes("database") || source.includes("postgres")
+      ? Database
+      : source.includes("security") || source.includes("governance") || source.includes("forensic")
+        ? ShieldCheck
+        : source.includes("developer") || source.includes("tool") || source.includes("sdk")
+          ? Code2
+          : Boxes;
+  return <Icon size={size} strokeWidth={2.15} aria-hidden="true" />;
+}
+
+function TechTag({ name, dark = false }) {
+  const key = name.toLowerCase();
+  const Icon = key.includes("postgres") || key.includes("mysql") || key.includes("redis") || key.includes("mongo") || key.includes("prisma")
+    ? Database
+    : key.includes("python") || key.includes("typescript") || key.includes("javascript") || key.includes("solidity")
+      ? Braces
+      : key.includes("react") || key.includes("next") || key.includes("docker")
+        ? Boxes
+        : Code2;
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 9, fontWeight: 700, color: dark ? "#fff" : C.navy, background: dark ? "rgba(255,255,255,0.1)" : C.soft, padding: "2px 7px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : C.line}` }}>
+      <Icon size={10} strokeWidth={2.2} aria-hidden="true" />
+      {name}
+    </span>
+  );
+}
+
+function Mascot({ size = 56, className, decorative = true }) {
+  const reduceMotion = useReducedMotion();
+  const float = reduceMotion ? {} : { y: [0, -2, 0] };
+  const wave = reduceMotion ? {} : { rotate: [0, 14, 0] };
+  return (
+    <motion.svg
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      role={decorative ? undefined : "img"}
+      aria-hidden={decorative ? "true" : undefined}
+      aria-label={decorative ? undefined : "A small developer robot mascot"}
+      animate={float}
+      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      <rect x="13" y="17" width="38" height="34" rx="12" fill="#faf9f6" stroke="#232642" strokeWidth="2.5" />
+      <path d="M32 12v5M27 12h10" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="25" cy="32" r="3.5" fill="#e27d60" />
+      <circle cx="39" cy="32" r="3.5" fill="#e27d60" />
+      <path d="M25 41c4 3 10 3 14 0" fill="none" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" />
+      <motion.g animate={wave} transition={{ duration: 2.3, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }} style={{ transformOrigin: "53px 39px" }}>
+        <path d="M51 36l7-7M56 29l3 3M57 31l3-1" fill="none" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      </motion.g>
+      <path d="M13 36l-5 4" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" />
+      <rect x="27" y="52" width="10" height="5" rx="2.5" fill="#e27d60" />
+    </motion.svg>
+  );
+}
 
 // Tech → projects mapping for hover tooltips
 const TECH_PROJECTS = {
@@ -53,7 +196,7 @@ const PROJECTS = [
   {
     id: "drive", num: "01", name: "Drive Accessible", tag: "SaaS · Production", year: "2025–Now", color: "#e27d60",
     tagline: "Full-scale fleet & car rental SaaS — live customers, live money.",
-    short: "A production fleet and car rental SaaS centralising vehicle management, customer bookings, billing, payment tracking, and operational renewals into one cohesive system used daily by real operations teams.",
+    short: "DriveAccessible is a production fleet and car-rental operations platform that brings vehicle inventory, booking availability, billing, payment tracking, and renewals into one workflow. It helps operators run daily rentals from a single system while protecting against booking conflicts and overdue work.",
     context: "This is a real production system used daily by operations teams at a car rental business. Not a side project — live customers, live money, zero tolerance for downtime.",
     urls: ["driveaccessible.com", "fleet.driveaccessible.com"], liveUrl: "https://driveaccessible.com", fleetUrl: "https://fleet.driveaccessible.com",
     tech: ["PHP", "JavaScript", "MySQL"],
@@ -69,7 +212,7 @@ const PROJECTS = [
   {
     id: "billingos", num: "02", name: "BillingOS", tag: "SaaS · Infrastructure", year: "2025", color: "#0ea5e9",
     tagline: "Production-grade multi-tenant billing engine modelled on Stripe Billing.",
-    short: "A multi-tenant billing engine with subscription lifecycle management, proration on plan changes, exponential-backoff retries, PDF invoicing, idempotent Stripe webhooks, and PostgreSQL Row-Level Security.",
+    short: "BillingOS is a multi-tenant billing engine that models the subscription lifecycle from trial to cancellation, calculates proration when plans change, and creates invoices and retry workflows. It treats webhooks and customer data as infrastructure concerns, using idempotency and PostgreSQL row-level security to keep the system safe as it grows.",
     context: "Built to understand how billing infrastructure like Stripe actually works under the hood. Every design decision mirrors what a real SaaS billing system needs at scale.",
     liveUrl: "", tech: ["Node.js", "React", "PostgreSQL", "Redis", "Stripe", "PDFKit"],
     bullets: [
@@ -84,7 +227,7 @@ const PROJECTS = [
   {
     id: "payout", num: "03", name: "Payout Engine", tag: "Fintech · Backend", year: "2025", color: "#10b981",
     tagline: "Merchant payout engine — integer arithmetic, row-level locking, atomic recovery.",
-    short: "A payout engine solving the hard problems: money as integer paise, SELECT FOR UPDATE locking, idempotency keys, atomic failure refunds, and a scheduler auto-recovering stuck payouts every 30s.",
+    short: "Payout Engine models money movement as immutable ledger operations, storing amounts as integer paise and locking rows during concurrent balance updates. It handles duplicate requests, failed transfers, and stuck jobs explicitly so a payout cannot silently create an inconsistent balance.",
     context: "Fintech systems using float arithmetic will eventually corrupt balances. Built to understand and solve every class of financial data integrity failure.",
     liveUrl: "https://payout-engine-ten.vercel.app/", tech: ["Django", "PostgreSQL", "Celery", "Redis", "React"],
     bullets: [
@@ -99,7 +242,7 @@ const PROJECTS = [
   {
     id: "kanban", num: "04", name: "Kanban Pro", tag: "Real-Time · Collaboration", year: "2025", color: "#8b5cf6",
     tagline: "Real-time collaborative Kanban — live presence, instant sync, no accounts.",
-    short: "A real-time collaborative Kanban board where multiple users share a live workspace via 8-character invite codes, with WebSocket sync and automatic reconnection.",
+    short: "Kanban Pro is a real-time collaborative workspace where teams join a shared board with an invite code and see changes immediately through WebSocket sync. It includes presence, card-level activity, and reconnection handling so a dropped connection does not turn into lost work.",
     context: "Built to feel like Figma's live collaboration but for task management.",
     liveUrl: "", tech: ["React", "Node.js", "WebSockets"],
     bullets: [
@@ -113,7 +256,7 @@ const PROJECTS = [
   {
     id: "vault", num: "05", name: "Vault", tag: "Real-Time · P2P", year: "2025", color: "#0ea5e9",
     tagline: "Peer-to-peer file sharing — encrypted WebRTC, zero server storage.",
-    short: "P2P file sharing with direct encrypted WebRTC connections. No files ever touch the server — just signalling. Token-based links, chunked transfer.",
+    short: "Vault is a peer-to-peer file-sharing tool that transfers files directly between browsers through encrypted WebRTC data channels. The server only coordinates the initial connection; token-based rooms and chunked transfer keep the sharing flow simple without storing the file centrally.",
     context: "Most file sharing services store your files on someone else's servers. Vault doesn't.",
     liveUrl: "https://file-sharing-vu8t.onrender.com/", tech: ["Node.js", "WebRTC", "WebSockets"],
     bullets: [
@@ -125,7 +268,7 @@ const PROJECTS = [
   {
     id: "aicheckdata", num: "06", name: "AI Check Data", tag: "AI · SaaS", year: "2025", color: "#6366f1",
     tagline: "Multi-LLM validation — parallel consensus scoring across four providers.",
-    short: "Routes each request through Gemini, Groq, Mistral, and OpenRouter in parallel, aggregating outputs into a consensus score with graceful fallback.",
+    short: "AI Check Data sends a validation request through several LLM providers in parallel, normalises their responses, and turns the results into a consensus score. Provider failures and rate limits are handled through fallback logic so a single model outage does not stop the validation workflow.",
     context: "Single-LLM validation is fragile — one model's blind spot becomes your product's bug.",
     liveUrl: "https://aicheckdata.netlify.app/", tech: ["React", "Supabase", "PostgreSQL", "LLM APIs"],
     bullets: [
@@ -137,7 +280,7 @@ const PROJECTS = [
   {
     id: "resumeai", num: "07", name: "Resume AI", tag: "AI · Product", year: "2025", color: "#7c3aed",
     tagline: "AI resume builder — JD-to-resume mapping with ATS optimisation.",
-    short: "Takes a job description as input and generates a tailored, ATS-optimised resume by mapping the user's experience to the role's requirements.",
+    short: "Resume AI turns a job description into a tailored, ATS-aware resume by mapping a candidate's experience to the role's requirements. The workflow keeps structured resume data editable, then generates a version that is targeted to the language and priorities of a specific application.",
     context: "Most resume builders just format your existing text. This one reads the JD and rewrites your experience to match it.",
     liveUrl: "", tech: ["React", "Supabase", "LLM APIs"],
     bullets: [
@@ -149,7 +292,7 @@ const PROJECTS = [
   {
     id: "devlens", num: "08", name: "DevLens", tag: "Developer Tool", year: "2025", color: "#f59e0b",
     tagline: "GitHub profile analyser with side-by-side contributor comparison.",
-    short: "Renders a structured breakdown of any public GitHub profile — repo stats, language distribution, star counts. Compare two profiles side-by-side.",
+    short: "DevLens turns a public GitHub profile into a structured developer snapshot: repositories, language distribution, star counts, and recent activity. It also compares two profiles side by side so a reviewer can examine contribution signals on the same scale.",
     context: "Built for evaluating open-source contributors quickly.",
     liveUrl: "", tech: ["React", "JavaScript", "GitHub API"],
     bullets: [
@@ -161,7 +304,7 @@ const PROJECTS = [
   {
     id: "techiesaie", num: "09", name: "Techiesaie", tag: "Studio · Live", year: "2026", color: "#85cdca",
     tagline: "Digital studio helping local businesses move operations online.",
-    short: "A digital studio and personal brand helping local businesses get online — bespoke software, branding, and web presence.",
+    short: "Techiesaie is a digital studio for local businesses that need a clearer online presence and more useful internal tooling. The work combines bespoke websites, product design, and operational software so a business is not forced into a generic template or fragmented workflow.",
     context: "Built around one observation: local agencies take months, charge opaquely, and deliver mediocre work.",
     urls: ["techiesaie.com"], liveUrl: "https://techiesaie.com", tech: ["React", "Design", "Branding"],
     bullets: [
@@ -172,7 +315,7 @@ const PROJECTS = [
   {
     id: "wikireels", num: "10", name: "Wikireels", tag: "UI · Experiment", year: "2024", color: "#9b5de5",
     tagline: "Wikipedia reimagined as a vertical reel — snap scroll, infinite articles.",
-    short: "A vertical-scrolling Wikipedia explorer reimagined as a mobile-native reel format.",
+    short: "Wikireels experiments with a mobile-native way to explore Wikipedia: each article becomes a focused, full-screen reel that can be read one idea at a time. It uses vertical flow and continuous discovery to make a large knowledge base feel less like a static document.",
     context: "An experiment in making information consumption feel less like reading a textbook.",
     liveUrl: "https://wikireels.techiesaie.com/", tech: ["React", "Framer Motion", "Wikipedia API"],
     bullets: [
@@ -183,7 +326,7 @@ const PROJECTS = [
   {
     id: "foodexpress", num: "11", name: "FoodExpress", tag: "Full Stack", year: "2024", color: "#f4a261",
     tagline: "Full-stack food ordering platform — cart, checkout, REST API, order history.",
-    short: "Complete food ordering platform from menu browsing to checkout, backed by a REST API.",
+    short: "FoodExpress is a full-stack ordering platform that covers the complete customer flow: menu browsing, cart updates, checkout, and order history. A REST API carries the same order data from the React interface through to the backend rather than treating the front end as a standalone demo.",
     context: "A complete end-to-end build covering every layer: database, API, auth, and React frontend.",
     liveUrl: "https://foodexpress-0v7b.onrender.com/", tech: ["React", "TypeScript", "Node.js", "MongoDB"],
     bullets: [
@@ -194,7 +337,7 @@ const PROJECTS = [
   {
     id: "modelgov", num: "12", name: "AI Model Governance Platform", tag: "AI · Enterprise", year: "2026", color: "#14b8a6",
     tagline: "Bank-grade model risk governance — workflow state machine, RAG Q&A, full audit trail.",
-    short: "An internal-tool-style platform for bank model risk governance: a model registry with an explicit workflow state machine enforcing role-based transition rules server-side, every action recorded in a full append-only audit trail.",
+    short: "AI Model Governance Platform is an internal review workspace for teams managing high-trust AI models. It combines a model registry, server-enforced review states, role-based access, document-grounded questions, and an append-only audit trail so a decision can be traced from source evidence to sign-off.",
     context: "Modelled on how a real bank's model risk team would actually govern, review, and ask questions about ML models in production — not a toy CRUD app.",
     liveUrl: "", tech: ["FastAPI", "PostgreSQL", "pgvector", "React"],
     bullets: [
@@ -206,7 +349,7 @@ const PROJECTS = [
   {
     id: "tryon", num: "13", name: "AI Try-On", tag: "AI · Consumer", year: "2026", color: "#ec4899",
     tagline: "Free-tier virtual try-on — community AI models, automatic fallback, zero paid APIs.",
-    short: "A free-tier AI virtual try-on backend that calls community-hosted Hugging Face models with automatic provider fallback and background job processing, so people can try it without needing a paid AI API key.",
+    short: "AI Try-On is a virtual try-on workflow built around community-hosted Hugging Face models instead of a paid image API. It routes requests through provider fallback and background jobs so a slower generation task does not freeze the product experience or fail when one model is unavailable.",
     context: "Most virtual try-on demos die the moment a paid API quota runs out. This one is built entirely on free, community-hosted models with fallback baked in.",
     liveUrl: "", tech: ["React", "FastAPI", "Python", "Hugging Face"],
     bullets: [
@@ -217,7 +360,7 @@ const PROJECTS = [
   {
     id: "mindflow", num: "14", name: "MindFlow", tag: "AI · Developer Tool", year: "2026", color: "#06b6d4",
     tagline: "Turns any README into an interactive, narrated learning experience.",
-    short: "An AI-powered developer tool that transforms README and Markdown files into interactive project maps with beginner-friendly explanations, architecture walkthroughs, interview prep, and AI-generated learning videos.",
+    short: "MindFlow turns a repository's README and Markdown into an explorable learning layer: architecture maps, dependency relationships, beginner-friendly explanations, interview prompts, and generated walkthroughs. It gives a developer a faster way to form a mental model of an unfamiliar codebase before changing it.",
     context: "Understanding a new codebase usually means reading hundreds of lines of documentation and figuring the rest out manually. MindFlow turns that documentation into visual graphs, AI explanations, interview prep, and narrated videos instead.",
     liveUrl: "https://mindflow-eight-green.vercel.app", tech: ["React", "FastAPI", "Python", "React Flow", "NetworkX", "Hugging Face"],
     bullets: [
@@ -258,13 +401,14 @@ function Card({ children, style = {}, delay = 0, onClick }) {
   const ref = useRef();
   const inView = useInView(ref, { once: true, margin: "-8px" });
   const [hov, setHov] = useState(false);
+  const reduceMotion = useReducedMotion();
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 14 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.44, delay, ease: EASE }}
-      whileHover={onClick ? { y: -4 } : { y: -1 }}
+      transition={{ duration: 0.44, delay: reduceMotion ? 0 : delay, ease: EASE }}
+      whileHover={reduceMotion ? {} : onClick ? { y: -4 } : { y: -1 }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       onClick={onClick}
@@ -277,7 +421,7 @@ function Card({ children, style = {}, delay = 0, onClick }) {
       }}
     >
       <motion.div
-        initial={{ scaleX: 0 }} animate={{ scaleX: hov ? 1 : 0 }}
+        initial={reduceMotion ? false : { scaleX: 0 }} animate={reduceMotion ? {} : { scaleX: hov ? 1 : 0 }}
         transition={{ duration: 0.28, ease: EASE }}
         style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: C.coral, transformOrigin: "left", zIndex: 10, pointerEvents: "none" }}
       />
@@ -321,14 +465,18 @@ function ProfileStrip() {
           Building <span style={{ color: C.coral, fontWeight: 850 }}>secure SaaS systems</span>, booking engines, billing flows, and realtime tools.
         </p>
 
-        <div style={{ display: "flex", gap: 20 }}>
+        <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
           <div>
-            <p style={{ fontSize: 21, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}>60+</p>
-            <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Fixes</p>
+            <p style={{ fontSize: 21, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}><CountUp value="150+" /></p>
+            <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Features</p>
           </div>
           <div>
-            <p style={{ fontSize: 21, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>{PROJECTS.length}</p>
+            <p style={{ fontSize: 21, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}><CountUp value={PROJECTS.length} /></p>
             <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Projects</p>
+          </div>
+          <div>
+            <p style={{ fontSize: 21, fontWeight: 950, color: "#8b5cf6", margin: 0, letterSpacing: "-0.03em" }}><CountUp value={HACKATHON_PROJECTS.length} /></p>
+            <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Hackathons</p>
           </div>
         </div>
 
@@ -350,14 +498,14 @@ function ProfileStrip() {
           <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
             <h3 style={{ fontSize: 16, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>Associate Software Engineer</h3>
             <p style={{ fontSize: 11, color: C.muted, margin: 0, fontWeight: 700 }}>SvayambhuTech · Mumbai</p>
-            <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 – Present</span>
+            <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 – Mar 2026</span>
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 22 }}>
-          {[["150+", "features shipped"], ["5+", "companies using it"], ["4 mo", "to production"]].map(([n, l]) => (
+          {[["150+", "features shipped"], ["5+", "companies using it"], ["5", "hackathon builds"]].map(([n, l]) => (
             <div key={l}>
-              <p style={{ fontSize: 17, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}>{n}</p>
+              <p style={{ fontSize: 17, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}><CountUp value={n} /></p>
               <p style={{ fontSize: 8, color: C.muted, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", margin: "2px 0 0" }}>{l}</p>
             </div>
           ))}
@@ -384,7 +532,7 @@ function ProfileStrip() {
 }
 
 // ── ProjectsCycleCard ──────────────────────────────────────────
-function ProjectsCycleCard({ onClick }) {
+function ProjectsCycleCard({ onOpenProject }) {
   const [idx, setIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [hoveredDot, setHoveredDot] = useState(null);
@@ -394,7 +542,7 @@ function ProjectsCycleCard({ onClick }) {
     if (hovered) return;
     const id = setInterval(() => setIdx(i => (i + 1) % featured.length), 3200);
     return () => clearInterval(id);
-  }, [hovered]);
+  }, [hovered, featured.length]);
 
   const cur = featured[idx];
 
@@ -402,7 +550,7 @@ function ProjectsCycleCard({ onClick }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={onClick}
+      onClick={() => onOpenProject?.(cur)}
       style={{ padding: 0, height: "100%", display: "flex", flexDirection: "column", cursor: "pointer", background: C.card, border: `1.5px solid ${hovered ? cur.color + "44" : C.line}`, borderRadius: "inherit", overflow: "hidden", transition: "border-color 0.2s, box-shadow 0.2s", boxShadow: hovered ? `0 8px 32px ${cur.color}22` : "none" }}>
       {/* Top bar */}
       <div style={{ height: 5, background: `linear-gradient(90deg, ${C.navy} 0%, ${cur.color} 100%)`, transition: "background 0.3s" }} />
@@ -435,6 +583,7 @@ function ProjectsCycleCard({ onClick }) {
 
             {/* Tag + year row */}
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <span style={{ color: cur.color, display: "inline-flex" }}><ProjectIcon project={cur} size={14} /></span>
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: cur.color, display: "inline-block", boxShadow: hovered ? `0 0 0 4px ${cur.color}22` : "none", transition: "box-shadow 0.2s" }} />
               <span style={{ fontSize: 9, fontWeight: 800, color: cur.color, background: cur.color + "14", padding: "2px 8px", borderRadius: 99, letterSpacing: "0.06em", textTransform: "uppercase" }}>{cur.tag}</span>
               <span style={{ fontSize: 9, color: C.muted, fontFamily: "monospace" }}>{cur.year}</span>
@@ -455,9 +604,7 @@ function ProjectsCycleCard({ onClick }) {
             {/* Footer: tech + link */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, borderTop: `1px solid ${C.line}`, paddingTop: 14 }}>
               <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-                {cur.tech.slice(0, 3).map(t => (
-                  <span key={t} style={{ fontSize: 9.5, fontWeight: 700, color: C.navy, background: C.coralFaint, padding: "3px 8px", borderRadius: 99, border: `1px solid ${C.coralLight}` }}>{t}</span>
-                ))}
+                {cur.tech.slice(0, 3).map(t => <TechTag key={t} name={t} />)}
                 {cur.tech.length > 3 && <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700 }}>+{cur.tech.length - 3}</span>}
               </div>
               <span style={{ fontSize: 10, color: cur.color, fontWeight: 900, opacity: hovered ? 1 : 0.5, transition: "opacity 0.2s", whiteSpace: "nowrap" }}>See all {PROJECTS.length} →</span>
@@ -584,6 +731,7 @@ const EDGES = [
 
 function TechNetworkCard({ goToProject }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const reduceMotion = useReducedMotion();
   const activeNode = hoveredIndex !== null ? NODE_POSITIONS[hoveredIndex] : null;
   const projects = activeNode
     ? (TECH_PROJECTS[activeNode.name] || [])
@@ -606,7 +754,7 @@ function TechNetworkCard({ goToProject }) {
             {activeNode.name}
           </div>
         ) : (
-          <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700, marginTop: 2, whiteSpace: "nowrap" }}>hover any node ✨</span>
+          <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700, marginTop: 2, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}><Sparkles size={12} aria-hidden="true" />hover any node</span>
         )}
       </div>
 
@@ -644,10 +792,23 @@ function TechNetworkCard({ goToProject }) {
                 <motion.g
                   key={nd.name}
                   onMouseEnter={() => setHoveredIndex(i)}
+                  onClick={() => setHoveredIndex(i)}
                   animate={{ opacity: hoveredIndex === null || isHov || isConn ? 1 : 0.4 }}
                   transition={{ duration: 0.15 }}
                   style={{ cursor: "pointer" }}
                 >
+                  {!reduceMotion && (
+                    <motion.circle
+                      cx={nd.cx}
+                      cy={nd.cy}
+                      r={r + 4}
+                      fill="none"
+                      stroke={nd.color}
+                      strokeWidth="0.75"
+                      animate={{ r: [r + 4, r + 8, r + 4], opacity: [0.2, 0.66, 0.2] }}
+                      transition={{ duration: 2.4, delay: i * 0.12, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  )}
                   {isHov && <circle cx={nd.cx} cy={nd.cy} r={r + 8} fill={nd.color + "1c"} />}
                   <circle
                     cx={nd.cx}
@@ -721,7 +882,7 @@ function TechNetworkCard({ goToProject }) {
             </div>
           ) : (
             <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 7, padding: "0 12px" }}>
-              <span style={{ fontSize: 22 }}>🔗</span>
+              <Mascot size={46} />
               <p style={{ fontSize: 11, color: C.muted, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>Hover any node on the map to see which projects use it.</p>
             </div>
           )}
@@ -732,18 +893,20 @@ function TechNetworkCard({ goToProject }) {
 }
 
 function IntroLine({ onResume }) {
+  const reduceMotion = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0, y: 18 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.42, ease: EASE }}
-      style={{ marginBottom: 20 }}
+      style={{ marginBottom: 20, position: "relative" }}
     >
+      <Mascot className="hero-mascot" size={64} />
       {/* Status pill */}
       <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "4px 11px", letterSpacing: "0.04em" }}>
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.coral, display: "inline-block", boxShadow: `0 0 0 3px ${C.coralLight}` }} />
-          Open to work · Mumbai
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "4px 11px", letterSpacing: "0.04em" }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.coral, display: "inline-block", boxShadow: `0 0 0 3px ${C.coralLight}` }} />
+            Open to work · Mumbai
         </span>
       </div>
 
@@ -757,8 +920,8 @@ function IntroLine({ onResume }) {
             <span style={{ position: "relative", display: "inline-block" }}>
               SaaS, fintech &amp; realtime
               <motion.span
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
+                initial={reduceMotion ? false : { scaleX: 0 }}
+                animate={reduceMotion ? {} : { scaleX: 1 }}
                 transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
                 style={{ position: "absolute", left: 0, right: 0, bottom: -1, height: 2.5, background: C.coral, transformOrigin: "left", display: "block" }}
               />
@@ -787,6 +950,7 @@ function IntroLine({ onResume }) {
 // HOME PAGE
 // ══════════════════════════════════════════════════════════════
 function HomePage({ setPage, onResume }) {
+  const [activeProject, setActiveProject] = useState(null);
   return (
     <div className="page-shell" style={{ paddingTop: 78, paddingBottom: 48 }}>
       <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 20px" }}>
@@ -799,44 +963,65 @@ function HomePage({ setPage, onResume }) {
 
         {/* Row 2: tech-to-project map gets room to breathe */}
         <div style={{ marginBottom: 10 }}>
-          <Card delay={0.05}><TechNetworkCard /></Card>
+          <Card delay={0.05}><TechNetworkCard goToProject={setActiveProject} /></Card>
         </div>
 
         {/* Row 3: larger project story with skills beside it */}
         <div className="home-grid-bottom" style={{ display: "grid", gridTemplateColumns: "1.35fr 0.9fr", gap: 10, marginBottom: 10 }}>
-          <Card delay={0.08} onClick={() => setPage("work")}><ProjectsCycleCard onClick={() => setPage("work")} /></Card>
-          <Card delay={0.10}><SkillsCard /></Card>
+          <Card delay={0.08}><ProjectsCycleCard onOpenProject={setActiveProject} /></Card>
+          <Card delay={0.10}><SkillsCard goToProject={setActiveProject} /></Card>
         </div>
 
         {/* Row 4: Featured Work grid — real projects, visible without clicking anywhere */}
-        <FeaturedWorkSection setPage={setPage} />
+        <FeaturedWorkSection setPage={setPage} onOpenProject={setActiveProject} />
+        <HackathonsSection onOpenProject={setActiveProject} />
       </div>
+      <ProjectDetailSheet project={activeProject} onClose={() => setActiveProject(null)} />
     </div>
   );
 }
 
 // ── FeaturedWorkSection ────────────────────────────────────────
-function FeaturedWorkSection({ setPage }) {
+function FeaturedWorkSection({ setPage, onOpenProject }) {
   const featured = PROJECTS.slice(0, 6);
   return (
     <div style={{ marginTop: 4 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
         <div>
-          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px" }}>Featured Work</p>
+          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px", display: "flex", alignItems: "center", gap: 5 }}><BriefcaseBusiness size={12} aria-hidden="true" />Featured Work</p>
           <h2 style={{ fontSize: 19, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>What I've actually shipped</h2>
         </div>
         <button onClick={() => setPage("work")} style={{ fontSize: 10.5, fontWeight: 800, color: C.coral, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, padding: "4px 0" }}>
           View all {PROJECTS.length} projects
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+          <ArrowUpRight size={13} strokeWidth={2.4} aria-hidden="true" />
         </button>
       </div>
 
       <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
         {featured.map((p, i) => (
-          <FeaturedProjectCard key={p.id} p={p} delay={0.06 + i * 0.03} onClick={() => setPage("work")} />
+          <FeaturedProjectCard key={p.id} p={p} delay={0.06 + i * 0.03} onClick={() => onOpenProject(p)} />
         ))}
       </div>
     </div>
+  );
+}
+
+function HackathonsSection({ onOpenProject }) {
+  return (
+    <section style={{ marginTop: 34 }} aria-labelledby="hackathons-title">
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+        <div>
+          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px", display: "flex", alignItems: "center", gap: 5 }}><Trophy size={12} aria-hidden="true" />Hackathons</p>
+          <h2 id="hackathons-title" style={{ fontSize: 19, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Five focused builds, made under pressure</h2>
+        </div>
+        <span style={{ fontSize: 10, fontWeight: 800, color: C.muted, display: "inline-flex", alignItems: "center", gap: 5 }}><Rocket size={13} aria-hidden="true" />{HACKATHON_PROJECTS.length} hackathon builds</span>
+      </div>
+      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+        {HACKATHON_PROJECTS.map((p, i) => (
+          <FeaturedProjectCard key={p.id} p={p} delay={0.05 + i * 0.035} onClick={() => onOpenProject(p)} />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -844,21 +1029,33 @@ function FeaturedProjectCard({ p, delay, onClick }) {
   const ref = useRef();
   const inView = useInView(ref, { once: true, margin: "-8px" });
   const [hov, setHov] = useState(false);
+  const reduceMotion = useReducedMotion();
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 14 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay, ease: EASE }}
+      transition={{ duration: 0.4, delay: reduceMotion ? 0 : delay, ease: EASE }}
+      whileHover={reduceMotion ? {} : { y: -2 }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       onClick={onClick}
-      style={{ background: C.card, border: `1.5px solid ${hov ? p.color + "55" : C.line}`, borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: "border-color 0.18s, box-shadow 0.18s, transform 0.18s", boxShadow: hov ? `0 10px 28px ${p.color}22` : "none", transform: hov ? "translateY(-2px)" : "none" }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick?.();
+        }
+      }}
+      aria-label={`Open ${p.name} project description`}
+      style={{ background: C.card, border: `1.5px solid ${hov ? p.color + "55" : C.line}`, borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: "border-color 0.18s, box-shadow 0.18s", boxShadow: hov ? `0 10px 28px ${p.color}22` : "none" }}
     >
       <div style={{ height: 4, background: p.color }} />
       <div style={{ padding: "15px 16px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ color: p.color, display: "inline-flex" }}><ProjectIcon project={p} size={13} /></span>
             <span style={{ fontSize: 8.5, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{p.num}</span>
             <span style={{ fontSize: 8, fontWeight: 900, color: p.color, background: p.color + "14", padding: "2px 7px", borderRadius: 99, textTransform: "uppercase", letterSpacing: "0.08em" }}>{p.tag}</span>
           </div>
@@ -874,15 +1071,13 @@ function FeaturedProjectCard({ p, delay, onClick }) {
         <h3 style={{ fontSize: 15, fontWeight: 950, color: C.navy, margin: "0 0 5px", letterSpacing: "-0.025em" }}>{p.name}</h3>
         <p style={{ fontSize: 11, color: p.color, fontWeight: 750, margin: "0 0 8px", lineHeight: 1.4, minHeight: 30 }}>{p.tagline}</p>
 
-        <p style={{ fontSize: 10.8, color: C.ink, margin: "0 0 12px", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.bullets[0]}</p>
+        <p style={{ fontSize: 10.8, color: C.ink, margin: "0 0 12px", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.short}</p>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6, borderTop: `1px solid ${C.line}`, paddingTop: 11 }}>
           <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-            {p.tech.slice(0, 3).map(t => (
-              <span key={t} style={{ fontSize: 9, fontWeight: 700, color: C.navy, background: C.soft, padding: "2px 7px", borderRadius: 99, border: `1px solid ${C.line}` }}>{t}</span>
-            ))}
+            {p.tech.slice(0, 3).map(t => <TechTag key={t} name={t} />)}
           </div>
-          <span style={{ fontSize: 9.5, color: p.color, fontWeight: 900, opacity: hov ? 1 : 0.45, transition: "opacity 0.18s", whiteSpace: "nowrap" }}>Details →</span>
+          <span style={{ fontSize: 9.5, color: p.color, fontWeight: 900, opacity: hov ? 1 : 0.45, transition: "opacity 0.18s", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 2 }}>Open project <ArrowUpRight size={12} strokeWidth={2.4} aria-hidden="true" /></span>
         </div>
       </div>
     </motion.div>
@@ -899,17 +1094,17 @@ function WorkPage() {
     <div className="page-shell" style={{ paddingTop: 80, paddingBottom: 60, maxWidth: 1060, margin: "0 auto", padding: "80px 20px 60px" }}>
       <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 18, marginBottom: 24, display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-end", flexWrap: "wrap" }}>
         <div>
-          <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase" }}>Archive</span>
+          <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 5 }}><FolderKanban size={13} aria-hidden="true" />Archive</span>
           <h2 style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: "5px 0 0", letterSpacing: "-0.04em" }}>All Projects</h2>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
           <div style={{ display: "flex", gap: 14 }}>
             <div style={{ textAlign: "right" }}>
-              <p style={{ fontSize: 22, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.04em" }}>{PROJECTS.length}</p>
+              <p style={{ fontSize: 22, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.04em" }}><CountUp value={PROJECTS.length} /></p>
               <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>shipped</p>
             </div>
             <div style={{ textAlign: "right" }}>
-              <p style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.04em" }}>{PROJECTS.filter(p => p.liveUrl).length}</p>
+              <p style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.04em" }}><CountUp value={PROJECTS.filter(p => p.liveUrl).length} /></p>
               <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>live now</p>
             </div>
           </div>
@@ -961,13 +1156,14 @@ function ProjectDetailSheet({ project, onClose }) {
               <div style={{ marginBottom: 22 }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: project.color, display: "inline-flex" }}><ProjectIcon project={project} size={15} /></span>
                     <span style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, background: project.color + "16", padding: "4px 10px", borderRadius: 99, border: `1px solid ${project.color}28` }}>{project.tag}</span>
                     <span style={{ fontSize: 9, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{project.year}</span>
                   </div>
                   {project.liveUrl && (
                     <a href={project.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
                       style={{ fontSize: 10.5, fontWeight: 800, color: project.color, background: project.color + "10", padding: "6px 14px", borderRadius: 9, textDecoration: "none", border: `1px solid ${project.color}28`, display: "inline-flex", alignItems: "center", gap: 5 }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                      <ExternalLink size={12} strokeWidth={2.4} aria-hidden="true" />
                       {project.urls?.[0] || "Live Site"}
                     </a>
                   )}
@@ -1009,9 +1205,7 @@ function ProjectDetailSheet({ project, onClose }) {
               <div style={{ padding: "16px 18px", background: C.navy, borderRadius: 12 }}>
                 <p style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)", marginBottom: 10 }}>Stack</p>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  {project.tech.map(t => (
-                    <span key={t} style={{ fontSize: 11, background: "rgba(255,255,255,0.1)", color: "#fff", padding: "5px 12px", borderRadius: 7, border: "1px solid rgba(255,255,255,0.12)", fontWeight: 650 }}>{t}</span>
-                  ))}
+                  {project.tech.map(t => <TechTag key={t} name={t} dark />)}
                 </div>
               </div>
             </div>
@@ -1027,9 +1221,9 @@ function ProjectDetailSheet({ project, onClose }) {
 // ══════════════════════════════════════════════════════════════
 function AboutPage() {
   const proof = [
-    { k: "60+", v: "production issues resolved", c: C.coral },
+    { k: "150+", v: "features shipped", c: C.coral },
     { k: String(PROJECTS.length), v: "projects shipped", c: C.navy },
-    { k: "5", v: "domains: SaaS, fintech, realtime, AI", c: "#0ea5e9" },
+    { k: String(HACKATHON_PROJECTS.length), v: "hackathon builds", c: "#0ea5e9" },
   ];
 
   const operatingPoints = [
@@ -1046,19 +1240,19 @@ function AboutPage() {
   ];
 
   const timelineItems = [
-    { year: "2021", event: "Wrote first PHP script. Immediately broke the database." },
-    { year: "2022", event: "Started BSc IT at Mumbai University. Built first REST API." },
-    { year: "2023", event: "Shipped first multi-tenant SaaS. Learned about data isolation the hard way." },
-    { year: "2024", event: "Deep-dived into fintech — payout engines, ledgers, atomic transactions, float drift." },
-    { year: "2025", event: "Joined Swayambhutech as Associate SWE. Resolved 60+ production issues on Drive Accessible." },
-    { year: "2026", event: "Building model governance, AI try-on tooling, and the Techiesaie studio." },
+    { year: "2021", event: "Wrote first PHP script. Immediately broke the database.", Icon: Code2 },
+    { year: "2022", event: "Started BSc IT at Mumbai University. Built first REST API.", Icon: GraduationCap },
+    { year: "2023", event: "Shipped first multi-tenant SaaS. Learned about data isolation the hard way.", Icon: Building2 },
+    { year: "2024", event: "Deep-dived into fintech — payout engines, ledgers, atomic transactions, float drift.", Icon: Database },
+    { year: "2025", event: "Joined Swayambhutech as Associate SWE. Resolved 60+ production issues on Drive Accessible.", Icon: BriefcaseBusiness },
+    { year: "2026", event: "Building model governance, AI try-on tooling, and the Techiesaie studio.", Icon: Rocket },
   ];
 
   return (
     <div className="page-shell" style={{ paddingTop: 80, paddingBottom: 60, maxWidth: 1060, margin: "0 auto", padding: "80px 20px 60px" }}>
       <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 18, marginBottom: 22, display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-end" }}>
         <div>
-          <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase" }}>About</span>
+          <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 5 }}><UserRound size={13} aria-hidden="true" />About</span>
           <h2 style={{ fontSize: 30, fontWeight: 950, color: C.navy, margin: "5px 0 0", letterSpacing: "-0.05em" }}>I build practical systems for messy real-world workflows.</h2>
         </div>
         <img src={niceFace} alt="" style={{ width: 52, height: 52, objectFit: "contain", flexShrink: 0 }} />
@@ -1078,7 +1272,7 @@ function AboutPage() {
               <div className="about-proof-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 9 }}>
                 {proof.map(item => (
                   <div key={item.v} style={{ padding: "13px 14px", borderRadius: 12, background: item.c === C.navy ? C.navy : item.c + "12", border: `1px solid ${item.c}28` }}>
-                    <p style={{ fontSize: 22, fontWeight: 950, color: item.c === C.navy ? "#fff" : item.c, margin: 0 }}>{item.k}</p>
+                    <p style={{ fontSize: 22, fontWeight: 950, color: item.c === C.navy ? "#fff" : item.c, margin: 0 }}><CountUp value={item.k} /></p>
                     <p style={{ fontSize: 9.5, lineHeight: 1.35, color: item.c === C.navy ? "rgba(255,255,255,0.72)" : C.ink, margin: "4px 0 0", fontWeight: 750, textTransform: "uppercase", letterSpacing: "0.07em" }}>{item.v}</p>
                   </div>
                 ))}
@@ -1155,7 +1349,7 @@ function AboutPage() {
               <div style={{ position: "absolute", left: 6, top: 6, bottom: 6, width: 1, background: C.line }} />
               {timelineItems.map((t, i) => (
                 <div key={t.year} style={{ position: "relative", marginBottom: i < timelineItems.length - 1 ? 14 : 0 }}>
-                  <div style={{ position: "absolute", left: -17, top: 5, width: 7, height: 7, borderRadius: "50%", background: i === timelineItems.length - 1 ? C.coral : C.soft, border: `1.5px solid ${i === timelineItems.length - 1 ? C.coral : C.muted + "30"}` }} />
+                  <div style={{ position: "absolute", left: -21, top: 2, width: 15, height: 15, borderRadius: "50%", background: i === timelineItems.length - 1 ? C.coral : C.soft, border: `1px solid ${i === timelineItems.length - 1 ? C.coral : C.muted + "30"}`, color: i === timelineItems.length - 1 ? "#fff" : C.muted, display: "flex", alignItems: "center", justifyContent: "center" }}><t.Icon size={8} strokeWidth={2.4} aria-hidden="true" /></div>
                   <p style={{ fontSize: 9, fontWeight: 800, color: i === timelineItems.length - 1 ? C.coral : C.muted, margin: "0 0 2px", fontFamily: "monospace" }}>{t.year}</p>
                   <p style={{ fontSize: 11, color: C.ink, margin: 0, lineHeight: 1.45 }}>{t.event}</p>
                 </div>
@@ -1260,7 +1454,7 @@ MVM College, University of Mumbai | Mumbai, India`;
         </div>
         <motion.button whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }} onClick={handleDownload}
           style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.coral, color: "#fff", border: "none", borderRadius: 10, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase" }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
+          <Download size={14} strokeWidth={2.4} aria-hidden="true" />
           Download .txt
         </motion.button>
       </div>
@@ -1411,7 +1605,7 @@ function ContactPage() {
   return (
     <div style={{ paddingTop: 80, paddingBottom: 60, maxWidth: 800, margin: "0 auto", padding: "80px 20px 60px" }}>
       <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 14, marginBottom: 30 }}>
-        <span style={{ fontSize: 9, fontWeight: 800, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase" }}>Contact</span>
+        <span style={{ fontSize: 9, fontWeight: 800, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 5 }}><Mail size={13} aria-hidden="true" />Contact</span>
         <h2 style={{ fontSize: 22, fontWeight: 900, color: C.ink, margin: "4px 0 0", letterSpacing: "-0.03em" }}>Let's talk</h2>
       </div>
 
@@ -1438,32 +1632,35 @@ function ContactPage() {
                 onFocus={e => e.target.style.borderColor = C.coral} onBlur={e => e.target.style.borderColor = C.line} />
             </div>
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} onClick={handleSubmit}
-              style={{ padding: "12px 0", background: sent ? "#10b981" : C.coral, color: "#fff", border: "none", borderRadius: 10, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase", transition: "background 0.3s" }}>
-              {sent ? "✓ Opening Email Client..." : "Send Message →"}
+              style={{ padding: "12px 0", background: sent ? "#10b981" : C.coral, color: "#fff", border: "none", borderRadius: 10, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase", transition: "background 0.3s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+              {sent ? "✓ Opening Email Client..." : <><Send size={14} strokeWidth={2.3} aria-hidden="true" />Send Message</>}
             </motion.button>
           </div>
         </Card>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {[
-            { icon: "✉️", label: "Email", value: "muhammadimrank034@gmail.com", href: "mailto:muhammadimrank034@gmail.com" },
-            { icon: "📱", label: "Phone", value: "+91 7506190224", href: "tel:+917506190224" },
-            { icon: "💼", label: "LinkedIn", value: "imranrkhan13", href: "https://linkedin.com/in/imranrkhan13" },
-            { icon: "🐙", label: "GitHub", value: "imranrkhan13", href: "https://github.com/imranrkhan13" },
-            { icon: "🌐", label: "Portfolio", value: "imran-silk.vercel.app", href: "https://imran-silk.vercel.app" },
-            { icon: "🏢", label: "Studio", value: "techiesaie.com", href: "https://techiesaie.com" },
-          ].map(c => (
+            { Icon: Mail, label: "Email", value: "muhammadimrank034@gmail.com", href: "mailto:muhammadimrank034@gmail.com" },
+            { Icon: Phone, label: "Phone", value: "+91 7506190224", href: "tel:+917506190224" },
+            { Icon: Linkedin, label: "LinkedIn", value: "imranrkhan13", href: "https://linkedin.com/in/imranrkhan13" },
+            { Icon: Github, label: "GitHub", value: "imranrkhan13", href: "https://github.com/imranrkhan13" },
+            { Icon: Globe2, label: "Portfolio", value: "imran-silk.vercel.app", href: "https://imran-silk.vercel.app" },
+            { Icon: Building2, label: "Studio", value: "techiesaie.com", href: "https://techiesaie.com" },
+          ].map(c => {
+            const ContactIcon = c.Icon;
+            return (
             <Card key={c.label} style={{ padding: "12px 14px" }}>
               <a href={c.href} target="_blank" rel="noreferrer" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 18 }}>{c.icon}</span>
+                <span style={{ width: 28, height: 28, borderRadius: 8, background: C.coralFaint, color: C.coral, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><ContactIcon size={15} strokeWidth={2.2} aria-hidden="true" /></span>
                 <div>
                   <p style={{ fontSize: 8, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "0 0 1px" }}>{c.label}</p>
                   <p style={{ fontSize: 10.5, color: C.ink, margin: 0, fontWeight: 600 }}>{c.value}</p>
                 </div>
-                <span style={{ marginLeft: "auto", fontSize: 10, color: C.coral }}>↗</span>
+                <ArrowUpRight size={14} strokeWidth={2.3} color={C.coral} style={{ marginLeft: "auto", flexShrink: 0 }} aria-hidden="true" />
               </a>
             </Card>
-          ))}
+            );
+          })}
           <Card style={{ padding: "13px 15px", background: C.coralFaint, border: `1px solid ${C.coralLight}` }}>
             <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 5 }}>
               <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#4ade80" }} />
@@ -1581,7 +1778,7 @@ function ResumeSheet({ open, onClose }) {
                     <div style={{ borderLeft: `3px solid ${C.coral}`, paddingLeft: 14, background: "#faf9f6", padding: "14px 16px", borderRadius: 8 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginBottom: 5, flexWrap: "wrap" }}>
                         <h3 style={{ fontSize: 14.5, color: C.navy, fontWeight: 950, margin: 0 }}>Associate Software Engineer</h3>
-                        <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 800, whiteSpace: "nowrap", fontFamily: "monospace" }}>Oct 2025 – Present</span>
+                        <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 800, whiteSpace: "nowrap", fontFamily: "monospace" }}>Oct 2025 – Mar 2026</span>
                       </div>
                       <p style={{ fontSize: 11.5, color: C.coral, fontWeight: 900, margin: "0 0 10px" }}>SvayambhuTech · Mumbai, India</p>
                       <ul style={{ margin: 0, paddingLeft: 16, display: "flex", flexDirection: "column", gap: 5 }}>
@@ -1662,7 +1859,7 @@ function Nav({ page, setPage, onResume }) {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const navItems = [["home", "Home"], ["work", "Work"], ["about", "About"], ["resume", "Resume"]];
+  const navItems = NAV_ITEMS;
 
   return (
     <>
@@ -1673,14 +1870,18 @@ function Nav({ page, setPage, onResume }) {
         </button>
         {/* Desktop nav */}
         <nav className="site-nav-links" style={{ display: "flex", gap: 2, alignItems: "center" }}>
-          {[["home", "Home"], ["work", "Work"], ["about", "About"]].map(([id, label]) => (
+          {navItems.slice(0, 3).map(item => {
+            const [id, label] = item;
+            const NavIcon = item[2];
+            return (
             <button key={id} onClick={() => setPage(id)}
-              style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: page === id ? 700 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.ink : C.muted, transition: "all 0.15s" }}>
-              {label}
+              style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: page === id ? 700 : 500, background: page === id ? C.soft : "transparent", color: page === id ? C.ink : C.muted, transition: "all 0.15s", display: "inline-flex", alignItems: "center", gap: 5 }}>
+              <NavIcon size={12} strokeWidth={2.1} aria-hidden="true" />{label}
             </button>
-          ))}
-          <button onClick={onResume} style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 650, background: "transparent", color: C.muted, transition: "all 0.15s" }}>Resume</button>
-          <a href="mailto:muhammadimrank034@gmail.com" style={{ marginLeft: 6, padding: "5px 14px", borderRadius: 99, border: "none", background: C.coral, color: "#fff", fontSize: 10, fontWeight: 800, textDecoration: "none", letterSpacing: "0.04em", textTransform: "uppercase" }}>Contact</a>
+            );
+          })}
+          <button onClick={onResume} style={{ padding: "5px 12px", borderRadius: 99, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 650, background: "transparent", color: C.muted, transition: "all 0.15s", display: "inline-flex", alignItems: "center", gap: 5 }}><FileText size={12} strokeWidth={2.1} aria-hidden="true" />Resume</button>
+          <a href="mailto:muhammadimrank034@gmail.com" style={{ marginLeft: 6, padding: "5px 14px", borderRadius: 99, border: "none", background: C.coral, color: "#fff", fontSize: 10, fontWeight: 800, textDecoration: "none", letterSpacing: "0.04em", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 5 }}><Mail size={12} strokeWidth={2.2} aria-hidden="true" />Contact</a>
         </nav>
         {/* Mobile hamburger */}
         <button
@@ -1716,7 +1917,9 @@ function Nav({ page, setPage, onResume }) {
 
             {/* Big numbered nav */}
             <nav style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 26px", gap: 2 }}>
-              {navItems.map(([id, label], i) => {
+              {navItems.map((item, i) => {
+                const [id, label] = item;
+                const NavIcon = item[2];
                 const isActive = id !== "resume" && page === id;
                 return (
                   <motion.button
@@ -1728,6 +1931,7 @@ function Nav({ page, setPage, onResume }) {
                     style={{ display: "flex", alignItems: "baseline", gap: 14, background: "none", border: "none", padding: "13px 0", cursor: "pointer", textAlign: "left", width: "100%" }}
                   >
                     <span style={{ fontSize: 12, fontWeight: 700, color: isActive ? C.coral : "rgba(255,255,255,0.32)", fontFamily: "monospace", flexShrink: 0 }}>0{i + 1}</span>
+                    <NavIcon size={18} strokeWidth={2.1} color={isActive ? C.coral : "rgba(255,255,255,0.36)"} aria-hidden="true" />
                     <span style={{ fontSize: 38, fontWeight: 850, color: isActive ? "#fff" : "rgba(255,255,255,0.55)", letterSpacing: "-0.03em" }}>{label}</span>
                   </motion.button>
                 );
@@ -1742,8 +1946,8 @@ function Nav({ page, setPage, onResume }) {
               style={{ padding: "0 26px 36px", display: "flex", flexDirection: "column", gap: 14, flexShrink: 0 }}
             >
               <a href="mailto:muhammadimrank034@gmail.com" onClick={close}
-                style={{ background: C.coral, color: "#fff", textAlign: "center", padding: "15px 0", borderRadius: 999, fontWeight: 800, fontSize: 13.5, textDecoration: "none", letterSpacing: "0.01em" }}>
-                Say hi →
+                style={{ background: C.coral, color: "#fff", textAlign: "center", padding: "15px 0", borderRadius: 999, fontWeight: 800, fontSize: 13.5, textDecoration: "none", letterSpacing: "0.01em", display: "flex", alignItems: "center", justifyContent: "center", gap: 7 }}>
+                <Mail size={16} strokeWidth={2.2} aria-hidden="true" />Say hi
               </a>
               <p style={{ color: "rgba(255,255,255,0.38)", fontSize: 11, textAlign: "center", margin: 0, fontWeight: 500 }}>
                 Mumbai · usually online, mostly caffeinated
@@ -1760,10 +1964,13 @@ export default function App() {
   const [page, setPage] = useState("home");
   const [resumeOpen, setResumeOpen] = useState(false);
   return (
+    <MotionConfig reducedMotion="user">
     <div style={{ background: C.bg, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', color: C.ink, minHeight: "100vh" }}>
       <style>{`
         *,*::before,*::after{box-sizing:border-box;}
         body{margin:0;overflow-x:hidden;}
+        html{scroll-behavior:smooth;}
+        .hero-mascot{position:absolute;right:0;top:-7px;pointer-events:none;filter:drop-shadow(0 5px 8px rgba(35,38,66,0.12));}
 
         @keyframes fadeInPanel{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:translateX(0);}}
 
@@ -1825,11 +2032,16 @@ export default function App() {
           .about-proof-grid{grid-template-columns:1fr!important;}
           .profile-strip{padding:20px!important;}
           .work-detail-padding{padding:20px 18px!important;}
+          .hero-mascot{display:none!important;}
         }
 
         /* ── Very small (≤ 400px) ── */
         @media(max-width:400px){
           .intro-headline{font-size:22px!important;}
+        }
+
+        @media(prefers-reduced-motion:reduce){
+          html{scroll-behavior:auto;}
         }
       `}</style>
       <Nav page={page} setPage={setPage} onResume={() => setResumeOpen(true)} />
@@ -1842,9 +2054,10 @@ export default function App() {
       </AnimatePresence>
       <ResumeSheet open={resumeOpen} onClose={() => setResumeOpen(false)} />
       <footer style={{ borderTop: `1px solid ${C.line}`, padding: "16px 20px", display: "flex", justifyContent: "space-between", maxWidth: 1060, margin: "0 auto", flexWrap: "wrap", gap: 8 }}>
-        <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Imran Khan · 2026</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}><Mascot size={28} />Imran Khan · 2026</span>
         <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Maintained by TechiesAIE</span>
       </footer>
     </div>
+    </MotionConfig>
   );
 }
