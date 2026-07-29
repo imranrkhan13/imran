@@ -130,54 +130,23 @@ function TechTag({ name, dark = false }) {
   );
 }
 
-function Mascot({ size = 56, className, decorative = true }) {
-  const reduceMotion = useReducedMotion();
-  const float = reduceMotion ? {} : { y: [0, -2, 0] };
-  const wave = reduceMotion ? {} : { rotate: [0, 14, 0] };
-  return (
-    <motion.svg
-      className={className}
-      width={size}
-      height={size}
-      viewBox="0 0 64 64"
-      role={decorative ? undefined : "img"}
-      aria-hidden={decorative ? "true" : undefined}
-      aria-label={decorative ? undefined : "A small developer robot mascot"}
-      animate={float}
-      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-      style={{ display: "block", flexShrink: 0 }}
-    >
-      <rect x="13" y="17" width="38" height="34" rx="12" fill="#faf9f6" stroke="#232642" strokeWidth="2.5" />
-      <path d="M32 12v5M27 12h10" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx="25" cy="32" r="3.5" fill="#e27d60" />
-      <circle cx="39" cy="32" r="3.5" fill="#e27d60" />
-      <path d="M25 41c4 3 10 3 14 0" fill="none" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" />
-      <motion.g animate={wave} transition={{ duration: 2.3, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }} style={{ transformOrigin: "53px 39px" }}>
-        <path d="M51 36l7-7M56 29l3 3M57 31l3-1" fill="none" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      </motion.g>
-      <path d="M13 36l-5 4" stroke="#232642" strokeWidth="2.5" strokeLinecap="round" />
-      <rect x="27" y="52" width="10" height="5" rx="2.5" fill="#e27d60" />
-    </motion.svg>
-  );
-}
-
 // Tech → projects mapping for hover tooltips
 const TECH_PROJECTS = {
-  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "Resume AI", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow"],
-  "Node.js": ["BillingOS", "Kanban Pro", "Vault", "FoodExpress"],
-  "Python": ["MindFlow", "AI Try-On", "AI Model Governance Platform"],
-  "FastAPI": ["MindFlow", "AI Try-On", "AI Model Governance Platform"],
-  "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform"],
+  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "TalkingResume / ResumeIQ", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow"],
+  "Node.js": ["BillingOS", "Kanban Pro", "Vault", "FoodExpress", "AgentLens"],
+  "Python": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens"],
+  "FastAPI": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens"],
+  "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform", "AgentLens"],
   "PHP": ["Drive Accessible"],
   "Django": ["Payout Engine"],
   "WebRTC": ["Vault"],
   "Redis": ["BillingOS", "Payout Engine"],
-  "TypeScript": ["FoodExpress"],
+  "TypeScript": ["FoodExpress", "AgentLens"],
   "MySQL": ["Drive Accessible"],
-  "Supabase": ["AI Check Data", "Resume AI"],
+  "Supabase": ["AI Check Data"],
   "WebSockets": ["Kanban Pro", "Vault"],
   "Stripe": ["BillingOS"],
-  "Docker": ["MindFlow", "AI Model Governance Platform"],
+  "Docker": ["MindFlow", "AI Model Governance Platform", "AgentLens"],
   "React Flow": ["MindFlow"],
   "NetworkX": ["MindFlow"],
   "LLMs": ["MindFlow", "AI Model Governance Platform"],
@@ -278,15 +247,27 @@ const PROJECTS = [
     ],
   },
   {
-    id: "resumeai", num: "07", name: "Resume AI", tag: "AI · Product", year: "2025", color: "#7c3aed",
-    tagline: "AI resume builder — JD-to-resume mapping with ATS optimisation.",
-    short: "Resume AI turns a job description into a tailored, ATS-aware resume by mapping a candidate's experience to the role's requirements. The workflow keeps structured resume data editable, then generates a version that is targeted to the language and priorities of a specific application.",
-    context: "Most resume builders just format your existing text. This one reads the JD and rewrites your experience to match it.",
-    liveUrl: "", tech: ["React", "Supabase", "LLM APIs"],
+    id: "talkingresume", num: "07", name: "TalkingResume / ResumeIQ", tag: "AI · Recruiting", year: "2026", color: "#7c3aed",
+    tagline: "Candidate answers grounded in the work behind the resume.",
+    short: "Recruiters ask questions across their entire candidate pool and get evidence-backed answers with citations to exact files, commits, and work history — no keyword guessing. TalkingResume connects resumes to the work behind them so hiring conversations can begin with verifiable context. Extending with work simulations where candidates complete company-specific coding tasks and the system verifies results against acceptance criteria. Submitted to Y Combinator Fall 2026.",
+    context: "TalkingResume / ResumeIQ connects a candidate's stated experience to source evidence from their real work. The company-specific work-simulation direction is planned, not a shipped feature.",
+    urls: ["talkingresume.netlify.app"], liveUrl: "https://talkingresume.netlify.app/", tech: ["React", "Vite", "Firebase Firestore", "GitHub API"],
     bullets: [
-      "Prompt pipeline extracts key requirements from a JD and maps them against stored experience.",
-      "Multiple AI providers with structured output generation, enforcing a consistent JSON schema.",
-      "Save, edit, and export backed by Supabase — multiple resume versions, downloadable PDF per role.",
+      "Lets recruiters ask an evidence-backed question across a candidate pool, citing exact files, commits, and work-history context rather than guessing from keywords.",
+      "Connects candidate resumes with GitHub repository evidence so claims can be reviewed against what was actually built.",
+      "Planned: company-specific work simulations whose results are checked against clear acceptance criteria.",
+    ],
+  },
+  {
+    id: "agentlens", num: "15", name: "AgentLens", tag: "AI · Reliability", year: "2026", color: "#0f9f8f",
+    tagline: "Provider routing that fails over before the user feels it.",
+    short: "Catches provider failures before users see them. Routes requests across 8 providers using health-aware scoring, circuit breakers, and explainable failover decisions. 139+ automated tests. Production-hardened with Postgres, HMAC API-key storage, persistent rate limiting, and concurrent isolation tests. Local load test: 263 req/s with zero failures. Accepted into Claude for Startups (July 2026).",
+    context: "AgentLens makes provider reliability an explicit application concern: it observes health, decides where a request should go, and records why a fallback occurred so teams can investigate without relying on user reports.",
+    urls: ["agentlens-web.vercel.app"], liveUrl: "https://agentlens-web.vercel.app/", tech: ["Python", "TypeScript", "FastAPI", "PostgreSQL", "Docker"],
+    bullets: [
+      "Routes requests across 8 providers with health-aware scoring, circuit breakers, and explainable failover decisions.",
+      "Uses Postgres, HMAC API-key storage, persistent rate limiting, and concurrent isolation tests to make the routing layer safe in production.",
+      "Validated with 139+ automated tests and a local load test of 263 requests per second with zero failures.",
     ],
   },
   {
@@ -373,6 +354,11 @@ const PROJECTS = [
     ],
   },
 ];
+
+const FEATURED_PROJECT_IDS = ["drive", "billingos", "payout", "kanban", "talkingresume", "agentlens"];
+const FEATURED_PROJECTS = FEATURED_PROJECT_IDS
+  .map(id => PROJECTS.find(project => project.id === id))
+  .filter(Boolean);
 
 const SKILLS_DATA = {
   Frontend: { items: ["HTML", "CSS", "JavaScript", "React", "TypeScript", "Framer Motion"], color: C.coral },
@@ -536,7 +522,7 @@ function ProjectsCycleCard({ onOpenProject }) {
   const [idx, setIdx] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [hoveredDot, setHoveredDot] = useState(null);
-  const featured = PROJECTS.slice(0, 6);
+  const featured = FEATURED_PROJECTS;
 
   useEffect(() => {
     if (hovered) return;
@@ -882,7 +868,7 @@ function TechNetworkCard({ goToProject }) {
             </div>
           ) : (
             <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 7, padding: "0 12px" }}>
-              <Mascot size={46} />
+              <Code2 size={32} color={C.muted} strokeWidth={1.5} aria-hidden="true" />
               <p style={{ fontSize: 11, color: C.muted, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>Hover any node on the map to see which projects use it.</p>
             </div>
           )}
@@ -899,9 +885,8 @@ function IntroLine({ onResume }) {
       initial={reduceMotion ? false : { opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.42, ease: EASE }}
-      style={{ marginBottom: 20, position: "relative" }}
+      style={{ marginBottom: 20 }}
     >
-      <Mascot className="hero-mascot" size={64} />
       {/* Status pill */}
       <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "4px 11px", letterSpacing: "0.04em" }}>
@@ -912,25 +897,16 @@ function IntroLine({ onResume }) {
 
       {/* Main headline */}
       <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
-        <div style={{ minWidth: 0 }}>
-          <h1 className="intro-headline" style={{ fontSize: 34, lineHeight: 1.15, color: C.navy, margin: "0 0 10px", fontWeight: 950, letterSpacing: "-0.045em", maxWidth: 680 }}>
-            Hi, I&apos;m{" "}
-            <span style={{ color: C.coral }}>Imran</span>
-            {" "}— full-stack engineer building reliable{" "}
-            <span style={{ position: "relative", display: "inline-block" }}>
-              SaaS, fintech &amp; realtime
-              <motion.span
-                initial={reduceMotion ? false : { scaleX: 0 }}
-                animate={reduceMotion ? {} : { scaleX: 1 }}
-                transition={{ duration: 0.7, delay: 0.55, ease: EASE }}
-                style={{ position: "absolute", left: 0, right: 0, bottom: -1, height: 2.5, background: C.coral, transformOrigin: "left", display: "block" }}
-              />
-            </span>{" "}
-            systems.
-          </h1>
-          <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65, maxWidth: 560, fontWeight: 500 }}>
-            I ship production software: booking engines, billing pipelines, WebRTC collaboration, and AI-assisted tools. Based in Mumbai, open to remote and relocation roles.
-          </p>
+        <div className="intro-copy" style={{ minWidth: 0, display: "flex", alignItems: "flex-start", gap: 15, maxWidth: 680 }}>
+          <img src={niceFace} alt="" className="hero-portrait" style={{ width: 72, height: 72, objectFit: "contain", background: "#fff", borderRadius: 18, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", flexShrink: 0 }} />
+          <div>
+            <h1 className="intro-headline" style={{ fontSize: 34, lineHeight: 1.15, color: C.navy, margin: "0 0 10px", fontWeight: 950, letterSpacing: "-0.045em" }}>
+              Hi, I&apos;m <span style={{ color: C.coral }}>Imran</span>. I ship real software.
+            </h1>
+            <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65, maxWidth: 560, fontWeight: 500 }}>
+              I build dependable software for businesses that need it to keep working — booking, billing, realtime systems, and AI tools. Based in Mumbai. I like practical problems, clear systems, and shipping things.
+            </p>
+          </div>
         </div>
 
         <div className="intro-buttons" style={{ display: "flex", gap: 8, flexShrink: 0, alignSelf: "flex-end" }}>
@@ -983,7 +959,7 @@ function HomePage({ setPage, onResume }) {
 
 // ── FeaturedWorkSection ────────────────────────────────────────
 function FeaturedWorkSection({ setPage, onOpenProject }) {
-  const featured = PROJECTS.slice(0, 6);
+  const featured = FEATURED_PROJECTS;
   return (
     <div style={{ marginTop: 4 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
@@ -1970,8 +1946,6 @@ export default function App() {
         *,*::before,*::after{box-sizing:border-box;}
         body{margin:0;overflow-x:hidden;}
         html{scroll-behavior:smooth;}
-        .hero-mascot{position:absolute;right:0;top:-7px;pointer-events:none;filter:drop-shadow(0 5px 8px rgba(35,38,66,0.12));}
-
         @keyframes fadeInPanel{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:translateX(0);}}
 
         /* ── Scrollbar ── */
@@ -2027,12 +2001,13 @@ export default function App() {
           .mobile-menu-btn{display:flex!important;}
           .page-shell{padding-top:64px!important;}
           .intro-headline{font-size:26px!important;letter-spacing:-0.035em!important;}
+          .intro-copy{width:100%;gap:12px!important;}
+          .hero-portrait{width:58px!important;height:58px!important;border-radius:15px!important;}
           .intro-buttons{flex-direction:column;width:100%;}
           .intro-buttons a,.intro-buttons button{width:100%;text-align:center;}
           .about-proof-grid{grid-template-columns:1fr!important;}
           .profile-strip{padding:20px!important;}
           .work-detail-padding{padding:20px 18px!important;}
-          .hero-mascot{display:none!important;}
         }
 
         /* ── Very small (≤ 400px) ── */
@@ -2054,7 +2029,7 @@ export default function App() {
       </AnimatePresence>
       <ResumeSheet open={resumeOpen} onClose={() => setResumeOpen(false)} />
       <footer style={{ borderTop: `1px solid ${C.line}`, padding: "16px 20px", display: "flex", justifyContent: "space-between", maxWidth: 1060, margin: "0 auto", flexWrap: "wrap", gap: 8 }}>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}><Mascot size={28} />Imran Khan · 2026</span>
+        <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Imran Khan · 2026</span>
         <span style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Maintained by TechiesAIE</span>
       </footer>
     </div>

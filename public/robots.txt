@@ -1,44 +1,4 @@
-# ─────────────────────────────────────────────
-#  robots.txt — imran-silk.vercel.app
-#  Imran Khan · Full Stack Developer Mumbai
-# ─────────────────────────────────────────────
-
-# Allow all major search engines
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: WhatsApp
-Allow: /
-
-# Allow all others
 User-agent: *
 Allow: /
 
-# Sitemap location — Google reads this automatically
 Sitemap: https://imran-silk.vercel.app/sitemap.xml
-
-# Host canonical
-Host: imran-silk.vercel.app
