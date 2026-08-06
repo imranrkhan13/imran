@@ -478,7 +478,7 @@ function ProfileStrip() {
       </div>
 
       {/* Right: experience */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      {/* <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div>
           <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px" }}>Experience</p>
           <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
@@ -512,7 +512,7 @@ function ProfileStrip() {
         </div>
 
         <p style={{ fontSize: 10.5, color: C.muted, margin: "auto 0 0", fontWeight: 600, borderTop: `1px solid ${C.line}`, paddingTop: 10 }}>PHP · MySQL · JavaScript · Core PHP</p>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -1745,7 +1745,7 @@ function ResumeSheet({ open, onClose }) {
                     </div>
                   </section>
 
-                  {/* Experience */}
+                  {/* Experience 
                   <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                       <span style={{ width: 26, height: 2, background: C.coral }} />
@@ -1767,7 +1767,7 @@ function ResumeSheet({ open, onClose }) {
                       </ul>
                     </div>
                   </section>
-
+      */}
                   {/* Projects */}
                   <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
