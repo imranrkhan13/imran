@@ -1469,7 +1469,7 @@ MVM College, University of Mumbai | Mumbai, India`;
             </p>
           </Section>
 
-          <Section title="Experience" color="#0ea5e9">
+          {/* <Section title="Experience" color="#0ea5e9">
             <div style={{ padding: "18px 20px", background: C.soft, borderRadius: 12 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
                 <div>
@@ -1488,7 +1488,7 @@ MVM College, University of Mumbai | Mumbai, India`;
                 ].map((b, i) => <li key={i} style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
               </ul>
             </div>
-          </Section>
+          </Section> */}
 
           <Section title="Selected Projects" color="#8b5cf6">
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
