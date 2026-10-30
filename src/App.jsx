@@ -30,12 +30,15 @@ const C = {
 
 const EASE = [0.25, 1, 0.5, 1];
 
-const MEDCONNECT_SUMMARY = "Contributing backend engineering to MedConnect across article publishing, job discovery and applications, resume workflows, feeds, and media delivery.";
+const MEDCONNECT_SUMMARY = "Backend engineering across MedConnect: article publishing, job discovery and applications, networking and notifications, profile and resume workflows, media compression, feeds, and content automation.";
 
 const MEDCONNECT_BULLETS = [
-  "Built and refined article APIs for slug-based detail, owner draft access, published-status filtering, and complete create responses.",
-  "Improved job discovery and applications with fresher flags, multi-city/state data, applied-job search, recommendations, recent applications, closed/draft visibility rules, and limit/offset pagination.",
-  "Strengthened profile and resume workflows with deletion and status checks, readable filenames, file compression and URLs, and profile-strength integration.",
+  "Built the platform's notification module and the networking module end to end: connection requests, people search and ranked discovery, with database transactions, row locking, and Celery email tasks queued after commit.",
+  "Designed and refined the article APIs: slug-based detail views, owner-only draft access, published-status filtering, and create responses that return the complete record.",
+  "Expanded job discovery and applications across the board: fresh-job flags, multi-city and multi-state coverage, applied-job search, recommendations, recent applications, closed/draft visibility rules, and limit/offset pagination throughout.",
+  "Hardened profile and resume workflows with safe deletion and status checks, readable filenames, file compression with served URLs, and profile-strength integration.",
+  "Built the media compression pipeline from the ground up - images via pngquant/Pillow, PDFs via Ghostscript, video via FFmpeg - with processing-status tracking and original vs compressed sizes.",
+  "Automated content operations: scheduled news and conference imports with de-duplication, plus research automation that pulls medical research papers.",
   "Improved feed and media responses with per-user reactions, user slugs, reusable hospital-logo URL handling, normalized media paths, and serializer-backed application responses.",
 ];
 
@@ -145,21 +148,21 @@ function TechTag({ name, dark = false }) {
 
 // Tech → projects mapping for hover tooltips
 const TECH_PROJECTS = {
-  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "TalkingResume / ResumeIQ", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow", "Office Operations Hub", "Interfaze Verify", "TalkToYourDB"],
+  "React": ["PR Preview Environments", "BillingOS", "Kanban Pro", "AI Check Data", "TalkingResume / ResumeIQ", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow", "Office Operations Hub", "Interfaze Verify", "TalkToYourDB"],
   "Node.js": ["BillingOS", "Kanban Pro", "Vault", "FoodExpress", "AgentLens"],
-  "Python": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens", "Vendor Risk Assessment Agent"],
+  "Python": ["JevScope (RepoScope + Calibration Lab)", "MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens", "Vendor Risk Assessment Agent"],
   "FastAPI": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens", "Vendor Risk Assessment Agent"],
-  "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform", "AgentLens", "Office Operations Hub", "ProofFlow", "Ops Decision System"],
+  "PostgreSQL": ["PR Preview Environments", "BillingOS", "Payout Engine", "AI Model Governance Platform", "AgentLens", "Office Operations Hub", "ProofFlow", "Ops Decision System"],
   "PHP": ["DriveAccessible"],
   "Django": ["Payout Engine"],
   "WebRTC": ["Vault"],
   "Redis": ["BillingOS", "Payout Engine"],
-  "TypeScript": ["FoodExpress", "AgentLens", "ProofFlow", "TalkToYourDB"],
+  "TypeScript": ["PR Preview Environments", "FoodExpress", "AgentLens", "ProofFlow", "TalkToYourDB"],
   "MySQL": ["DriveAccessible"],
   "Supabase": ["AI Check Data"],
   "WebSockets": ["Kanban Pro", "Vault"],
   "Stripe": ["BillingOS"],
-  "Docker": ["MindFlow", "AI Model Governance Platform", "AgentLens"],
+  "Docker": ["PR Preview Environments", "MindFlow", "AI Model Governance Platform", "AgentLens"],
   "React Flow": ["MindFlow"],
   "NetworkX": ["MindFlow"],
   "LLMs": ["MindFlow", "AI Model Governance Platform"],
@@ -426,6 +429,37 @@ const PROJECTS = [
       "Built an AI-powered video generation pipeline producing narrated explainer videos via LLM-generated scripts, Gemini Text-to-Speech, custom frame rendering, and FFmpeg encoding.",
       "Developed asynchronous background job processing with progress tracking so long-running AI video generation never blocks the UI.",
       "Deployed the frontend on Vercel and the AI backend on Hugging Face Spaces with Docker-based deployment and environment-based provider configuration.",
+    ],
+  },
+  {
+    id: "jevscope", num: "21", name: "JevScope (RepoScope + Calibration Lab)", tag: "AI · Evaluation", year: "2026", color: "#0f9f8f",
+    tagline: "Measures whether a decision model's confidence is worth trusting - and where to set the threshold.",
+    short: "JevScope pairs RepoScope, which parses a GitHub repository into a real dependency graph and decides which files deserve expensive analysis, with Calibration Lab: a selective-prediction harness that measures whether a model's confidence score means what it says. The hosted lab runs the same study in the browser on 181 hand-labelled Python files from Requests, HTTPX and Starlette.",
+    context: "The public demo measures two local scikit-learn classifiers, not the hosted Jev API or an LLM, and the site says so plainly. No claim that any model is better, calibrated or cheaper goes public without evidence behind it.",
+    liveUrl: "https://jevscope.vercel.app/", urls: ["jevscope.vercel.app", "github.com/imranrkhan13/jevscope"], fleetUrl: "https://github.com/imranrkhan13/jevscope",
+    tech: ["Python", "scikit-learn", "TypeScript"],
+    bullets: [
+      "Real public-repo study: 181 hand-labelled Python files scored by classifiers trained on five other public repos - logistic regression 69.6% accuracy at ECE 0.103 vs Naive Bayes 68.5% at ECE 0.299: nearly identical accuracy, wildly different confidence quality.",
+      "Naive Bayes claims ~98.4% confidence while right 68.5% of the time; the lab translates that gap into a 29.2% automated error rate and roughly 11x the cost of manual review.",
+      "Measures calibration (ECE, MCE, reliability diagrams) and discrimination (AURC, Brier, risk-coverage) as separate axes, with cost-based threshold selection for the error-vs-review cost tradeoff.",
+      "One comparable certainty axis across noul/choice/score answer types, keeping correctness_probability separate so strong negative answers are not misread as uncertain.",
+      "Equal-mass bins with population-encoded bar width, and a reverse-percentile bootstrap that cancels ECE's upward bias in the confidence interval.",
+      "Paired model comparison via McNemar's test that refuses to name a winner on thin evidence; 75 tests green.",
+    ],
+  },
+  {
+    id: "prpreview", num: "22", name: "PR Preview Environments", tag: "DevOps · Infrastructure", year: "2026", color: "#6366f1",
+    tagline: "Every pull request gets a shareable live environment - and it only goes live after a real health check.",
+    short: "PR Preview connects a GitHub repository and gives every pull request its own shareable live environment, built for stateful apps that need databases, queues or backing services that static preview deploys do not handle. Deployments move through a strict state machine: a provider returning a URL is never enough - the environment is LIVE only after the URL actually passes its health check.",
+    context: "MVP, partially verified. The README keeps an explicit ledger of what has and has not been tested against real infrastructure, and the project does not call itself production-ready until that ledger says so.",
+    liveUrl: "https://prpreview-omega.vercel.app", urls: ["prpreview-omega.vercel.app", "github.com/imranrkhan13/prreview"], fleetUrl: "https://github.com/imranrkhan13/prreview",
+    tech: ["TypeScript", "Fastify", "PostgreSQL", "React", "Docker"],
+    bullets: [
+      "Health-check gate as the core truthfulness rule: HEALTH_CHECK can only transition to LIVE or FAILED, so a provider creating a service never marks a deployment live on its own.",
+      "HMAC-signed GitHub webhooks deduped by delivery ID; fork PRs from unapproved repos stop at needsApproval instead of provisioning.",
+      "Worker-driven state machine (QUEUED to PROVISIONING to DEPLOYING to HEALTH_CHECK to LIVE or FAILED), re-applied on every new commit, with a cron reaper expiring deployments past TTL.",
+      "GitHub OAuth with signed state, one-time 60-second exchange codes, tab-scoped session tokens, session revocation, and every query scoped to the caller's org memberships.",
+      "Pluggable DeploymentProvider interface: a real local Docker provider for trials and a Railway provider for public URLs.",
     ],
   },
 ];
@@ -1981,4 +2015,4 @@ export default function App() {
     </div>
     </MotionConfig>
   );
-}
+          }
