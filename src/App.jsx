@@ -8,6 +8,10 @@ import {
   Globe2, GraduationCap, House, Linkedin, Mail, Phone, Rocket, Send,
   ShieldCheck, Sparkles, Trophy, UserRound,
 } from "lucide-react";
+import {
+  SiDjango, SiMysql, SiNodedotjs, SiPhp, SiPostgresql, SiReact,
+  SiRedis, SiSocketdotio, SiStripe, SiSupabase, SiTypescript, SiWebrtc,
+} from "react-icons/si";
 import niceFace from "./assets/nice.png";
 
 // ── Original white/warm theme ──────────────────────────────────
@@ -26,46 +30,55 @@ const C = {
 
 const EASE = [0.25, 1, 0.5, 1];
 
+const MEDCONNECT_SUMMARY = "Contributing backend engineering to MedConnect across article publishing, job discovery and applications, resume workflows, feeds, and media delivery.";
+
+const MEDCONNECT_BULLETS = [
+  "Built and refined article APIs for slug-based detail, owner draft access, published-status filtering, and complete create responses.",
+  "Improved job discovery and applications with fresher flags, multi-city/state data, applied-job search, recommendations, recent applications, closed/draft visibility rules, and limit/offset pagination.",
+  "Strengthened profile and resume workflows with deletion and status checks, readable filenames, file compression and URLs, and profile-strength integration.",
+  "Improved feed and media responses with per-user reactions, user slugs, reusable hospital-logo URL handling, normalized media paths, and serializer-backed application responses.",
+];
+
 const HACKATHON_PROJECTS = [
   {
     id: "ship-or-donate", num: "H1", name: "Ship or Donate", tag: "Spark · Monad Hackathon", year: "2026", color: "#8b5cf6",
-    tagline: "Stake a deadline. Ship, or send the stake to open source.",
-    short: "Ship or Donate is an onchain commitment escrow where builders lock test MON against a personal shipping deadline. A verifier checks the proof, then the stake is refunded for a completed build or routed to an open-source recipient.",
-    context: "Built to make a personal shipping commitment concrete: proof is reviewed by a verifier, then the stake is refunded or donated.",
+    tagline: "Onchain commitment escrow for shipping deadlines.",
+    short: "Ship or Donate is a hackathon build: an onchain commitment escrow on Monad testnet. A builder stakes test MON, submits proof, and gets a refund after verifier approval or sends the stake to an open-source recipient.",
+    context: "Hackathon build. A verified flow completed staking, proof submission, verifier approval, and refund on Monad testnet.",
     liveUrl: "https://ship-or-donate.vercel.app/", tech: ["Solidity", "Next.js", "wagmi", "viem"],
-    bullets: ["Built an onchain escrow that locks test MON against a builder-defined shipping deadline.", "Deployed on Monad testnet with a real, verified refund transaction: 0x3e232e…616176.", "Designed a verifier-reviewed proof flow before a refund is released."],
+    bullets: ["Built an onchain escrow that locks test MON against a builder-defined shipping deadline.", "Completed a verified flow covering staking, proof submission, verifier approval, and refund.", "Implemented the verifier-reviewed proof flow before a refund is released."],
   },
   {
     id: "dealmemory", num: "H2", name: "DealMemory / Activation Memory", tag: "Supermemory × Dodo", year: "2026", color: "#0ea5e9",
     tagline: "Remembers where a trial user got stuck, so onboarding can continue.",
-    short: "DealMemory is an activation-intelligence SDK for SaaS trials that remembers a user's goal, progress, and blocker across sessions. It gives product teams enough context to resume onboarding at the next useful step instead of starting over.",
-    context: "Instead of restarting onboarding from scratch, DealMemory brings a user back to the exact milestone and blocker they last reached.",
-    liveUrl: "https://dealmemory.vercel.app/", tech: ["TypeScript", "Next.js", "Prisma"],
-    bullets: ["Tracked explicit activation events, user goals, and blockers across trial sessions.", "Gated checkout until activation milestones were reached.", "Built for the Supermemory × Dodo Hackathon."],
+    short: "DealMemory is a hackathon project for an activation-intelligence SDK that remembers a SaaS trial user's goal, progress, and blocker across sessions. It gives product teams enough context to resume onboarding at the next useful step instead of starting over.",
+    context: "Hackathon project using Supermemory Local. It explores how to carry activation context across sessions without presenting the build as production-ready.",
+    liveUrl: "https://dealmemory.vercel.app/", tech: ["TypeScript", "Next.js", "Prisma", "Supermemory Local"],
+    bullets: ["Tracked explicit activation events, user goals, and blockers across trial sessions.", "Helped resume onboarding at the next useful step instead of restarting from scratch.", "Built for the Supermemory × Dodo Hackathon; not presented as production-ready."],
   },
   {
     id: "vendor-risk-agent", num: "H3", name: "Vendor Risk Assessment Agent", tag: "RAISE Summit · Vultr", year: "2026", color: "#14b8a6",
-    tagline: "A source-grounded vendor-risk review in under 24 hours.",
-    short: "Vendor Risk Assessment Agent ingests SOC 2 reports, extracts relevant evidence through a multi-step agentic workflow, and turns it into deterministic vendor-risk scoring. The result is a review that can be inspected rather than treated as a black box.",
-    context: "Created during the RAISE Summit Hackathon's Vultr Track, prioritising traceable assessment logic over an opaque score.",
+    tagline: "A source-grounded vendor-risk review prototype built under time pressure.",
+    short: "Vendor Risk Assessment Agent is a hackathon prototype that ingests SOC 2 reports, extracts relevant evidence through a multi-step workflow, and turns it into deterministic vendor-risk scoring. The result is a review that can be inspected rather than treated as a black box.",
+    context: "RAISE Summit / Vultr hackathon prototype built in under 24 hours, prioritising traceable assessment logic over an opaque score.",
     tech: ["Python", "FastAPI", "Next.js"],
     bullets: ["Built the prototype in under 24 hours.", "Ingests SOC 2 reports and runs a multi-step review workflow.", "Pairs agentic extraction with deterministic scoring for a more explainable assessment."],
   },
   {
     id: "voxstep", num: "H4", name: "Voxstep", tag: "Voice AI Challenge", year: "2026", color: "#f59e0b",
-    tagline: "Pronunciation scoring with a reliable speech-to-text fallback chain.",
-    short: "Voxstep is a pronunciation assessment app that transcribes speech through a multi-provider fallback chain, then compares the result using deterministic phoneme alignment. It is designed to keep feedback dependable even when one speech-to-text provider is unavailable.",
+    tagline: "Pronunciation scoring with deterministic phoneme alignment.",
+    short: "Voxstep is a pronunciation-scoring application that combines Gradium, Groq Whisper, Deepgram, and OpenAI fallback transcription with deterministic phoneme alignment, word-error rate, transcription confidence, and word-level feedback.",
     context: "The app is designed to keep assessment feedback dependable when a primary transcription provider is unavailable.",
     liveUrl: "https://voxstep.vercel.app/", tech: ["Next.js", "TypeScript", "STT APIs"],
-    bullets: ["Built a multi-provider STT fallback chain.", "Implemented deterministic phoneme alignment for pronunciation feedback.", "Shipped for the Voice AI Assessment Challenge."],
+    bullets: ["Built a transcription fallback chain across Gradium, Groq Whisper, Deepgram, and OpenAI.", "Implemented deterministic phoneme alignment, word-error rate, transcription confidence, and word-level feedback.", "Built for the Voice AI Assessment Challenge."],
   },
   {
     id: "truthlens", num: "H5", name: "TruthLens AI", tag: "VideoDB Hackathon", year: "2026", color: "#ec4899",
-    tagline: "Video forensics through six agents sharing one evidence layer.",
-    short: "TruthLens AI is a video-forensics platform where six specialist agents share one evidence layer. It combines face detection, audio analysis, and frame-continuity checks so an investigator can examine several signals together rather than rely on one verdict.",
-    context: "TruthLens is built to inspect video evidence from several angles rather than relying on a single black-box verdict.",
+    tagline: "Hackathon video forensics through six agents sharing one evidence layer.",
+    short: "TruthLens AI is a hackathon build where six specialist agents share one evidence layer. It combines face detection, audio analysis, and frame-continuity checks so an investigator can examine several signals together rather than rely on one verdict.",
+    context: "Hackathon build. The reported 99.8% confidence is attributed to the prototype's output and is not presented as a validated real-world accuracy metric.",
     tech: ["Python", "FastAPI", "Next.js", "VideoDB"],
-    bullets: ["Implemented six forensic agents backed by one shared memory layer.", "Added OpenCV face detection with a reported 99.8% confidence result.", "Included DSP audio checks and pixel-level frame-continuity analysis."],
+    bullets: ["Implemented six forensic agents backed by one shared evidence layer.", "Included the prototype's reported 99.8% confidence output without treating it as a validated accuracy metric.", "Added face detection, audio checks, and pixel-level frame-continuity analysis."],
   },
 ];
 
@@ -123,8 +136,8 @@ function TechTag({ name, dark = false }) {
         ? Boxes
         : Code2;
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 9, fontWeight: 700, color: dark ? "#fff" : C.navy, background: dark ? "rgba(255,255,255,0.1)" : C.soft, padding: "2px 7px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : C.line}` }}>
-      <Icon size={10} strokeWidth={2.2} aria-hidden="true" />
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 10.5, fontWeight: 750, color: dark ? "#fff" : C.navy, background: dark ? "rgba(255,255,255,0.1)" : C.soft, padding: "3px 8px", borderRadius: 99, border: `1px solid ${dark ? "rgba(255,255,255,0.12)" : C.line}` }}>
+      <Icon size={11} strokeWidth={2.2} aria-hidden="true" />
       {name}
     </span>
   );
@@ -132,17 +145,17 @@ function TechTag({ name, dark = false }) {
 
 // Tech → projects mapping for hover tooltips
 const TECH_PROJECTS = {
-  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "TalkingResume / ResumeIQ", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow"],
+  "React": ["BillingOS", "Kanban Pro", "AI Check Data", "TalkingResume / ResumeIQ", "DevLens", "FoodExpress", "Wikireels", "Techiesaie", "AI Model Governance Platform", "AI Try-On", "MindFlow", "Office Operations Hub", "Interfaze Verify", "TalkToYourDB"],
   "Node.js": ["BillingOS", "Kanban Pro", "Vault", "FoodExpress", "AgentLens"],
-  "Python": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens"],
-  "FastAPI": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens"],
-  "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform", "AgentLens"],
-  "PHP": ["Drive Accessible"],
+  "Python": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens", "Vendor Risk Assessment Agent"],
+  "FastAPI": ["MindFlow", "AI Try-On", "AI Model Governance Platform", "AgentLens", "Vendor Risk Assessment Agent"],
+  "PostgreSQL": ["BillingOS", "Payout Engine", "AI Model Governance Platform", "AgentLens", "Office Operations Hub", "ProofFlow", "Ops Decision System"],
+  "PHP": ["DriveAccessible"],
   "Django": ["Payout Engine"],
   "WebRTC": ["Vault"],
   "Redis": ["BillingOS", "Payout Engine"],
-  "TypeScript": ["FoodExpress", "AgentLens"],
-  "MySQL": ["Drive Accessible"],
+  "TypeScript": ["FoodExpress", "AgentLens", "ProofFlow", "TalkToYourDB"],
+  "MySQL": ["DriveAccessible"],
   "Supabase": ["AI Check Data"],
   "WebSockets": ["Kanban Pro", "Vault"],
   "Stripe": ["BillingOS"],
@@ -155,27 +168,29 @@ const TECH_PROJECTS = {
   "REST APIs": ["BillingOS", "FoodExpress", "DevLens"],
   "MongoDB": ["FoodExpress"],
   "pgvector": ["AI Model Governance Platform"],
-  "Next.js": [],
+  "Next.js": ["Ship or Donate", "DealMemory / Activation Memory", "Voxstep", "Vendor Risk Assessment Agent", "TruthLens AI"],
   "Tailwind CSS": [],
   "Framer Motion": ["Wikireels", "Techiesaie"],
-  "JavaScript": ["Drive Accessible", "FoodExpress"],
+  "JavaScript": ["DriveAccessible", "FoodExpress"],
+  "Django REST Framework": ["Payout Engine", "MedConnect"],
+  "Laravel": ["DriveAccessible"],
+  "Vue.js": [],
 };
 
 const PROJECTS = [
   {
-    id: "drive", num: "01", name: "Drive Accessible", tag: "SaaS · Production", year: "2025–Now", color: "#e27d60",
-    tagline: "Full-scale fleet & car rental SaaS — live customers, live money.",
-    short: "DriveAccessible is a production fleet and car-rental operations platform that brings vehicle inventory, booking availability, billing, payment tracking, and renewals into one workflow. It helps operators run daily rentals from a single system while protecting against booking conflicts and overdue work.",
-    context: "This is a real production system used daily by operations teams at a car rental business. Not a side project — live customers, live money, zero tolerance for downtime.",
+    id: "drive", num: "01", name: "DriveAccessible", tag: "SaaS · Production", year: "October 2025 – March 2026", color: "#e27d60",
+    tagline: "Fleet-management and rental SaaS for daily operations.",
+    short: "DriveAccessible is a production fleet-management and car-rental operations SaaS covering vehicle inventory, booking availability, billing, payment tracking, renewals, and operational workflows. It was adopted by 5+ companies within four months of launch.",
+    context: "Associate Software Engineer work at SvayambhuTech from October 2025 to March 2026. The project covered live operational workflows without presenting unverified customer or payment claims.",
     urls: ["driveaccessible.com", "fleet.driveaccessible.com"], liveUrl: "https://driveaccessible.com", fleetUrl: "https://fleet.driveaccessible.com",
     tech: ["PHP", "JavaScript", "MySQL"],
     bullets: [
-      "Engineered a conflict-detection system that analyses existing booking windows in real time, eliminating double-bookings entirely across the vehicle fleet.",
-      "Built a billing engine with daily rate pricing, configurable security deposits, partial payment recording, and live invoice totals — zero third-party payment libraries.",
-      "Developed a payment tracking dashboard surfacing overdue amounts, upcoming renewals, and revenue trends.",
-      "Resolved 60+ production issues ranging from critical edge-case bugs to full feature deliveries, maintaining zero downtime.",
-      "Deployed a SEO-optimised public website with Intersection Observer animations and structured data markup.",
-      "Architected multi-role access control so admins, agents, and drivers each see only relevant data.",
+      "Built conflict detection to prevent double-bookings, with booking-window checks across vehicle availability.",
+      "Built daily-rate pricing, deposits, partial payments, PDF invoices, overdue-payment dashboards, and renewal workflows.",
+      "Owned full-stack delivery across APIs, databases, integrations, deployment debugging, and operational tooling.",
+      "Resolved 60+ production issues across edge-case bugs, workflow fixes, and feature deliveries.",
+      "Built role-based access and a public SEO site for the rental workflow.",
     ],
   },
   {
@@ -249,25 +264,85 @@ const PROJECTS = [
   {
     id: "talkingresume", num: "07", name: "TalkingResume / ResumeIQ", tag: "AI · Recruiting", year: "2026", color: "#7c3aed",
     tagline: "Candidate answers grounded in the work behind the resume.",
-    short: "Recruiters ask questions across their entire candidate pool and get evidence-backed answers with citations to exact files, commits, and work history — no keyword guessing. TalkingResume connects resumes to the work behind them so hiring conversations can begin with verifiable context. Extending with work simulations where candidates complete company-specific coding tasks and the system verifies results against acceptance criteria. Submitted to Y Combinator Fall 2026.",
+    short: "TalkingResume / ResumeIQ is an evidence-led technical hiring workspace. Recruiters investigate resumes, GitHub repositories, commits, projects, and source files, with answers grounded in exact evidence and citations rather than keyword matching.",
     context: "TalkingResume / ResumeIQ connects a candidate's stated experience to source evidence from their real work. The company-specific work-simulation direction is planned, not a shipped feature.",
     urls: ["talkingresume.netlify.app"], liveUrl: "https://talkingresume.netlify.app/", tech: ["React", "Vite", "Firebase Firestore", "GitHub API"],
     bullets: [
       "Lets recruiters ask an evidence-backed question across a candidate pool, citing exact files, commits, and work-history context rather than guessing from keywords.",
       "Connects candidate resumes with GitHub repository evidence so claims can be reviewed against what was actually built.",
-      "Planned: company-specific work simulations whose results are checked against clear acceptance criteria.",
+      "Planned, not shipped: company-specific work simulations whose results are checked against clear acceptance criteria.",
     ],
   },
   {
     id: "agentlens", num: "15", name: "AgentLens", tag: "AI · Reliability", year: "2026", color: "#0f9f8f",
     tagline: "Provider routing that fails over before the user feels it.",
-    short: "Catches provider failures before users see them. Routes requests across 8 providers using health-aware scoring, circuit breakers, and explainable failover decisions. 139+ automated tests. Production-hardened with Postgres, HMAC API-key storage, persistent rate limiting, and concurrent isolation tests. Local load test: 263 req/s with zero failures. Accepted into Claude for Startups (July 2026).",
-    context: "AgentLens makes provider reliability an explicit application concern: it observes health, decides where a request should go, and records why a fallback occurred so teams can investigate without relying on user reports.",
+    short: "AgentLens is an AI reliability runtime for applications using multiple model providers. It routes requests across 8 providers using health-aware scoring, circuit breakers, retries, telemetry, rate limiting, and explainable failover decisions. Local validation includes 139+ automated tests and a 263 requests-per-second load test with zero failures.",
+    context: "AgentLens makes provider reliability an explicit application concern. The load-test result is local validation, not a claim of external production usage.",
     urls: ["agentlens-web.vercel.app"], liveUrl: "https://agentlens-web.vercel.app/", tech: ["Python", "TypeScript", "FastAPI", "PostgreSQL", "Docker"],
     bullets: [
       "Routes requests across 8 providers with health-aware scoring, circuit breakers, and explainable failover decisions.",
-      "Uses Postgres, HMAC API-key storage, persistent rate limiting, and concurrent isolation tests to make the routing layer safe in production.",
-      "Validated with 139+ automated tests and a local load test of 263 requests per second with zero failures.",
+      "Includes Python and TypeScript SDKs, Postgres-backed controls, HMAC API-key storage, rate limiting, and telemetry.",
+      "Validated with 139+ automated tests and a local load test of 263 requests per second with zero failures; external production usage is not claimed.",
+    ],
+  },
+  {
+    id: "office-operations-hub", num: "16", name: "Office Operations Hub", tag: "Ops · Current Build", year: "2026", color: "#e27d60",
+    tagline: "Schema-led workflows for the work behind a company.",
+    short: "Office Operations Hub is a schema-led company operations workspace covering employee, finance, procurement, IT, legal, travel, workplace, and feedback workflows. Guided requests prepare records, documents, approval packets, tasks, PDFs, and audit history while sensitive decisions remain with permitted human approvers.",
+    context: "Current build. Role-aware access, document versioning, source-grounded PDF review, accountable task ownership, due dates, comments, and request timelines are part of the workflow. Not every external integration is presented as production-ready.",
+    tech: ["React", "TypeScript", "PostgreSQL", "Workflow APIs"],
+    bullets: [
+      "Designed guided request flows that turn structured inputs into records, documents, approval packets, tasks, PDFs, and audit history.",
+      "Included role-aware access, document versions, source-grounded PDF review, ownership, due dates, comments, and request timelines.",
+      "Kept sensitive decisions with permitted human approvers and labelled current implementation boundaries instead of claiming complete integrations.",
+    ],
+  },
+  {
+    id: "interfaze-verify", num: "17", name: "Interfaze Verify", tag: "Extraction · Verification", year: "2026", color: "#0ea5e9",
+    tagline: "Structured extraction review with evidence you can inspect.",
+    short: "Interfaze Verify is a full-stack review workspace around a documented extraction API. Users define schemas, submit document images or URLs, inspect confidence-coded bounding boxes and field-to-region links, normalise values, validate declaratively, and export JSON with review history.",
+    context: "Demo documents and responses use synthetic fixtures. The live provider adapter remains unverified without real credentials; this is not presented as a production deployment.",
+    tech: ["React", "Vite", "TypeScript", "SQLite", "Extraction API"],
+    bullets: [
+      "Implemented user-defined schemas, document image or URL submission, confidence-coded bounding boxes, field-to-region links, and normalisation.",
+      "Added declarative validation, provider and fixture adapters, audit events, JSON export, SQLite persistence, and review history.",
+      "Forty-nine automated tests passed, and server and web production builds passed; the live provider path remains unverified.",
+    ],
+  },
+  {
+    id: "proofflow", num: "18", name: "ProofFlow", tag: "Workflow · Prototype", year: "2026", color: "#10b981",
+    tagline: "A review workflow prototype with migrations and rollback coverage.",
+    short: "ProofFlow is a PostgreSQL-backed workflow prototype with a dedicated Drizzle adapter, additive migrations, authenticated review persistence, and an end-to-end path from provider or fixture evidence through reviewer decisions to PDF output.",
+    context: "Prototype boundaries are explicit: historical legacy-data import, live Interfaze OCR/transcription, uploaded-file classification, and conflict-resolution controls remain incomplete.",
+    tech: ["TypeScript", "PostgreSQL", "Drizzle", "React"],
+    bullets: [
+      "Added migration and seed idempotency tests, authenticated review persistence, and rollback coverage.",
+      "Covered provider-to-fixture-to-reviewer-to-PDF integration and an authenticated Northstar review journey.",
+      "Kept legacy import, live OCR/transcription, uploaded-file classification, and conflict resolution labelled incomplete.",
+    ],
+  },
+  {
+    id: "ops-decision-system", num: "19", name: "Fynd-inspired Retail Operations Copilot / Ops Decision System", tag: "AI · Synthetic Evaluation", year: "2026", color: "#f59e0b",
+    tagline: "Source-linked retail operations decisions with review-only action plans.",
+    short: "This Fynd-inspired commerce operations prototype links orders, inventory, deliveries, returns, incidents, alerts, payments, and campaign risk. It provides source-linked answers and confidence while keeping action plans review-only.",
+    context: "Synthetic evaluation only: the fixed synthetic suite passed 20/20 checks. The hiring-grade PostgreSQL-backed authenticated workflow version is still being developed.",
+    tech: ["React", "PostgreSQL", "AI Workflows", "Synthetic Data"],
+    bullets: [
+      "Connected operational entities so questions can trace back to orders, inventory, delivery, returns, incidents, alerts, payments, and campaign risk.",
+      "Returned source-linked answers with confidence and kept proposed actions review-only.",
+      "Passed 20/20 checks in the fixed synthetic evaluation suite; this is not a production reliability claim.",
+    ],
+  },
+  {
+    id: "talktoyourdb", num: "20", name: "TalkToYourDB", tag: "AI · Safety Demo", year: "2026", color: "#6366f1",
+    tagline: "Schema-aware database questions with safety checks before execution.",
+    short: "TalkToYourDB is a schema-aware database question-answering demo with seven pre-execution safety checks. It blocks unsafe queries, repairs broken queries automatically, and executes only read-only operations; a connection flow for users' own databases is planned.",
+    context: "Demo with a planned connection flow. The safety layer is the shipped focus; it does not claim a completed user-database integration.",
+    tech: ["React", "TypeScript", "SQL", "LLM APIs"],
+    bullets: [
+      "Added schema-aware question answering with seven checks before a query can execute.",
+      "Blocked unsafe queries, repaired broken queries automatically, and kept execution read-only.",
+      "Planned: a connection flow for users' own databases.",
     ],
   },
   {
@@ -317,9 +392,9 @@ const PROJECTS = [
   },
   {
     id: "modelgov", num: "12", name: "AI Model Governance Platform", tag: "AI · Enterprise", year: "2026", color: "#14b8a6",
-    tagline: "Bank-grade model risk governance — workflow state machine, RAG Q&A, full audit trail.",
+    tagline: "High-trust model review with explicit workflow and audit trail.",
     short: "AI Model Governance Platform is an internal review workspace for teams managing high-trust AI models. It combines a model registry, server-enforced review states, role-based access, document-grounded questions, and an append-only audit trail so a decision can be traced from source evidence to sign-off.",
-    context: "Modelled on how a real bank's model risk team would actually govern, review, and ask questions about ML models in production — not a toy CRUD app.",
+    context: "Designed as a high-trust review workspace rather than a toy CRUD app, with explicit ownership, evidence, workflow state, and sign-off history.",
     liveUrl: "", tech: ["FastAPI", "PostgreSQL", "pgvector", "React"],
     bullets: [
       "Built a model registry and explicit workflow state machine enforcing role-based transition rules server-side, with a full append-only audit trail.",
@@ -329,13 +404,13 @@ const PROJECTS = [
   },
   {
     id: "tryon", num: "13", name: "AI Try-On", tag: "AI · Consumer", year: "2026", color: "#ec4899",
-    tagline: "Free-tier virtual try-on — community AI models, automatic fallback, zero paid APIs.",
-    short: "AI Try-On is a virtual try-on workflow built around community-hosted Hugging Face models instead of a paid image API. It routes requests through provider fallback and background jobs so a slower generation task does not freeze the product experience or fail when one model is unavailable.",
-    context: "Most virtual try-on demos die the moment a paid API quota runs out. This one is built entirely on free, community-hosted models with fallback baked in.",
+    tagline: "Virtual try-on workflow prototype with provider fallback.",
+    short: "AI Try-On is a virtual try-on prototype using community-hosted Hugging Face models, automatic provider fallback, and background jobs. It keeps a slower generation task from freezing the product experience and includes a fix for a schema-parsing issue in a third-party client library.",
+    context: "Prototype / demo. The implementation explores model fallback and background processing; it is not presented as a production try-on service.",
     liveUrl: "", tech: ["React", "FastAPI", "Python", "Hugging Face"],
     bullets: [
       "Calls community-hosted Hugging Face models with automatic provider fallback and background job processing for try-on generation.",
-      "Diagnosed and patched a schema-parsing bug in a third-party AI client library (gradio_client) affecting multiple library versions.",
+      "Diagnosed and patched a schema-parsing bug in a third-party AI client library affecting multiple library versions.",
     ],
   },
   {
@@ -355,31 +430,32 @@ const PROJECTS = [
   },
 ];
 
-const FEATURED_PROJECT_IDS = ["drive", "billingos", "payout", "kanban", "talkingresume", "agentlens"];
+const FEATURED_PROJECT_IDS = ["drive", "agentlens", "talkingresume", "office-operations-hub", "interfaze-verify", "billingos", "payout", "modelgov"];
 const FEATURED_PROJECTS = FEATURED_PROJECT_IDS
   .map(id => PROJECTS.find(project => project.id === id))
   .filter(Boolean);
 
 const SKILLS_DATA = {
-  Frontend: { items: ["HTML", "CSS", "JavaScript", "React", "TypeScript", "Framer Motion"], color: C.coral },
-  Backend: { items: ["Node.js", "Django (Python)", "PHP", "Rust"], color: C.ink },
-  Database: { items: ["PostgreSQL", "MySQL", "MongoDB", "Redis"], color: "#0ea5e9" },
-  Tools: { items: ["Git", "GitHub", "Vercel", "WebRTC", "WebSockets"], color: "#10b981" },
+  Frontend: { items: ["JavaScript", "TypeScript", "React", "Next.js", "Vue.js", "Tailwind CSS", "Vite"], color: C.coral },
+  Backend: { items: ["Python", "FastAPI", "Django REST Framework", "Node.js", "Express", "PHP", "Laravel"], color: C.ink },
+  Data: { items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "pgvector"], color: "#0ea5e9" },
+  Infrastructure: { items: ["Docker", "Linux", "GitHub Actions", "CI/CD", "NGINX", "Azure", "GCP"], color: "#10b981" },
+  AI: { items: ["OpenAI", "Anthropic", "Gemini", "RAG", "Semantic search", "Vector search", "Agentic workflows", "Speech-to-text", "Text-to-speech"], color: "#8b5cf6" },
 };
 
 const TECH_NODES = [
-  { name: "React", color: "#61dafb" },
-  { name: "Node.js", color: "#68a063" },
-  { name: "PostgreSQL", color: "#336791" },
-  { name: "PHP", color: "#8892bf" },
-  { name: "Django", color: "#0c4b33" },
-  { name: "WebRTC", color: "#e27d60" },
-  { name: "Redis", color: "#d82c20" },
-  { name: "TypeScript", color: "#3178c6" },
-  { name: "MySQL", color: "#00758f" },
-  { name: "Supabase", color: "#3ecf8e" },
-  { name: "WebSockets", color: "#8b5cf6" },
-  { name: "Stripe", color: "#6772e5" },
+  { name: "React", color: "#61dafb", Icon: SiReact },
+  { name: "Node.js", color: "#68a063", Icon: SiNodedotjs },
+  { name: "PostgreSQL", color: "#336791", Icon: SiPostgresql },
+  { name: "PHP", color: "#8892bf", Icon: SiPhp },
+  { name: "Django", color: "#0c4b33", Icon: SiDjango },
+  { name: "WebRTC", color: "#e27d60", Icon: SiWebrtc },
+  { name: "Redis", color: "#d82c20", Icon: SiRedis },
+  { name: "TypeScript", color: "#3178c6", Icon: SiTypescript },
+  { name: "MySQL", color: "#00758f", Icon: SiMysql },
+  { name: "Supabase", color: "#3ecf8e", Icon: SiSupabase },
+  { name: "WebSockets", color: "#8b5cf6", Icon: SiSocketdotio },
+  { name: "Stripe", color: "#6772e5", Icon: SiStripe },
 ];
 
 // ── Card wrapper ───────────────────────────────────────────────
@@ -425,33 +501,26 @@ function ProfileStrip() {
     const upd = () => setTime(new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" }));
     upd(); const id = setInterval(upd, 1000); return () => clearInterval(id);
   }, []);
-  const bullets = [
-    "Sole developer of DriveAccessible — a full fleet rental SaaS (Core PHP, JS) now used by 5+ companies within 4 months of launch.",
-    "Shipped 150+ production features end-to-end: backend APIs, admin tools, reporting systems, and customer-facing UI.",
-    "Built conflict-detection to prevent double-bookings, a billing engine with daily-rate pricing, deposits, partial payments, and PDF invoices.",
-    "Owned the entire stack in a live environment: frontend, backend, DB optimisation, deployment debugging, and operational tooling.",
-  ];
-
   return (
-    <div className="profile-strip" style={{ padding: "28px 30px", display: "grid", gridTemplateColumns: "270px 1fr", gap: 32 }}>
+    <div className="profile-strip profile-strip-main" style={{ padding: "28px 30px", display: "grid", gridTemplateColumns: "270px 1fr", gap: 32 }}>
       {/* Left: identity */}
       <div className="profile-strip-left" style={{ display: "flex", flexDirection: "column", gap: 16, borderRight: `1px solid ${C.line}`, paddingRight: 30 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
           <div style={{ position: "relative", flexShrink: 0 }}>
-            <img src={niceFace} alt="" style={{ width: 50, height: 50, objectFit: "contain", background: "#fff", borderRadius: 14, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", display: "block" }} />
+            <img className="profile-avatar" src={niceFace} alt="" style={{ width: 50, height: 50, objectFit: "contain", background: "#fff", borderRadius: 14, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", display: "block" }} />
             <span style={{ position: "absolute", bottom: -2, right: -2, width: 12, height: 12, borderRadius: "50%", background: "#22c55e", border: "2px solid #fff", display: "block" }} />
           </div>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 16, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Imran Khan</p>
-            <p style={{ fontSize: 10.5, color: C.coral, fontWeight: 850, margin: "2px 0 0", letterSpacing: "0.01em" }}>Full-Stack Engineer</p>
+            <h1 className="profile-name" style={{ fontSize: 18, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Imran Khan</h1>
+            <p className="profile-role" style={{ fontSize: 12, color: C.coral, fontWeight: 850, margin: "2px 0 0", letterSpacing: "0.01em" }}>Full-Stack Engineer · AI Backend</p>
           </div>
         </div>
 
-        <p style={{ fontSize: 12.5, color: C.ink, lineHeight: 1.65, margin: 0, fontWeight: 550 }}>
-          Building <span style={{ color: C.coral, fontWeight: 850 }}>secure SaaS systems</span>, booking engines, billing flows, and realtime tools.
+        <p className="profile-positioning" style={{ fontSize: 14, color: C.ink, lineHeight: 1.65, margin: 0, fontWeight: 550 }}>
+          Building <span style={{ color: C.coral, fontWeight: 850 }}>secure SaaS products</span>, booking apps, billing tools, and realtime features.
         </p>
 
-        <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+        <div className="profile-proof" style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
           <div>
             <p style={{ fontSize: 21, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}><CountUp value="150+" /></p>
             <p style={{ fontSize: 8.5, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: C.muted, margin: "2px 0 0" }}>Features</p>
@@ -466,7 +535,7 @@ function ProfileStrip() {
           </div>
         </div>
 
-        <p style={{ fontSize: 11, color: C.ink, margin: "auto 0 0", fontWeight: 600 }}>
+        <p style={{ fontSize: 12.5, color: C.ink, margin: "auto 0 0", fontWeight: 650 }}>
           <span style={{ color: C.muted, fontWeight: 700, textTransform: "uppercase", fontSize: 8.5, letterSpacing: "0.1em", display: "block", marginBottom: 6 }}>Primary stack</span>
           PHP · PostgreSQL · Node.js · React
         </p>
@@ -477,19 +546,20 @@ function ProfileStrip() {
         </div>
       </div>
 
-      {/* Right: experience */}
-      {/* <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      {/* Right: current and recent experience */}
+      <div className="profile-strip-right" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div>
           <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px" }}>Experience</p>
           <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-            <h3 style={{ fontSize: 16, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>Associate Software Engineer</h3>
-            <p style={{ fontSize: 11, color: C.muted, margin: 0, fontWeight: 700 }}>SvayambhuTech · Mumbai</p>
-            <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Oct 2025 – Mar 2026</span>
+            <h2 className="experience-title" style={{ fontSize: 20, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>AI Backend Developer</h2>
+            <p style={{ fontSize: 12.5, color: C.muted, margin: 0, fontWeight: 700 }}>Boston Institute of Analytics India · Mumbai</p>
+            <span style={{ fontSize: 9, color: C.coral, background: C.coralFaint, borderRadius: 999, padding: "2px 8px", fontWeight: 850, whiteSpace: "nowrap" }}>Current</span>
           </div>
+          <p className="experience-summary" style={{ fontSize: 13.5, color: C.ink, margin: "9px 0 0", lineHeight: 1.6 }}>{MEDCONNECT_SUMMARY}</p>
         </div>
 
-        <div style={{ display: "flex", gap: 22 }}>
-          {[["150+", "features shipped"], ["5+", "companies using it"], ["5", "hackathon builds"]].map(([n, l]) => (
+        <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
+          {[["150+", "features shipped"], ["5+", "companies"], ["60+", "production issues"]].map(([n, l]) => (
             <div key={l}>
               <p style={{ fontSize: 17, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.03em" }}><CountUp value={n} /></p>
               <p style={{ fontSize: 8, color: C.muted, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", margin: "2px 0 0" }}>{l}</p>
@@ -498,21 +568,25 @@ function ProfileStrip() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {(expanded ? bullets : bullets.slice(0, 2)).map((b, i) => (
+          {(expanded ? MEDCONNECT_BULLETS : MEDCONNECT_BULLETS.slice(0, 2)).map((b, i) => (
             <div key={i} style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
               <div style={{ width: 14, height: 14, borderRadius: 4, background: i === 0 ? C.coral : C.soft, border: i !== 0 ? `1px solid ${C.line}` : "none", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>
                 <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke={i === 0 ? "#fff" : C.muted} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
               </div>
-              <p style={{ fontSize: 11.5, color: C.ink, margin: 0, lineHeight: 1.55 }}>{b}</p>
+              <p className="experience-bullet" style={{ fontSize: 13, color: C.ink, margin: 0, lineHeight: 1.58 }}>{b}</p>
             </div>
           ))}
           <button onClick={() => setExpanded(e => !e)} style={{ alignSelf: "flex-start", fontSize: 9.5, color: C.coral, fontWeight: 800, background: "none", border: "none", padding: 0, cursor: "pointer", marginTop: 2 }}>
-            {expanded ? "Show less ↑" : `+${bullets.length - 2} more ↓`}
+            {expanded ? "Show less ↑" : `+${MEDCONNECT_BULLETS.length - 2} more ↓`}
           </button>
         </div>
 
-        <p style={{ fontSize: 10.5, color: C.muted, margin: "auto 0 0", fontWeight: 600, borderTop: `1px solid ${C.line}`, paddingTop: 10 }}>PHP · MySQL · JavaScript · Core PHP</p>
-      </div> */}
+        <div style={{ borderTop: `1px solid ${C.line}`, paddingTop: 10 }}>
+          <p style={{ fontSize: 12, color: C.muted, margin: "0 0 4px", fontWeight: 750 }}>Previously · Associate Software Engineer · SvayambhuTech · Mumbai</p>
+          <p style={{ fontSize: 12, color: C.muted, margin: 0, fontWeight: 600 }}>Oct 2025 – Mar 2026 · DriveAccessible fleet and rental operations SaaS</p>
+        </div>
+
+      </div>
     </div>
   );
 }
@@ -548,7 +622,7 @@ function ProjectsCycleCard({ onOpenProject }) {
             <p style={{ fontSize: 8, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.2em", color: C.coral, margin: "0 0 2px" }}>
               {hovered ? "Hover to browse" : "Auto-cycling"}
             </p>
-            <p style={{ fontSize: 13, fontWeight: 900, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>{PROJECTS.length} shipped projects</p>
+            <p style={{ fontSize: 16, fontWeight: 900, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>{PROJECTS.length} portfolio projects</p>
           </div>
           {/* Dot nav */}
           <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
@@ -577,14 +651,14 @@ function ProjectsCycleCard({ onOpenProject }) {
             </div>
 
             {/* Title + tagline */}
-            <h4 style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: "0 0 6px", letterSpacing: "-0.04em" }}>{cur.name}</h4>
-            <p style={{ fontSize: 12.5, color: cur.color, fontWeight: 850, margin: "0 0 12px", lineHeight: 1.4 }}>{cur.tagline}</p>
+            <h4 style={{ fontSize: 29, fontWeight: 950, color: C.navy, margin: "0 0 7px", letterSpacing: "-0.045em" }}>{cur.name}</h4>
+            <p style={{ fontSize: 15, color: cur.color, fontWeight: 850, margin: "0 0 12px", lineHeight: 1.4 }}>{cur.tagline}</p>
 
             {/* What it does — flowing text, no nested boxes */}
-            <p style={{ fontSize: 12, color: C.ink, lineHeight: 1.62, margin: "0 0 10px", flex: 1 }}>{cur.short}</p>
+            <p style={{ fontSize: 13.5, color: C.ink, lineHeight: 1.65, margin: "0 0 12px", flex: 1 }}>{cur.short}</p>
             <div style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: 16 }}>
               <span style={{ width: 4, height: 4, borderRadius: "50%", background: cur.color, marginTop: 7, flexShrink: 0 }} />
-              <p style={{ fontSize: 11.5, color: C.muted, margin: 0, lineHeight: 1.55 }}>{cur.bullets[0]}</p>
+              <p style={{ fontSize: 12.5, color: C.muted, margin: 0, lineHeight: 1.58 }}>{cur.bullets[0]}</p>
             </div>
 
             {/* Footer: tech + link */}
@@ -593,7 +667,7 @@ function ProjectsCycleCard({ onOpenProject }) {
                 {cur.tech.slice(0, 3).map(t => <TechTag key={t} name={t} />)}
                 {cur.tech.length > 3 && <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700 }}>+{cur.tech.length - 3}</span>}
               </div>
-              <span style={{ fontSize: 10, color: cur.color, fontWeight: 900, opacity: hovered ? 1 : 0.5, transition: "opacity 0.2s", whiteSpace: "nowrap" }}>See all {PROJECTS.length} →</span>
+              <span style={{ fontSize: 11.5, color: cur.color, fontWeight: 900, opacity: hovered ? 1 : 0.6, transition: "opacity 0.2s", whiteSpace: "nowrap" }}>See all {PROJECTS.length} →</span>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -604,10 +678,10 @@ function ProjectsCycleCard({ onOpenProject }) {
 
 // ── SkillsCard ─────────────────────────────────────────────────
 const SKILLS_EXPANDED = {
-  Frontend: { color: C.coral, items: ["React", "TypeScript", "JavaScript", "Framer Motion", "Next.js", "Tailwind CSS"] },
-  Backend: { color: C.ink, items: ["Node.js", "FastAPI", "Python", "Django", "PHP", "Express", "REST APIs"] },
-  Database: { color: "#0ea5e9", items: ["PostgreSQL", "Redis", "MySQL", "MongoDB", "Supabase", "pgvector"] },
-  AI: { color: "#8b5cf6", items: ["LLMs", "Hugging Face", "React Flow", "NetworkX", "WebSockets", "WebRTC", "Docker"] },
+  Frontend: { color: C.coral, items: ["React", "Next.js", "Vue.js", "TypeScript", "JavaScript", "Tailwind CSS", "Vite"] },
+  Backend: { color: C.ink, items: ["Python", "FastAPI", "Django REST Framework", "Node.js", "Express", "PHP", "Laravel"] },
+  Database: { color: "#0ea5e9", items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "pgvector"] },
+  AI: { color: "#8b5cf6", items: ["OpenAI", "Anthropic", "Gemini", "RAG", "Semantic search", "Vector search", "Agentic workflows", "STT / TTS"] },
 };
 
 function SkillsCard({ goToProject }) {
@@ -620,7 +694,7 @@ function SkillsCard({ goToProject }) {
     <div style={{ padding: "20px 22px", height: "100%", display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
       <div style={{ marginBottom: 14 }}>
         <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, margin: "0 0 2px" }}>Tech Stack</p>
-        <h3 style={{ fontSize: 13.5, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.02em" }}>
+        <h3 style={{ fontSize: 18, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>
           {hovered ? (
             <span style={{ color: hovered.color }}>
               {hovered.name}
@@ -645,7 +719,7 @@ function SkillsCard({ goToProject }) {
                     key={name}
                     onMouseEnter={() => setHovered({ name, color })}
                     style={{
-                      fontSize: 10, fontWeight: isHov ? 800 : 600,
+                      fontSize: 11.5, fontWeight: isHov ? 850 : 650,
                       color: isHov ? "#fff" : C.ink,
                       background: isHov ? color : C.soft,
                       padding: "3px 9px", borderRadius: 6,
@@ -682,7 +756,7 @@ function SkillsCard({ goToProject }) {
             <p style={{ fontSize: 10, color: C.muted, margin: 0 }}>In toolkit — not yet featured in a public project.</p>
           )
         ) : (
-          <p style={{ fontSize: 10, color: C.muted, margin: 0 }}>Hover any skill above to see which projects use it.</p>
+          <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>Hover or tap any skill above to see which projects use it.</p>
         )}
       </div>
     </div>
@@ -690,266 +764,159 @@ function SkillsCard({ goToProject }) {
 }
 
 // ══════════════════════════════════════════════════════════════
-// TECH NETWORK CARD — interactive map with dedicated hover panel
+// TECH NETWORK — interactive nodes reveal the shipped work behind each skill
 // ══════════════════════════════════════════════════════════════
 
-// Nodes placed in a compact 260×166 coordinate space
 const NODE_POSITIONS = [
-  { name: "React", color: "#61dafb", cx: 132, cy: 30 },
-  { name: "Node.js", color: "#68a063", cx: 202, cy: 42 },
-  { name: "PostgreSQL", color: "#336791", cx: 224, cy: 98 },
-  { name: "PHP", color: "#8892bf", cx: 188, cy: 140 },
-  { name: "Django", color: "#44b78b", cx: 126, cy: 148 },
-  { name: "WebRTC", color: "#e27d60", cx: 72, cy: 126 },
-  { name: "Redis", color: "#d82c20", cx: 42, cy: 78 },
-  { name: "TypeScript", color: "#3178c6", cx: 74, cy: 36 },
-  { name: "MySQL", color: "#00758f", cx: 168, cy: 86 },
-  { name: "Supabase", color: "#3ecf8e", cx: 112, cy: 94 },
-  { name: "WebSockets", color: "#8b5cf6", cx: 226, cy: 22 },
-  { name: "Stripe", color: "#6772e5", cx: 54, cy: 116 },
-];
+  { name: "WebSockets", x: 84, y: 12 },
+  { name: "React", x: 50, y: 14 },
+  { name: "TypeScript", x: 24, y: 18 },
+  { name: "Node.js", x: 72, y: 31 },
+  { name: "Redis", x: 12, y: 45 },
+  { name: "Supabase", x: 36, y: 44 },
+  { name: "MySQL", x: 58, y: 49 },
+  { name: "PostgreSQL", x: 86, y: 53 },
+  { name: "Stripe", x: 14, y: 79 },
+  { name: "WebRTC", x: 35, y: 76 },
+  { name: "Django", x: 59, y: 82 },
+  { name: "PHP", x: 83, y: 78 },
+].map(node => {
+  const technology = TECH_NODES.find(skill => skill.name === node.name);
+  return { ...node, color: technology?.color || C.coral, Icon: technology?.Icon || Code2 };
+});
 
-const EDGES = [
-  [0, 1], [0, 7], [0, 8], [0, 9], [1, 2], [1, 8], [2, 3], [2, 8],
-  [3, 4], [4, 5], [4, 9], [5, 6], [5, 9], [6, 7], [6, 11], [7, 10],
-  [8, 9], [10, 1], [11, 6], [3, 9], [2, 4]
+const NODE_EDGES = [
+  ["React", "TypeScript"], ["React", "Node.js"], ["React", "Supabase"], ["React", "MySQL"],
+  ["TypeScript", "Redis"], ["TypeScript", "WebSockets"], ["Node.js", "WebSockets"],
+  ["Node.js", "PostgreSQL"], ["Node.js", "MySQL"], ["Redis", "Stripe"],
+  ["Redis", "WebRTC"], ["Supabase", "WebRTC"], ["Supabase", "Django"],
+  ["MySQL", "PostgreSQL"], ["MySQL", "Django"], ["PostgreSQL", "PHP"],
+  ["Django", "PHP"], ["WebRTC", "Stripe"],
 ];
 
 function TechNetworkCard({ goToProject }) {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const reduceMotion = useReducedMotion();
-  const activeNode = hoveredIndex !== null ? NODE_POSITIONS[hoveredIndex] : null;
-  const projects = activeNode
-    ? (TECH_PROJECTS[activeNode.name] || [])
-      .map(name => PROJECTS.find(p => p.name === name))
-      .filter(Boolean)
-    : [];
-  const previewProjects = projects.slice(0, 4);
+  const [activeSkillName, setActiveSkillName] = useState("React");
+  const activeSkill = NODE_POSITIONS.find(skill => skill.name === activeSkillName) || NODE_POSITIONS[0];
+  const ActiveSkillLogo = activeSkill.Icon;
+  const projects = (TECH_PROJECTS[activeSkill.name] || [])
+    .map(name => PROJECTS.find(project => project.name === name))
+    .filter(Boolean);
 
   return (
-    <div style={{ padding: "20px", display: "flex", flexDirection: "column", height: "100%", minHeight: 340, boxSizing: "border-box" }}>
-      {/* Header row */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 16, flexShrink: 0 }}>
+    <section className="tech-network" style={{ "--active-node-color": activeSkill.color }} aria-labelledby="tech-network-title">
+      <div className="tech-network-header">
         <div>
-          <p style={{ fontSize: 8.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, margin: "0 0 1px" }}>Tech Stack</p>
-          <p style={{ fontSize: 16, fontWeight: 900, color: C.ink, margin: 0, letterSpacing: "-0.02em" }}>Hover a node to see what it built</p>
+          <p><Sparkles size={14} aria-hidden="true" />Project toolkit</p>
+          <h2 id="tech-network-title">Pick a tool. See the projects.</h2>
         </div>
-        {activeNode ? (
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 9.5, color: activeNode.color, fontWeight: 800, marginTop: 2, whiteSpace: "nowrap", background: activeNode.color + "12", borderRadius: 99, padding: "5px 10px" }}>
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: activeNode.color }} />
-            {activeNode.name}
-          </div>
-        ) : (
-          <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 700, marginTop: 2, whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 4 }}><Sparkles size={12} aria-hidden="true" />hover any node</span>
-        )}
+        <span>Hover · focus · tap</span>
       </div>
 
-      <div className="tech-card-grid" style={{ display: "grid", gridTemplateColumns: "minmax(235px, 1fr) 220px", gap: 14, flex: 1, height: 260, minHeight: 260 }}>
-        {/* Network SVG */}
-        <div style={{ position: "relative", height: 260, minHeight: 260, borderRadius: 14, background: "#fbfaf7", border: `1px solid ${C.line}`, overflow: "hidden" }}>
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 260 166"
-            style={{ display: "block", overflow: "visible", height: 232, minHeight: 232, padding: "14px 8px 0", boxSizing: "border-box" }}
-          >
-            {EDGES.map(([a, b], i) => {
-              const na = NODE_POSITIONS[a], nb = NODE_POSITIONS[b];
-              const isActive = hoveredIndex === a || hoveredIndex === b;
+      <div className="tech-card-grid">
+        <div className="tech-map" aria-label="Connected technology nodes">
+          <svg className="tech-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            {NODE_EDGES.map(([from, to]) => {
+              const start = NODE_POSITIONS.find(node => node.name === from);
+              const end = NODE_POSITIONS.find(node => node.name === to);
+              const isActive = from === activeSkill.name || to === activeSkill.name;
               return (
-                <line key={i}
-                  x1={na.cx} y1={na.cy} x2={nb.cx} y2={nb.cy}
-                  stroke={isActive ? activeNode.color : "rgba(61,64,91,0.14)"}
-                  strokeWidth={isActive ? 1.4 : 0.7}
-                  opacity={isActive ? 0.95 : 0.55}
-                  style={{ transition: "stroke 0.15s, stroke-width 0.15s, opacity 0.15s" }}
+                <line
+                  key={`${from}-${to}`}
+                  x1={start.x}
+                  y1={start.y}
+                  x2={end.x}
+                  y2={end.y}
+                  className={isActive ? "is-active" : ""}
                 />
               );
             })}
-
-            {NODE_POSITIONS.map((nd, i) => {
-              const isHov = hoveredIndex === i;
-              const isConn = hoveredIndex !== null && EDGES.some(([a, b]) => (a === hoveredIndex && b === i) || (b === hoveredIndex && a === i));
-              const r = isHov ? 7.5 : isConn ? 5.6 : 4.6;
-              const labelRight = nd.cx > 130;
-              const lx = nd.cx + (labelRight ? r + 6 : -(r + 6));
-              const anchor = labelRight ? "start" : "end";
-              return (
-                <motion.g
-                  key={nd.name}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onClick={() => setHoveredIndex(i)}
-                  animate={{ opacity: hoveredIndex === null || isHov || isConn ? 1 : 0.4 }}
-                  transition={{ duration: 0.15 }}
-                  style={{ cursor: "pointer" }}
-                >
-                  {!reduceMotion && (
-                    <motion.circle
-                      cx={nd.cx}
-                      cy={nd.cy}
-                      r={r + 4}
-                      fill="none"
-                      stroke={nd.color}
-                      strokeWidth="0.75"
-                      animate={{ r: [r + 4, r + 8, r + 4], opacity: [0.2, 0.66, 0.2] }}
-                      transition={{ duration: 2.4, delay: i * 0.12, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                  )}
-                  {isHov && <circle cx={nd.cx} cy={nd.cy} r={r + 8} fill={nd.color + "1c"} />}
-                  <circle
-                    cx={nd.cx}
-                    cy={nd.cy}
-                    r={r}
-                    fill={nd.color}
-                    stroke={isHov ? "#fff" : "transparent"}
-                    strokeWidth={isHov ? 2 : 0}
-                    style={{ transition: "r 0.15s" }}
-                  />
-                  <text x={lx} y={nd.cy + 3.5}
-                    textAnchor={anchor}
-                    fontSize={isHov ? "8.2" : "7"}
-                    fontWeight={isHov ? "850" : "650"}
-                    fill={isHov ? C.navy : isConn ? C.ink : "rgba(61,64,91,0.6)"}
-                    style={{ transition: "fill 0.15s", fontFamily: "system-ui,sans-serif", pointerEvents: "none" }}
-                  >
-                    {nd.name}
-                  </text>
-                  <circle cx={nd.cx} cy={nd.cy} r="15" fill="transparent" />
-                </motion.g>
-              );
-            })}
           </svg>
+
+          {NODE_POSITIONS.map(node => {
+            const TechLogo = node.Icon;
+            const isActive = node.name === activeSkill.name;
+            const isConnected = NODE_EDGES.some(([from, to]) => (
+              (from === activeSkill.name && to === node.name) ||
+              (to === activeSkill.name && from === node.name)
+            ));
+            const projectCount = (TECH_PROJECTS[node.name] || []).length;
+            return (
+              <button
+                key={node.name}
+                type="button"
+                className={`tech-node-button${isActive ? " is-active" : ""}${isConnected ? " is-connected" : ""}${!isActive && !isConnected ? " is-muted" : ""}`}
+                aria-pressed={isActive}
+                aria-label={`${node.name}, used in ${projectCount} project${projectCount !== 1 ? "s" : ""}`}
+                onMouseEnter={() => setActiveSkillName(node.name)}
+                onFocus={() => setActiveSkillName(node.name)}
+                onClick={() => setActiveSkillName(node.name)}
+                style={{ left: `${node.x}%`, top: `${node.y}%`, "--node-color": node.color }}
+              >
+                <span className="tech-node-core" aria-hidden="true">
+                  <span className="tech-node-mark"><TechLogo /></span>
+                  <small>{projectCount}</small>
+                </span>
+                <span className="tech-node-name">{node.name}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Dedicated hover detail panel */}
-        <div style={{ height: 260, minHeight: 260, borderRadius: 14, border: `1px solid ${activeNode ? activeNode.color + "34" : C.line}`, background: activeNode ? activeNode.color + "0b" : C.soft, padding: "14px", overflow: "hidden", display: "flex", flexDirection: "column", boxSizing: "border-box", transition: "background 0.18s, border-color 0.18s" }}>
-          {activeNode ? (
-            <div key={activeNode.name}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                <div style={{ width: 9, height: 9, borderRadius: "50%", background: activeNode.color, boxShadow: `0 0 0 5px ${activeNode.color}18` }} />
-                <div>
-                  <p style={{ fontSize: 12.5, fontWeight: 900, color: C.ink, margin: 0 }}>{activeNode.name}</p>
-                  <p style={{ fontSize: 8.5, color: C.muted, fontWeight: 700, margin: "1px 0 0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    {projects.length} linked project{projects.length !== 1 ? "s" : ""}
-                  </p>
-                </div>
-              </div>
-
-              <div className="custom-scrollbar" style={{ height: 195, overflowY: "auto", paddingRight: 2, display: "flex", flexDirection: "column", gap: 7 }}>
-                {previewProjects.map(p => (
-                  <button
-                    key={p.id}
-                    onClick={() => goToProject?.(p)}
-                    style={{ padding: "9px 10px", borderRadius: 10, background: C.card, border: `1px solid ${C.line}`, boxShadow: "0 5px 14px rgba(61,64,91,0.045)", textAlign: "left", cursor: "pointer", width: "100%", display: "block" }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3 }}>
-                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
-                      <p style={{ fontSize: 10.6, color: C.ink, fontWeight: 850, margin: 0 }}>{p.name}</p>
-                      <span style={{ marginLeft: "auto", fontSize: 9, color: p.color, fontWeight: 800 }}>View →</span>
-                    </div>
-                    <p style={{
-                      fontSize: 9.2,
-                      color: C.muted,
-                      margin: 0,
-                      lineHeight: 1.35,
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                    }}>{p.short}</p>
-                  </button>
-                ))}
-                {projects.length > previewProjects.length && (
-                  <p style={{ fontSize: 9.4, color: activeNode.color, fontWeight: 850, margin: "1px 0 0" }}>
-                    +{projects.length - previewProjects.length} more project{projects.length - previewProjects.length > 1 ? "s" : ""}
-                  </p>
-                )}
-              </div>
+        <aside className="tech-detail-panel" aria-live="polite">
+          <div className="tech-detail-heading">
+            <span className="tech-detail-icon" aria-hidden="true"><ActiveSkillLogo /></span>
+            <div>
+              <p>Selected skill</p>
+              <h3>{activeSkill.name}</h3>
             </div>
-          ) : (
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", gap: 7, padding: "0 12px" }}>
-              <Code2 size={32} color={C.muted} strokeWidth={1.5} aria-hidden="true" />
-              <p style={{ fontSize: 11, color: C.muted, margin: 0, lineHeight: 1.5, fontWeight: 600 }}>Hover any node on the map to see which projects use it.</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function IntroLine({ onResume }) {
-  const reduceMotion = useReducedMotion();
-  return (
-    <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.42, ease: EASE }}
-      style={{ marginBottom: 20 }}
-    >
-      {/* Status pill */}
-      <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: C.coral, background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 999, padding: "4px 11px", letterSpacing: "0.04em" }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: C.coral, display: "inline-block", boxShadow: `0 0 0 3px ${C.coralLight}` }} />
-            Open to work · Mumbai
-        </span>
-      </div>
-
-      {/* Main headline */}
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
-        <div className="intro-copy" style={{ minWidth: 0, display: "flex", alignItems: "flex-start", gap: 15, maxWidth: 680 }}>
-          <img src={niceFace} alt="" className="hero-portrait" style={{ width: 72, height: 72, objectFit: "contain", background: "#fff", borderRadius: 18, border: `1.5px solid ${C.coralLight}`, boxShadow: "0 6px 20px rgba(35,38,66,0.10)", flexShrink: 0 }} />
-          <div>
-            <h1 className="intro-headline" style={{ fontSize: 34, lineHeight: 1.15, color: C.navy, margin: "0 0 10px", fontWeight: 950, letterSpacing: "-0.045em" }}>
-              Hi, I&apos;m <span style={{ color: C.coral }}>Imran</span>. I ship real software.
-            </h1>
-            <p style={{ fontSize: 13, color: C.muted, margin: 0, lineHeight: 1.65, maxWidth: 560, fontWeight: 500 }}>
-              I build dependable software for businesses that need it to keep working — booking, billing, realtime systems, and AI tools. Based in Mumbai. I like practical problems, clear systems, and shipping things.
-            </p>
+            <strong>{projects.length} project{projects.length !== 1 ? "s" : ""}</strong>
           </div>
-        </div>
 
-        <div className="intro-buttons" style={{ display: "flex", gap: 8, flexShrink: 0, alignSelf: "flex-end" }}>
-          <button onClick={onResume} style={{ border: `1.5px solid ${C.navy}`, background: "transparent", color: C.navy, borderRadius: 999, padding: "9px 18px", fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", cursor: "pointer", whiteSpace: "nowrap" }}>
-            Resume
-          </button>
-          <a href="mailto:muhammadimrank034@gmail.com" style={{ textDecoration: "none", background: C.coral, color: "#fff", borderRadius: 999, padding: "9px 18px", fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
-            Contact
-          </a>
-        </div>
+          <p className="tech-detail-copy">Projects where I used this tool.</p>
+
+          <div className="tech-project-list custom-scrollbar">
+            {projects.length > 0 ? projects.slice(0, 4).map(project => (
+              <button key={project.id} type="button" onClick={() => goToProject?.(project)}>
+                <span className="tech-project-icon" style={{ color: project.color, background: project.color + "18" }}><ProjectIcon project={project} size={17} /></span>
+                <span className="tech-project-copy">
+                  <strong>{project.name}</strong>
+                  <small>{project.tagline}</small>
+                </span>
+                <ArrowUpRight size={16} strokeWidth={2.3} aria-hidden="true" />
+              </button>
+            )) : (
+              <div className="tech-project-empty">Part of my toolkit; a public case study is not published yet.</div>
+            )}
+          </div>
+          {projects.length > 4 && <p className="tech-more-count">+{projects.length - 4} more projects</p>}
+        </aside>
       </div>
-    </motion.div>
+    </section>
   );
 }
 
 // ══════════════════════════════════════════════════════════════
 // HOME PAGE
 // ══════════════════════════════════════════════════════════════
-function HomePage({ setPage, onResume }) {
+function HomePage({ setPage }) {
   const [activeProject, setActiveProject] = useState(null);
   return (
     <div className="page-shell" style={{ paddingTop: 78, paddingBottom: 48 }}>
-      <div style={{ maxWidth: 1060, margin: "0 auto", padding: "0 20px" }}>
-        <IntroLine onResume={onResume} />
+      <div className="home-container" style={{ maxWidth: 1320, margin: "0 auto", padding: "0 20px" }}>
+        <section className="experience-hero" aria-label="Introduction and current experience">
+          <Card delay={0.02} style={{ width: "100%" }}>
+            <ProfileStrip />
+          </Card>
+        </section>
 
-        {/* Row 1: identity + experience, one clean strip */}
-        <div style={{ marginBottom: 10 }}>
-          <Card delay={0.02}><ProfileStrip /></Card>
-        </div>
-
-        {/* Row 2: tech-to-project map gets room to breathe */}
-        <div style={{ marginBottom: 10 }}>
+        {/* The interactive node map stays close to the compact opening panel. */}
+        <div style={{ margin: "0 0 24px" }}>
           <Card delay={0.05}><TechNetworkCard goToProject={setActiveProject} /></Card>
         </div>
 
-        {/* Row 3: larger project story with skills beside it */}
-        <div className="home-grid-bottom" style={{ display: "grid", gridTemplateColumns: "1.35fr 0.9fr", gap: 10, marginBottom: 10 }}>
-          <Card delay={0.08}><ProjectsCycleCard onOpenProject={setActiveProject} /></Card>
-          <Card delay={0.10}><SkillsCard goToProject={setActiveProject} /></Card>
-        </div>
-
-        {/* Row 4: Featured Work grid — real projects, visible without clicking anywhere */}
         <FeaturedWorkSection setPage={setPage} onOpenProject={setActiveProject} />
+
+        {/* Full archive and hackathon builds */}
         <HackathonsSection onOpenProject={setActiveProject} />
       </div>
       <ProjectDetailSheet project={activeProject} onClose={() => setActiveProject(null)} />
@@ -964,16 +931,16 @@ function FeaturedWorkSection({ setPage, onOpenProject }) {
     <div style={{ marginTop: 4 }}>
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
         <div>
-          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px", display: "flex", alignItems: "center", gap: 5 }}><BriefcaseBusiness size={12} aria-hidden="true" />Featured Work</p>
-          <h2 style={{ fontSize: 19, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>What I've actually shipped</h2>
+          <p style={{ fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px", display: "flex", alignItems: "center", gap: 6 }}><BriefcaseBusiness size={14} aria-hidden="true" />Featured Work</p>
+          <h2 style={{ fontSize: 28, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.04em" }}>Selected projects and products</h2>
         </div>
-        <button onClick={() => setPage("work")} style={{ fontSize: 10.5, fontWeight: 800, color: C.coral, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, padding: "4px 0" }}>
+        <button onClick={() => setPage("work")} style={{ fontSize: 12.5, fontWeight: 850, color: C.coral, background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, padding: "8px 0" }}>
           View all {PROJECTS.length} projects
-          <ArrowUpRight size={13} strokeWidth={2.4} aria-hidden="true" />
+          <ArrowUpRight size={15} strokeWidth={2.4} aria-hidden="true" />
         </button>
       </div>
 
-      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
         {featured.map((p, i) => (
           <FeaturedProjectCard key={p.id} p={p} delay={0.06 + i * 0.03} onClick={() => onOpenProject(p)} />
         ))}
@@ -987,12 +954,12 @@ function HackathonsSection({ onOpenProject }) {
     <section style={{ marginTop: 34 }} aria-labelledby="hackathons-title">
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
         <div>
-          <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px", display: "flex", alignItems: "center", gap: 5 }}><Trophy size={12} aria-hidden="true" />Hackathons</p>
-          <h2 id="hackathons-title" style={{ fontSize: 19, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Five focused builds, made under pressure</h2>
+          <p style={{ fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 4px", display: "flex", alignItems: "center", gap: 6 }}><Trophy size={14} aria-hidden="true" />Hackathons</p>
+          <h2 id="hackathons-title" style={{ fontSize: 26, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.04em" }}>Hackathon builds, made under pressure</h2>
         </div>
         <span style={{ fontSize: 10, fontWeight: 800, color: C.muted, display: "inline-flex", alignItems: "center", gap: 5 }}><Rocket size={13} aria-hidden="true" />{HACKATHON_PROJECTS.length} hackathon builds</span>
       </div>
-      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
         {HACKATHON_PROJECTS.map((p, i) => (
           <FeaturedProjectCard key={p.id} p={p} delay={0.05 + i * 0.035} onClick={() => onOpenProject(p)} />
         ))}
@@ -1007,7 +974,7 @@ function FeaturedProjectCard({ p, delay, onClick }) {
   const [hov, setHov] = useState(false);
   const reduceMotion = useReducedMotion();
   return (
-    <motion.div
+    <motion.article
       ref={ref}
       initial={reduceMotion ? false : { opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -1025,38 +992,42 @@ function FeaturedProjectCard({ p, delay, onClick }) {
         }
       }}
       aria-label={`Open ${p.name} project description`}
-      style={{ background: C.card, border: `1.5px solid ${hov ? p.color + "55" : C.line}`, borderRadius: 14, overflow: "hidden", cursor: "pointer", transition: "border-color 0.18s, box-shadow 0.18s", boxShadow: hov ? `0 10px 28px ${p.color}22` : "none" }}
+      className="case-card"
+      style={{ "--project-color": p.color, borderColor: hov ? p.color + "70" : undefined }}
     >
-      <div style={{ height: 4, background: p.color }} />
-      <div style={{ padding: "15px 16px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 8 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ color: p.color, display: "inline-flex" }}><ProjectIcon project={p} size={13} /></span>
-            <span style={{ fontSize: 8.5, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{p.num}</span>
-            <span style={{ fontSize: 8, fontWeight: 900, color: p.color, background: p.color + "14", padding: "2px 7px", borderRadius: 99, textTransform: "uppercase", letterSpacing: "0.08em" }}>{p.tag}</span>
-          </div>
-          {p.liveUrl ? (
-            <span style={{ fontSize: 8.5, color: "#22c55e", fontWeight: 900, display: "flex", alignItems: "center", gap: 3 }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c55e", display: "inline-block" }} />Live
-            </span>
-          ) : (
-            <span style={{ fontSize: 8.5, color: C.muted, fontWeight: 700 }}>{p.year}</span>
-          )}
-        </div>
+      <div className="case-card-accent" />
+      <div className="case-card-topline">
+        <span className="case-card-number">{p.num}</span>
+        <span className="case-card-category" style={{ color: p.color }}>{p.tag}</span>
+        <span className={p.liveUrl ? "case-card-state is-live" : "case-card-state"}>
+          {p.liveUrl ? "Live" : p.year}
+        </span>
+      </div>
 
-        <h3 style={{ fontSize: 15, fontWeight: 950, color: C.navy, margin: "0 0 5px", letterSpacing: "-0.025em" }}>{p.name}</h3>
-        <p style={{ fontSize: 11, color: p.color, fontWeight: 750, margin: "0 0 8px", lineHeight: 1.4, minHeight: 30 }}>{p.tagline}</p>
-
-        <p style={{ fontSize: 10.8, color: C.ink, margin: "0 0 12px", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.short}</p>
-
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6, borderTop: `1px solid ${C.line}`, paddingTop: 11 }}>
-          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-            {p.tech.slice(0, 3).map(t => <TechTag key={t} name={t} />)}
-          </div>
-          <span style={{ fontSize: 9.5, color: p.color, fontWeight: 900, opacity: hov ? 1 : 0.45, transition: "opacity 0.18s", whiteSpace: "nowrap", display: "inline-flex", alignItems: "center", gap: 2 }}>Open project <ArrowUpRight size={12} strokeWidth={2.4} aria-hidden="true" /></span>
+      <div className="case-card-heading">
+        <span className="case-card-icon" style={{ color: p.color, background: p.color + "12", borderColor: p.color + "32" }}>
+          <ProjectIcon project={p} size={18} />
+        </span>
+        <div>
+          <h3>{p.name}</h3>
+          <p style={{ color: p.color }}>{p.tagline}</p>
         </div>
       </div>
-    </motion.div>
+
+      <p className="case-card-description">{p.short}</p>
+
+      <div className="case-card-result">
+        <span className="case-card-result-label">Key result</span>
+        <p>{p.bullets[0]}</p>
+      </div>
+
+      <div className="case-card-footer">
+        <div className="case-card-stack" aria-label="Primary technologies">
+          {p.tech.slice(0, 3).map(t => <span key={t}>{t}</span>)}
+        </div>
+        <span className="case-card-link" style={{ color: p.color }}>Read <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden="true" /></span>
+      </div>
+    </motion.article>
   );
 }
 
@@ -1077,7 +1048,7 @@ function WorkPage() {
           <div style={{ display: "flex", gap: 14 }}>
             <div style={{ textAlign: "right" }}>
               <p style={{ fontSize: 22, fontWeight: 950, color: C.coral, margin: 0, letterSpacing: "-0.04em" }}><CountUp value={PROJECTS.length} /></p>
-              <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>shipped</p>
+              <p style={{ fontSize: 8.5, fontWeight: 800, color: C.muted, textTransform: "uppercase", letterSpacing: "0.12em", margin: "1px 0 0" }}>projects</p>
             </div>
             <div style={{ textAlign: "right" }}>
               <p style={{ fontSize: 22, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.04em" }}><CountUp value={PROJECTS.filter(p => p.liveUrl).length} /></p>
@@ -1087,13 +1058,28 @@ function WorkPage() {
         </div>
       </div>
 
-      <p style={{ fontSize: 11, color: C.muted, fontWeight: 600, margin: "0 0 14px" }}>Tap any project for the full build breakdown.</p>
+      <p className="work-intro-copy" style={{ fontSize: 14, color: C.muted, fontWeight: 600, margin: "0 0 18px" }}>Open any project for the full build breakdown.</p>
 
-      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+      <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
         {PROJECTS.map((p, i) => (
           <FeaturedProjectCard key={p.id} p={p} delay={Math.min(i * 0.02, 0.3)} onClick={() => setActiveProject(p)} />
         ))}
       </div>
+
+      <section style={{ marginTop: 34 }} aria-labelledby="archive-hackathons-title">
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+          <div>
+            <p style={{ fontSize: 8.5, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.18em", color: C.coral, margin: "0 0 3px", display: "flex", alignItems: "center", gap: 5 }}><Trophy size={12} aria-hidden="true" />Hackathon archive</p>
+            <h3 id="archive-hackathons-title" style={{ fontSize: 19, fontWeight: 950, color: C.navy, margin: 0, letterSpacing: "-0.03em" }}>Builds made under pressure</h3>
+          </div>
+          <span style={{ fontSize: 10, fontWeight: 800, color: C.muted }}>{HACKATHON_PROJECTS.length} builds</span>
+        </div>
+        <div className="featured-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
+          {HACKATHON_PROJECTS.map((p, i) => (
+            <FeaturedProjectCard key={p.id} p={p} delay={Math.min(i * 0.02, 0.3)} onClick={() => setActiveProject(p)} />
+          ))}
+        </div>
+      </section>
 
       <ProjectDetailSheet project={activeProject} onClose={() => setActiveProject(null)} />
     </div>
@@ -1115,15 +1101,23 @@ function ProjectDetailSheet({ project, onClose }) {
         >
           <motion.div
             initial={{ y: "100%" }}
-            animate={{ y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 320, damping: 32 }}
             onClick={e => e.stopPropagation()}
             style={{ width: "100%", maxWidth: 760, maxHeight: "92vh", overflowY: "auto", background: C.bg, borderRadius: "22px 22px 0 0", border: `1px solid ${C.line}`, boxShadow: "0 -24px 80px rgba(35,38,66,0.28)" }}
           >
             <div style={{ position: "sticky", top: 0, zIndex: 2, background: C.bg, paddingTop: 14, paddingBottom: 2 }}>
-              <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
+              <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", marginBottom: 10, minHeight: 32 }}>
                 <div style={{ width: 48, height: 4, borderRadius: 999, background: "rgba(35,38,66,0.18)" }} />
+                <button
+                  type="button"
+                  onClick={onClose}
+                  aria-label={`Close ${project.name} project details`}
+                  style={{ position: "absolute", right: 16, top: 0, width: 32, height: 32, borderRadius: "50%", border: `1px solid ${C.line}`, background: C.card, color: C.navy, fontSize: 17, fontWeight: 800, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                >
+                  ×
+                </button>
               </div>
               <div style={{ height: 4, background: `linear-gradient(90deg, ${project.color}, ${project.color}66)` }} />
             </div>
@@ -1133,8 +1127,8 @@ function ProjectDetailSheet({ project, onClose }) {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <span style={{ color: project.color, display: "inline-flex" }}><ProjectIcon project={project} size={15} /></span>
-                    <span style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, background: project.color + "16", padding: "4px 10px", borderRadius: 99, border: `1px solid ${project.color}28` }}>{project.tag}</span>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{project.year}</span>
+                    <span style={{ fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, background: project.color + "16", padding: "4px 10px", borderRadius: 99, border: `1px solid ${project.color}28` }}>{project.tag}</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: C.muted, fontFamily: "monospace" }}>{project.year}</span>
                   </div>
                   {project.liveUrl && (
                     <a href={project.liveUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
@@ -1151,8 +1145,8 @@ function ProjectDetailSheet({ project, onClose }) {
 
               {project.context && (
                 <div style={{ marginBottom: 22, padding: "14px 16px", background: project.color + "0d", borderLeft: `3px solid ${project.color}`, borderRadius: "0 10px 10px 0" }}>
-                  <p style={{ fontSize: 9, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, margin: "0 0 5px" }}>Why it was built</p>
-                  <p style={{ fontSize: 12, color: C.ink, margin: 0, lineHeight: 1.58 }}>{project.context}</p>
+                  <p style={{ fontSize: 10, fontWeight: 850, textTransform: "uppercase", letterSpacing: "0.1em", color: project.color, margin: "0 0 5px" }}>Why it was built</p>
+                  <p style={{ fontSize: 13, color: C.ink, margin: 0, lineHeight: 1.62 }}>{project.context}</p>
                 </div>
               )}
 
@@ -1167,12 +1161,12 @@ function ProjectDetailSheet({ project, onClose }) {
               )}
 
               <div style={{ marginBottom: 22 }}>
-                <p style={{ fontSize: 9, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: C.muted, marginBottom: 12 }}>What was built</p>
+                <p style={{ fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.14em", color: C.muted, marginBottom: 12 }}>What was built</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
                   {project.bullets.map((b, i) => (
                     <div key={i} style={{ display: "flex", gap: 11, alignItems: "flex-start" }}>
                       <span style={{ width: i === 0 ? 5 : 4, height: i === 0 ? 5 : 4, borderRadius: "50%", background: i === 0 ? project.color : C.muted, marginTop: 7, flexShrink: 0 }} />
-                      <p style={{ fontSize: 12.5, color: i === 0 ? C.navy : C.ink, margin: 0, lineHeight: 1.62, fontWeight: i === 0 ? 650 : 450 }}>{b}</p>
+                      <p style={{ fontSize: 13.5, color: i === 0 ? C.navy : C.ink, margin: 0, lineHeight: 1.62, fontWeight: i === 0 ? 650 : 450 }}>{b}</p>
                     </div>
                   ))}
                 </div>
@@ -1198,7 +1192,7 @@ function ProjectDetailSheet({ project, onClose }) {
 function AboutPage() {
   const proof = [
     { k: "150+", v: "features shipped", c: C.coral },
-    { k: String(PROJECTS.length), v: "projects shipped", c: C.navy },
+    { k: String(PROJECTS.length), v: "portfolio projects", c: C.navy },
     { k: String(HACKATHON_PROJECTS.length), v: "hackathon builds", c: "#0ea5e9" },
   ];
 
@@ -1220,8 +1214,8 @@ function AboutPage() {
     { year: "2022", event: "Started BSc IT at Mumbai University. Built first REST API.", Icon: GraduationCap },
     { year: "2023", event: "Shipped first multi-tenant SaaS. Learned about data isolation the hard way.", Icon: Building2 },
     { year: "2024", event: "Deep-dived into fintech — payout engines, ledgers, atomic transactions, float drift.", Icon: Database },
-    { year: "2025", event: "Joined Swayambhutech as Associate SWE. Resolved 60+ production issues on Drive Accessible.", Icon: BriefcaseBusiness },
-    { year: "2026", event: "Building model governance, AI try-on tooling, and the Techiesaie studio.", Icon: Rocket },
+    { year: "2025", event: "Joined SvayambhuTech as Associate Software Engineer. Resolved 60+ production issues on DriveAccessible.", Icon: BriefcaseBusiness },
+    { year: "2026", event: "AI Backend Developer at Boston Institute of Analytics India, building MedConnect APIs for articles, jobs, applications, resumes, feeds, and media workflows.", Icon: Rocket },
   ];
 
   return (
@@ -1229,7 +1223,7 @@ function AboutPage() {
       <div style={{ borderBottom: `1px solid ${C.line}`, paddingBottom: 18, marginBottom: 22, display: "flex", justifyContent: "space-between", gap: 18, alignItems: "flex-end" }}>
         <div>
           <span style={{ fontSize: 9, fontWeight: 900, color: C.coral, letterSpacing: "0.2em", textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 5 }}><UserRound size={13} aria-hidden="true" />About</span>
-          <h2 style={{ fontSize: 30, fontWeight: 950, color: C.navy, margin: "5px 0 0", letterSpacing: "-0.05em" }}>I build practical systems for messy real-world workflows.</h2>
+          <h2 style={{ fontSize: 30, fontWeight: 950, color: C.navy, margin: "5px 0 0", letterSpacing: "-0.05em" }}>I build useful products for real-world work.</h2>
         </div>
         <img src={niceFace} alt="" style={{ width: 52, height: 52, objectFit: "contain", flexShrink: 0 }} />
       </div>
@@ -1240,10 +1234,10 @@ function AboutPage() {
             <div style={{ height: 5, background: `linear-gradient(90deg, ${C.navy}, ${C.coral})` }} />
             <div style={{ padding: "26px 28px" }}>
               <p style={{ fontSize: 15, color: C.ink, lineHeight: 1.75, margin: "0 0 16px", fontWeight: 550 }}>
-                I'm a full-stack engineer based in Mumbai building software for teams that need reliability more than decoration: fleet operations, billing, payments, role-based dashboards, realtime collaboration, and AI-assisted tools.
+                I&apos;m a full-stack engineer and AI backend developer based in Mumbai. I build dependable products for healthcare, fleet operations, billing, payments, realtime collaboration, and AI tools.
               </p>
               <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.72, margin: "0 0 18px" }}>
-                The work I enjoy most sits where product and backend meet. I like taking an operational problem, modelling the states carefully, and shipping an interface that makes the next action clear.
+                I care about clear state transitions, safe data handling, and interfaces that help teams act. The work I enjoy most sits where product and backend meet: taking an operational problem, modelling the states carefully, and making the next action clear.
               </p>
               <div className="about-proof-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 9 }}>
                 {proof.map(item => (
@@ -1306,10 +1300,11 @@ function AboutPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {[
                 { label: "Location", value: "Mumbai, India" },
-                { label: "Role", value: "Associate SWE · Swayambhu Tech" },
+                { label: "Role", value: "AI Backend Developer · Boston Institute of Analytics India" },
                 { label: "Study", value: "BSc IT · Class of 2025" },
-                { label: "Focus", value: "Fleet SaaS + Fintech systems" },
-                { label: "Available", value: "Contract & Full-time roles" },
+                { label: "Current work", value: "MedConnect APIs · publishing, jobs, resumes, feeds" },
+                { label: "Focus", value: "AI infrastructure, dev tools, production SaaS" },
+                { label: "Open to", value: "Paris roles with credible sponsorship + relocation" },
               ].map(r => (
                 <div key={r.label} style={{ padding: "10px 12px", background: "#f7f4ef", border: `1px solid ${C.line}`, borderRadius: 9 }}>
                   <p style={{ fontSize: 8.5, color: C.muted, margin: "0 0 2px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{r.label}</p>
@@ -1336,7 +1331,7 @@ function AboutPage() {
           <Card style={{ padding: "20px 22px", background: C.navy, border: `1px solid ${C.navy}` }} delay={0.14}>
             <p style={{ fontSize: 9.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: C.coral, margin: "0 0 9px" }}>Get in touch</p>
             <p style={{ fontSize: 12.5, color: "#fff", fontWeight: 800, margin: "0 0 4px", wordBreak: "break-word" }}>muhammadimrank034@gmail.com</p>
-            <p style={{ fontSize: 11, color: "rgba(255,255,255,0.68)", margin: "0 0 12px", lineHeight: 1.5 }}>Available for backend-heavy product work, SaaS builds, and production fixes.</p>
+            <p style={{ fontSize: 11, color: "rgba(255,255,255,0.68)", margin: "0 0 12px", lineHeight: 1.5 }}>Open to Paris-based full-stack, applied-AI, product-engineering, founding-engineer, forward-deployed, or integration-engineering roles with a credible sponsorship and relocation path. London may also be considered selectively.</p>
             <div style={{ display: "flex", gap: 7 }}>
               <a href="https://linkedin.com/in/imranrkhan13" target="_blank" rel="noreferrer"
                 style={{ fontSize: 10, fontWeight: 800, color: "#fff", background: "rgba(255,255,255,0.08)", padding: "5px 12px", borderRadius: 7, textDecoration: "none", border: "1px solid rgba(255,255,255,0.14)" }}>LinkedIn</a>
@@ -1372,11 +1367,16 @@ Mumbai, India | +91 7506190224 | muhammadimrank034@gmail.com
 linkedin.com/in/imranrkhan13 | github.com/imranrkhan13 | imran-silk.vercel.app
 
 SUMMARY
-Full-stack engineer with 1+ year of production experience shipping SaaS platforms, billing engines, and real-time systems. Resolved 60+ live bugs, designed financial and booking infrastructure from scratch, shipped 13 projects across Node.js, React, PostgreSQL, Django, FastAPI, and WebRTC.
+Full-stack engineer and AI backend developer based in Mumbai. I build dependable software for healthcare APIs, fleet operations, billing and payout systems, realtime collaboration, and AI infrastructure. ${PROJECTS.length} portfolio projects; 150+ production features, 5+ companies adopting DriveAccessible, and 60+ production issues resolved.
 
 EXPERIENCE
-Swayambhu Tech | Associate Software Engineer | Oct 2025 – Mar 2026 | Mumbai
-• Led end-to-end delivery of DriveAccessible — fleet rental SaaS with paying customers.
+Boston Institute of Analytics India | AI Backend Developer | Current | Mumbai
+• Built and refined article APIs for slug-based detail, owner draft access, published-status filtering, and complete create responses.
+• Improved job discovery and applications with fresher flags, multi-city/state data, search, recommendations, recent applications, visibility rules, and pagination.
+• Strengthened resume, profile, feed, and media workflows through status checks, readable filenames, user-specific response fields, normalized paths, and reusable URL handling.
+
+SvayambhuTech | Associate Software Engineer | Oct 2025 – Mar 2026 | Mumbai
+• Owned end-to-end development and production operations for DriveAccessible, a fleet-management and rental SaaS adopted by 5+ companies within four months of launch.
 • Built conflict-detection logic using transactional locking to eliminate double-bookings.
 • Engineered billing: daily-rate pricing, deposits, partial payments, PDF invoice generation.
 • Developed role-based admin dashboard for overdue payments, renewals, and revenue trends.
@@ -1406,10 +1406,11 @@ Kanban Pro | React, Node.js, WebSockets
 • Real-time collaborative Kanban: room-based WebSocket architecture, live presence, auto-reconnection.
 
 TECHNICAL SKILLS
-Frontend: React, TypeScript, JavaScript, Tailwind CSS, Next.js
-Backend: Node.js, Python, Django, FastAPI, PHP
-Database: PostgreSQL, MySQL, MongoDB, Redis, Supabase, pgvector
-Tools/Infra: Git, Docker, Celery, WebSockets, WebRTC, GitHub Actions
+Frontend: React, Next.js, Vue.js, TypeScript, JavaScript, Tailwind CSS, Vite
+Backend: Python, FastAPI, Django REST Framework, Node.js, Express, PHP, Laravel
+Database: PostgreSQL, MySQL, MongoDB, Redis, pgvector
+AI: OpenAI, Anthropic, Gemini, RAG, semantic search, vector search, agentic workflows, speech-to-text, text-to-speech
+Tools/Infra: Docker, Linux, GitHub Actions, CI/CD, NGINX, Azure, GCP
 
 EDUCATION
 Bachelor of Science — Information Technology | 2022–2025
@@ -1441,7 +1442,7 @@ MVM College, University of Mumbai | Mumbai, India`;
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <h1 style={{ fontSize: 28, fontWeight: 900, color: C.ink, margin: "0 0 5px", letterSpacing: "-0.04em" }}>Imran Khan</h1>
-              <p style={{ fontSize: 13, color: C.coral, fontWeight: 700, margin: "0 0 12px" }}>Full-Stack Engineer · Mumbai, India</p>
+              <p style={{ fontSize: 13, color: C.coral, fontWeight: 700, margin: "0 0 12px" }}>Full-Stack Engineer · AI Backend Developer · Mumbai</p>
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
                 {["+91 7506190224", "muhammadimrank034@gmail.com"].map(c => (
                   <span key={c} style={{ fontSize: 11, color: C.muted }}>{c}</span>
@@ -1465,59 +1466,42 @@ MVM College, University of Mumbai | Mumbai, India`;
         <div style={{ padding: "28px 36px", display: "flex", flexDirection: "column", gap: 26 }}>
           <Section title="Summary">
             <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.7, margin: 0 }}>
-              Full-stack engineer with 1+ year of production experience shipping SaaS platforms, billing engines, and real-time systems. Built and maintained software used by real customers — resolved 60+ live bugs, designed financial and booking infrastructure from scratch, and shipped 13 projects across Node.js, React, PostgreSQL, Django, FastAPI, and WebRTC. Comfortable owning features end-to-end, from database schema to deployed UI.
+              Full-stack engineer and AI backend developer based in Mumbai. I build dependable software for healthcare APIs, fleet operations, billing and payout systems, realtime collaboration, and AI infrastructure. <strong>150+ production features</strong>, adoption by <strong>5+ companies</strong> for DriveAccessible, and <strong>60+ production issues resolved</strong>.
             </p>
           </Section>
 
-          {/* <Section title="Experience" color="#0ea5e9">
-            <div style={{ padding: "18px 20px", background: C.soft, borderRadius: 12 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
-                <div>
-                  <h4 style={{ fontSize: 14, fontWeight: 800, color: C.ink, margin: 0 }}>Associate Software Engineer</h4>
-                  <p style={{ fontSize: 11.5, color: C.coral, margin: "3px 0 0", fontWeight: 700 }}>Swayambhu Tech · Mumbai, India</p>
+          <Section title="Experience" color="#0ea5e9">
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div style={{ padding: "18px 20px", background: C.soft, borderRadius: 12, borderLeft: `3px solid ${C.coral}` }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 5, gap: 10, flexWrap: "wrap" }}>
+                  <div>
+                    <h4 style={{ fontSize: 14, fontWeight: 800, color: C.ink, margin: 0 }}>AI Backend Developer</h4>
+                    <p style={{ fontSize: 11.5, color: C.coral, margin: "3px 0 0", fontWeight: 700 }}>Boston Institute of Analytics India · Mumbai</p>
+                  </div>
+                  <span style={{ fontSize: 9.5, color: C.muted, fontFamily: "monospace", background: C.card, padding: "3px 9px", borderRadius: 5, whiteSpace: "nowrap" }}>Current</span>
                 </div>
-                <span style={{ fontSize: 9.5, color: C.muted, fontFamily: "monospace", background: C.card, padding: "3px 9px", borderRadius: 5, whiteSpace: "nowrap" }}>Oct 2025 – Mar 2026</span>
+                <ul style={{ margin: 0, padding: "0 0 0 16px", display: "flex", flexDirection: "column", gap: 5 }}>
+                  {MEDCONNECT_BULLETS.map((b, i) => <li key={i} style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
+                </ul>
               </div>
-              <ul style={{ margin: 0, padding: "0 0 0 16px", display: "flex", flexDirection: "column", gap: 5 }}>
-                {["Led end-to-end delivery of DriveAccessible, a fleet rental SaaS managing vehicles, drivers, bookings, invoices, and renewals — used in production with paying customers.",
-                  "Built conflict-detection logic using transactional locking to eliminate double-bookings across concurrent reservation windows.",
-                  "Engineered billing workflows: dynamic daily-rate pricing, deposits, partial payments, and PDF invoice generation — without third-party payment libraries.",
-                  "Developed role-based admin dashboard surfacing overdue payments, upcoming renewals, and revenue trends.",
-                  "Resolved 60+ production issues on live systems, including critical edge-case bugs under deadline pressure.",
-                  "Shipped SEO-optimised public website with Intersection Observer animations and structured-data markup."
-                ].map((b, i) => <li key={i} style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
-              </ul>
+              <div style={{ padding: "18px 20px", background: C.soft, borderRadius: 12, borderLeft: `3px solid ${C.navy}` }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 5, gap: 10, flexWrap: "wrap" }}>
+                  <div>
+                    <h4 style={{ fontSize: 14, fontWeight: 800, color: C.ink, margin: 0 }}>Associate Software Engineer</h4>
+                    <p style={{ fontSize: 11.5, color: C.coral, margin: "3px 0 0", fontWeight: 700 }}>SvayambhuTech · Mumbai</p>
+                  </div>
+                  <span style={{ fontSize: 9.5, color: C.muted, fontFamily: "monospace", background: C.card, padding: "3px 9px", borderRadius: 5, whiteSpace: "nowrap" }}>Oct 2025 – Mar 2026</span>
+                </div>
+                <ul style={{ margin: 0, padding: "0 0 0 16px", display: "flex", flexDirection: "column", gap: 5 }}>
+                  {["Owned end-to-end development and production operations for DriveAccessible, adopted by 5+ companies within four months of launch.", "Built conflict detection, billing and renewal workflows, operational dashboards, role-based access controls, and a public SEO site.", "Resolved 60+ production issues across edge-case bugs, workflow fixes, and feature deliveries."].map((b, i) => <li key={i} style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{b}</li>)}
+                </ul>
+              </div>
             </div>
-          </Section> */}
+          </Section>
 
           <Section title="Selected Projects" color="#8b5cf6">
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {[
-                {
-                  name: "BillingOS", tech: "Node.js, React, PostgreSQL, Redis, Stripe, PDFKit", color: "#0ea5e9",
-                  bullets: ["Multi-tenant billing engine modelled on Stripe Billing: subscription lifecycle, proration invoices, PostgreSQL Row-Level Security.", "Exponential-backoff retry queues (1h→6h→24h→72h) via Bull+Redis; idempotent Stripe webhook processing with unique stripe_event_id."]
-                },
-                {
-                  name: "Payout Engine", tech: "Django, PostgreSQL, Celery, Redis", color: "#10b981",
-                  bullets: ["Integer paise storage (BigIntegerField) to eliminate float drift; SELECT FOR UPDATE inside transaction.atomic() prevents concurrent overdrafts.", "Idempotency keys with DB-level unique constraint; atomic failure-handling — marking failed and crediting refund in one transaction."]
-                },
-                {
-                  name: "AI Model Governance Platform", tech: "FastAPI, PostgreSQL, pgvector, React", color: "#14b8a6",
-                  bullets: ["Model registry with an explicit workflow state machine enforcing role-based transition rules server-side, full append-only audit trail.", "RAG pipeline — local embeddings, pgvector similarity search, 5-provider LLM fallback — every answer schema-validated with confidence score and citations."]
-                },
-                {
-                  name: "AI Try-On", tech: "React, FastAPI, Python, Hugging Face", color: "#ec4899",
-                  bullets: ["Free-tier virtual try-on backend calling community-hosted Hugging Face models with automatic provider fallback and background job processing."]
-                },
-                {
-                  name: "Vault", tech: "Node.js, WebRTC, WebSockets", color: "#0ea5e9",
-                  bullets: ["P2P file sharing with direct encrypted WebRTC data channels — no files ever touch the server. Token-based room codes, chunked transfer, progress tracking."]
-                },
-                {
-                  name: "Kanban Pro", tech: "React, Node.js, WebSockets", color: "#8b5cf6",
-                  bullets: ["Real-time collaborative Kanban: room-based WebSocket architecture, live presence indicators, last-write-wins conflict resolution, auto-reconnection."]
-                },
-              ].map(p => (
+              {FEATURED_PROJECTS.slice(0, 6).map(p => (
                 <div key={p.name} style={{ padding: "14px 16px", background: C.soft, borderRadius: 10 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 7 }}>
                     <div style={{ width: 6, height: 6, borderRadius: "50%", background: p.color, flexShrink: 0 }} />
@@ -1535,10 +1519,11 @@ MVM College, University of Mumbai | Mumbai, India`;
           <Section title="Technical Skills" color="#10b981">
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               {[
-                { cat: "Frontend", items: "React, TypeScript, JavaScript, Tailwind CSS, Next.js" },
-                { cat: "Backend", items: "Node.js, Python, Django, FastAPI, PHP" },
-                { cat: "Database", items: "PostgreSQL, MySQL, MongoDB, Redis, Supabase, pgvector" },
-                { cat: "Tools & Infra", items: "Git, Docker, Celery, WebSockets, WebRTC, GitHub Actions" },
+                { cat: "Frontend", items: "React, Next.js, Vue.js, TypeScript, JavaScript, Tailwind CSS, Vite" },
+                { cat: "Backend", items: "Python, FastAPI, Django REST Framework, Node.js, Express, PHP, Laravel" },
+                { cat: "Database", items: "PostgreSQL, MySQL, MongoDB, Redis, pgvector" },
+                { cat: "AI & Search", items: "OpenAI, Anthropic, Gemini, RAG, semantic search, vector search, agentic workflows, speech-to-text, text-to-speech" },
+                { cat: "Tools & Infra", items: "Docker, Linux, GitHub Actions, CI/CD, NGINX, Azure, GCP" },
               ].map(s => (
                 <div key={s.cat} style={{ padding: "11px 13px", background: C.soft, borderRadius: 9 }}>
                   <p style={{ fontSize: 8.5, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.14em", color: C.coral, margin: "0 0 4px" }}>{s.cat}</p>
@@ -1651,6 +1636,20 @@ function ContactPage() {
 }
 
 function ResumeSheet({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open, onClose]);
+
   return (
     <AnimatePresence>
       {open && (
@@ -1659,163 +1658,115 @@ function ResumeSheet({ open, onClose }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
-          style={{ position: "fixed", inset: 0, zIndex: 400, background: "rgba(35,38,66,0.38)", backdropFilter: "blur(8px)", display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "20px" }}
+          className="resume-overlay"
           onClick={onClose}
         >
           <motion.div
-            initial={{ y: "105%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "105%" }}
-            transition={{ type: "spring", stiffness: 320, damping: 32 }}
+            initial={{ opacity: 0, y: 34 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 34 }}
+            transition={{ type: "spring", stiffness: 360, damping: 34 }}
             className="resume-sheet"
             onClick={e => e.stopPropagation()}
-            style={{ width: "min(920px, 100%)", maxHeight: "90vh", overflowY: "auto", background: "#ece8df", borderRadius: "24px 24px 0 0", border: `1px solid ${C.line}`, boxShadow: "0 -24px 80px rgba(35,38,66,0.28)", padding: "18px 18px 0" }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="resume-title"
           >
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
-              <div style={{ width: 54, height: 4, borderRadius: 999, background: "rgba(35,38,66,0.22)" }} />
+            <div className="resume-toolbar">
+              <div>
+                <span>Resume</span>
+                <strong>Clean view · PDF ready</strong>
+              </div>
+              <div className="resume-toolbar-actions">
+                <a href="/Imran-Khan-Resume.pdf" download="Imran-Khan-Resume.pdf" className="resume-download">
+                  <Download size={15} strokeWidth={2.4} aria-hidden="true" />
+                  Download PDF
+                </a>
+                <button type="button" onClick={onClose} aria-label="Close resume">×</button>
+              </div>
             </div>
-            <button onClick={onClose} style={{ position: "sticky", top: 0, marginLeft: "auto", display: "block", zIndex: 2, border: `1px solid ${C.line}`, background: C.card, color: C.navy, borderRadius: 999, width: 34, height: 34, fontSize: 18, cursor: "pointer" }}>×</button>
+            <div className="resume-document">
+              <header className="resume-document-header">
+                <div className="resume-identity">
+                  <img src={niceFace} alt="" />
+                  <div>
+                    <p>Full-stack engineer · AI backend developer</p>
+                    <h2 id="resume-title">Imran Khan</h2>
+                    <span>Mumbai, India · Open to product engineering roles</span>
+                  </div>
+                </div>
+                <div className="resume-contact-links">
+                  <a href="mailto:muhammadimrank034@gmail.com"><Mail size={13} />muhammadimrank034@gmail.com</a>
+                  <a href="tel:+917506190224"><Phone size={13} />+91 7506190224</a>
+                  <a href="https://github.com/imranrkhan13" target="_blank" rel="noreferrer"><Github size={13} />github.com/imranrkhan13</a>
+                </div>
+              </header>
 
-            <div className="resume-paper" style={{ background: C.card, maxWidth: 820, margin: "-22px auto 0", minHeight: 980, boxShadow: "0 18px 60px rgba(35,38,66,0.16), 0 0 0 8px rgba(255,255,255,0.45)", border: `1.5px solid ${C.navy}` }}>
-              <div style={{ height: 10, background: `linear-gradient(90deg, ${C.navy} 0 70%, ${C.coral} 70% 100%)` }} />
-              <div className="resume-paper-body" style={{ display: "grid", gridTemplateColumns: "235px 1fr" }}>
-                {/* Sidebar */}
-                <aside style={{ background: C.navy, color: "#fff", padding: "28px 24px", minHeight: 960, borderRight: `6px solid ${C.coral}` }}>
-                  <img src={niceFace} alt="" style={{ width: 66, height: 66, objectFit: "contain", background: "#fff", borderRadius: 18, border: `2px solid ${C.coral}`, marginBottom: 22 }} />
-                  <h2 style={{ fontSize: 27, lineHeight: 1.02, fontWeight: 950, margin: "0 0 6px", letterSpacing: "-0.04em" }}>Imran Khan</h2>
-                  <p style={{ fontSize: 12, lineHeight: 1.5, color: "rgba(255,255,255,0.76)", margin: "0 0 22px" }}>Full-Stack Engineer · Mumbai, India</p>
+              <div className="resume-metrics">
+                {[["150+", "Features shipped"], ["5+", "Companies using DriveAccessible"], ["60+", "Production issues resolved"]].map(([value, label]) => (
+                  <div key={label}><strong>{value}</strong><span>{label}</span></div>
+                ))}
+              </div>
 
-                  {[
-                    ["Email", "muhammadimrank034@gmail.com"],
-                    ["Phone", "+91 7506190224"],
-                    ["LinkedIn", "linkedin.com/in/imranrkhan13"],
-                    ["GitHub", "github.com/imranrkhan13"],
-                    ["Portfolio", "imran-silk.vercel.app"],
-                  ].map(([label, value]) => (
-                    <div key={label} style={{ marginBottom: 11 }}>
-                      <p style={{ fontSize: 8.5, color: C.coral, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.12em", margin: "0 0 2px" }}>{label}</p>
-                      <p style={{ fontSize: 10.5, color: "rgba(255,255,255,0.82)", lineHeight: 1.4, margin: 0, wordBreak: "break-word" }}>{value}</p>
-                    </div>
-                  ))}
-
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "18px 0" }} />
-                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Languages</p>
-                  {[["Python", "FastAPI, Django"], ["JavaScript", "React, Node, Express"], ["PHP", "Core PHP, Laravel"], ["TypeScript", "React, Node"], ["SQL", "PostgreSQL, MySQL"]].map(([lang, note]) => (
-                    <div key={lang} style={{ marginBottom: 8 }}>
-                      <p style={{ fontSize: 10.8, fontWeight: 900, color: "#fff", margin: "0 0 1px" }}>{lang}</p>
-                      <p style={{ fontSize: 9.5, color: "rgba(255,255,255,0.55)", margin: 0 }}>{note}</p>
-                    </div>
-                  ))}
-
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "18px 0" }} />
-                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Infrastructure</p>
-                  {["Docker", "GitHub Actions", "CI/CD", "Linux", "Vercel", "Redis", "Celery"].map(t => (
-                    <span key={t} style={{ display: "inline-block", fontSize: 10, fontWeight: 700, color: "#fff", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 6, padding: "3px 7px", margin: "0 4px 5px 0" }}>{t}</span>
-                  ))}
-
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.14)", margin: "18px 0" }} />
-                  <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.16em", margin: "0 0 10px" }}>Education</p>
-                  <p style={{ fontSize: 11.5, color: "#fff", fontWeight: 900, lineHeight: 1.35, margin: "0 0 3px" }}>BSc Information Technology</p>
-                  <p style={{ fontSize: 10.5, color: "rgba(255,255,255,0.72)", lineHeight: 1.4, margin: "0 0 2px" }}>University of Mumbai</p>
-                  <p style={{ fontSize: 10, color: C.coral, fontWeight: 800, margin: 0 }}>2022 – 2025</p>
-                </aside>
-
-                {/* Main content */}
-                <main style={{ padding: "28px 30px" }}>
-                  {/* Summary */}
-                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                      <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Summary</p>
-                    </div>
-                    <p style={{ fontSize: 12.5, lineHeight: 1.72, color: C.ink, margin: 0 }}>
-                      Full-stack engineer with hands-on experience building AI-powered tools, realtime systems, and production-grade web platforms. <strong>Shipped 150+ features</strong> in a live product now used by <strong>5+ companies</strong>. Sole developer of DriveAccessible — a fleet rental SaaS adopted by businesses within 4 months of launch. Proficient in React, FastAPI, PostgreSQL, Redis, WebSockets, and OpenAI/Gemini APIs.
-                    </p>
+              <div className="resume-document-body">
+                <main>
+                  <section className="resume-section">
+                    <p className="resume-section-label">Profile</p>
+                    <p className="resume-summary">I turn complex workflows into dependable products. My work spans healthcare APIs, fleet operations, billing and payouts, realtime tools, and practical AI infrastructure—from data models and APIs to product UI, debugging, and deployment.</p>
                   </section>
 
-                  {/* Impact stats */}
-                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 7 }}>
-                      {[["150+", "production features shipped"], ["5+", "companies using DriveAccessible"], [String(PROJECTS.length), "portfolio projects"]].map(([n, text]) => (
-                        <div key={text} style={{ background: "#f7f4ee", border: `1px solid ${C.line}`, borderTop: `3px solid ${n === "150+" ? C.coral : C.navy}`, borderRadius: 10, padding: "10px 11px" }}>
-                          <p style={{ fontSize: 20, color: n === "150+" ? C.coral : C.navy, fontWeight: 950, margin: 0 }}>{n}</p>
-                          <p style={{ fontSize: 9.5, color: C.ink, lineHeight: 1.35, margin: "3px 0 0" }}>{text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-
-                  {/* Experience 
-                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                      <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Experience</p>
-                    </div>
-                    <div style={{ borderLeft: `3px solid ${C.coral}`, paddingLeft: 14, background: "#faf9f6", padding: "14px 16px", borderRadius: 8 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginBottom: 5, flexWrap: "wrap" }}>
-                        <h3 style={{ fontSize: 14.5, color: C.navy, fontWeight: 950, margin: 0 }}>Associate Software Engineer</h3>
-                        <span style={{ fontSize: 9.5, color: C.muted, fontWeight: 800, whiteSpace: "nowrap", fontFamily: "monospace" }}>Oct 2025 – Mar 2026</span>
+                  <section className="resume-section">
+                    <p className="resume-section-label">Experience</p>
+                    <article className="resume-role is-current">
+                      <div className="resume-role-heading">
+                        <div><h3>AI Backend Developer</h3><p>Boston Institute of Analytics India · Mumbai</p></div>
+                        <span>Current</span>
                       </div>
-                      <p style={{ fontSize: 11.5, color: C.coral, fontWeight: 900, margin: "0 0 10px" }}>SvayambhuTech · Mumbai, India</p>
-                      <ul style={{ margin: 0, paddingLeft: 16, display: "flex", flexDirection: "column", gap: 5 }}>
-                        {[
-                          "Sole developer of DriveAccessible — a full fleet rental and operations SaaS (Core PHP, JavaScript) handling bookings, invoices, dashboards, and realtime business workflows, adopted by 5+ companies within 4 months of launch.",
-                          "Shipped 150+ production features end-to-end: backend APIs, reporting systems, admin tools, workflow automations, and customer-facing UI improvements.",
-                          "Worked directly with business stakeholders to surface operational pain points, rapidly prototype solutions, and cut manual work for daily rental operations.",
-                          "Owned the full stack in a live production environment: frontend, backend, database optimisation, deployment debugging, and operational tooling.",
-                        ].map(item => <li key={item.slice(0, 20)} style={{ fontSize: 11.5, lineHeight: 1.58, color: C.ink, marginBottom: 2 }}>{item}</li>)}
+                      <ul>{MEDCONNECT_BULLETS.map(item => <li key={item.slice(0, 24)}>{item}</li>)}</ul>
+                    </article>
+                    <article className="resume-role">
+                      <div className="resume-role-heading">
+                        <div><h3>Associate Software Engineer</h3><p>SvayambhuTech · Mumbai</p></div>
+                        <span>Oct 2025 – Mar 2026</span>
+                      </div>
+                      <ul>
+                        <li>Owned development and production operations for DriveAccessible, adopted by 5+ companies within four months.</li>
+                        <li>Built booking-conflict checks, billing and renewal flows, dashboards, role-based access, and a public SEO site.</li>
+                        <li>Resolved 60+ production issues across edge cases, workflows, and feature delivery.</li>
                       </ul>
-                    </div>
+                    </article>
                   </section>
-      */}
-                  {/* Projects */}
-                  <section style={{ marginBottom: 20, paddingBottom: 18, borderBottom: `1px solid ${C.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                      <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Selected Projects</p>
-                    </div>
+                </main>
+
+                <aside>
+                  <section className="resume-side-section">
+                    <p className="resume-section-label">Core skills</p>
                     {[
-                      { name: "AI Model Governance Platform", tech: "FastAPI · PostgreSQL · pgvector · React", bullets: ["Model registry with an explicit workflow state machine enforcing role-based transition rules server-side, full append-only audit trail.", "RAG pipeline — local embeddings, pgvector similarity search, 5-provider LLM fallback router — every answer schema-validated with a confidence score and citations."] },
-                      { name: "AI Try-On", tech: "React · FastAPI · Python · Hugging Face", bullets: ["Free-tier virtual try-on backend calling community-hosted Hugging Face models with automatic provider fallback and background job processing.", "Diagnosed and patched a schema-parsing bug in a third-party AI client library (gradio_client) affecting multiple versions."] },
-                      { name: "BillingOS", tech: "Node.js · PostgreSQL · Redis · Stripe", bullets: ["Multi-tenant SaaS billing engine with subscription lifecycle, proration, exponential-backoff retries, idempotent Stripe webhooks, and PostgreSQL Row-Level Security."] },
-                      { name: "Payout Engine", tech: "Django · PostgreSQL · Celery · Redis", bullets: ["Integer paise storage, SELECT FOR UPDATE locking, idempotency keys, atomic failure-handling, and auto-recovery scheduler."] },
-                      { name: "Kanban Pro", tech: "React · TypeScript · WebSockets", bullets: ["Real-time collaborative Kanban with live presence, drag-and-drop sync, conflict resolution for concurrent updates, and auto-reconnect recovery."] },
-                    ].map((p, i) => (
-                      <div key={p.name} style={{ marginBottom: 11, paddingBottom: 11, borderBottom: i < 4 ? `1px dashed ${C.line}` : "none" }}>
-                        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap", marginBottom: 3 }}>
-                          <h3 style={{ fontSize: 12.5, color: C.navy, fontWeight: 950, margin: 0 }}>{p.name}</h3>
-                          <span style={{ fontSize: 9.5, color: C.coral, fontWeight: 800 }}>{p.tech}</span>
-                        </div>
-                        <ul style={{ margin: 0, paddingLeft: 14 }}>
-                          {p.bullets.map(b => <li key={b.slice(0, 20)} style={{ fontSize: 10.8, color: C.ink, lineHeight: 1.52, marginBottom: 2 }}>{b}</li>)}
-                        </ul>
+                      ["Backend", "Python, FastAPI, Django, Node.js, Express, PHP, Laravel"],
+                      ["Frontend", "React, Next.js, Vue.js, TypeScript, JavaScript"],
+                      ["Data", "PostgreSQL, MySQL, MongoDB, Redis, pgvector"],
+                      ["AI", "RAG, vector search, model APIs, agent workflows"],
+                      ["Delivery", "Docker, Linux, CI/CD, NGINX, Azure, GCP"],
+                    ].map(([label, value]) => <div className="resume-skill-row" key={label}><strong>{label}</strong><span>{value}</span></div>)}
+                  </section>
+
+                  <section className="resume-side-section">
+                    <p className="resume-section-label">Selected products</p>
+                    {FEATURED_PROJECTS.slice(0, 4).map(project => (
+                      <div className="resume-project-row" key={project.id}>
+                        <span style={{ background: project.color }} />
+                        <div><strong>{project.name}</strong><p>{project.tagline}</p></div>
                       </div>
                     ))}
                   </section>
 
-                  {/* Technical Skills */}
-                  <section>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                      <span style={{ width: 26, height: 2, background: C.coral }} />
-                      <p style={{ fontSize: 9, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.18em", margin: 0 }}>Technical Skills</p>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7 }}>
-                      {[
-                        ["Frontend", "React, Next.js, TypeScript, JavaScript, Tailwind CSS, Vite, Framer Motion"],
-                        ["Backend", "FastAPI, Node.js, Express, Django, PHP, Laravel, REST APIs"],
-                        ["Databases", "PostgreSQL, Redis, MySQL, MongoDB, Supabase, pgvector"],
-                        ["Realtime & AI", "WebSockets, WebRTC, RAG Pipelines, Hugging Face, OpenAI/Gemini APIs"],
-                        ["Infrastructure", "Docker, Linux, GitHub Actions, CI/CD, Celery"],
-                        ["Languages", "Python, JavaScript, TypeScript, PHP, SQL"],
-                      ].map(([label, text]) => (
-                        <div key={label} style={{ background: C.coralFaint, border: `1px solid ${C.coralLight}`, borderRadius: 9, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 8.5, color: C.coral, fontWeight: 950, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 4px" }}>{label}</p>
-                          <p style={{ fontSize: 10.5, color: C.ink, lineHeight: 1.42, margin: 0 }}>{text}</p>
-                        </div>
-                      ))}
-                    </div>
+                  <section className="resume-side-section resume-education">
+                    <p className="resume-section-label">Education</p>
+                    <strong>BSc Information Technology</strong>
+                    <span>MVM College, University of Mumbai</span>
+                    <small>2022 – 2025</small>
                   </section>
-                </main>
+                </aside>
               </div>
             </div>
           </motion.div>
@@ -1862,7 +1813,8 @@ function Nav({ page, setPage, onResume }) {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(true)}
-          className="hidden max-[600px]:flex absolute right-5 top-1/2 -translate-y-1/2 flex-col gap-1"
+          aria-label="Open navigation menu"
+          className="mobile-menu-btn hidden max-[600px]:flex absolute right-5 top-1/2 -translate-y-1/2 flex-col gap-1"
         >
           {[0, 1, 2].map(i => (
             <span
@@ -1956,7 +1908,7 @@ export default function App() {
         /* ── Desktop: home rows ── */
         .profile-strip{display:grid;grid-template-columns:270px 1fr;gap:32px;}
         .home-grid-bottom{display:grid;grid-template-columns:1.35fr 0.9fr;gap:10px;}
-        .featured-work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+        .featured-work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
 
         /* ── Desktop: work page ── */
         .work-detail-padding{padding:28px 30px;}
@@ -1994,17 +1946,11 @@ export default function App() {
         /* ── Mobile (≤ 600px) ── */
         @media(max-width:600px){
           .tech-card-grid{grid-template-columns:1fr!important;height:auto!important;}
-          .tech-card-grid > div:first-child{height:200px!important;min-height:200px!important;}
           .home-grid-bottom{grid-template-columns:1fr!important;}
           .featured-work-grid{grid-template-columns:1fr!important;}
           .site-nav-links{display:none!important;}
           .mobile-menu-btn{display:flex!important;}
           .page-shell{padding-top:64px!important;}
-          .intro-headline{font-size:26px!important;letter-spacing:-0.035em!important;}
-          .intro-copy{width:100%;gap:12px!important;}
-          .hero-portrait{width:58px!important;height:58px!important;border-radius:15px!important;}
-          .intro-buttons{flex-direction:column;width:100%;}
-          .intro-buttons a,.intro-buttons button{width:100%;text-align:center;}
           .about-proof-grid{grid-template-columns:1fr!important;}
           .profile-strip{padding:20px!important;}
           .work-detail-padding{padding:20px 18px!important;}
@@ -2012,7 +1958,7 @@ export default function App() {
 
         /* ── Very small (≤ 400px) ── */
         @media(max-width:400px){
-          .intro-headline{font-size:22px!important;}
+          .intro-headline{font-size:34px!important;}
         }
 
         @media(prefers-reduced-motion:reduce){
@@ -2022,7 +1968,7 @@ export default function App() {
       <Nav page={page} setPage={setPage} onResume={() => setResumeOpen(true)} />
       <AnimatePresence mode="wait">
         <motion.div key={page} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.24, ease: EASE }}>
-          {page === "home" && <HomePage setPage={setPage} onResume={() => setResumeOpen(true)} />}
+          {page === "home" && <HomePage setPage={setPage} />}
           {page === "work" && <WorkPage />}
           {page === "about" && <AboutPage />}
         </motion.div>

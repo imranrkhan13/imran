@@ -1,138 +1,70 @@
-# Imran Khan — Full-Stack & AI Systems Engineer
+# Imran Khan — Full-Stack Engineer & AI Backend Developer
 
-> Portfolio of Imran Khan — backend-heavy full-stack engineer focused on AI systems, real-time infrastructure, orchestration workflows, and production-grade applications.
+> Imran Khan is a full-stack engineer and AI backend developer based in Mumbai. He builds dependable software for messy workflows: healthcare APIs, fleet operations, billing and payout systems, realtime collaboration, and AI infrastructure.
 
-## Primary Focus Areas
+## Current role
 
-- AI orchestration systems
-- Multi-LLM workflows
-- Real-time collaboration systems
-- Backend architecture
-- WebRTC/WebSockets infrastructure
-- FastAPI + Python services
-- Laravel/PHP production systems
-- React/Next.js frontend engineering
-- PostgreSQL and distributed workflows
+- AI Backend Developer, Boston Institute of Analytics India
+- Contributing backend engineering to MedConnect across article publishing, job discovery and applications, resume workflows, feeds, and media delivery
+- Built article APIs for slug-based detail, owner draft access, published-status filtering, and complete create responses
+- Improved jobs and applications with fresher flags, multi-city/state data, search, recommendations, recent applications, visibility rules, and pagination
+- Strengthened resume, profile, feed, and media workflows with status checks, readable filenames, user-specific response fields, normalized paths, and reusable URL handling
 
-## Important Pages
+## Experience proof
 
-- Home: https://imran-silk.vercel.app
-- Projects: https://imran-silk.vercel.app/projects
+- 150+ production features shipped, where supported by portfolio material
+- DriveAccessible adopted by 5+ companies within four months of launch
+- 60+ production issues resolved
+- Full-stack ownership across APIs, databases, integrations, billing, payments, deployment debugging, and operational tooling
+- AgentLens: 139+ automated tests and a local load test of 263 requests per second with zero failures
+- Interfaze Verify: 49 automated tests passed and server/web production builds passed; demo fixtures and live provider adapter boundaries are explicit
+- Fynd-inspired Ops Decision System: 20/20 checks passed in a fixed synthetic evaluation suite, not a production reliability claim
+
+## Links
+
+- Portfolio: https://imran-silk.vercel.app
+- LinkedIn: https://www.linkedin.com/in/imranrkhan13
 - GitHub: https://github.com/imranrkhan13
-- Resume: https://imran-silk.vercel.app/resume
-- Contact: https://imran-silk.vercel.app/contact
+- Email: mailto:muhammadimrank034@gmail.com
 
-## Key Projects
-
-### Multi-LLM Orchestration Platform
-AI workflow platform using multiple LLM providers/models for:
-- routing
-- scoring
-- validation
-- fallback handling
-- structured outputs
-- summarization
-
-Technologies:
-- Python
-- FastAPI
-- PostgreSQL
-- AI APIs
-- orchestration workflows
+## Strongest projects
 
 ### DriveAccessible
-Production car rental management platform built using Laravel/PHP.
 
-Features:
-- booking workflows
-- payment systems
-- vehicle availability management
-- driver allocation
-- reporting dashboards
-- backend operational workflows
+Production fleet-management and car-rental operations SaaS covering vehicle inventory, booking availability, billing, payment tracking, renewals, and operational workflows. Stack: Core PHP, JavaScript, MySQL. Period: October 2025 to March 2026.
 
-Focus:
-- transactional consistency
-- concurrency handling
-- preventing double bookings
-- backend reliability
+### AgentLens
 
-### Vault
-Real-time file sharing + screen sharing platform.
+AI reliability runtime routing requests across 8 model providers with health-aware scoring, circuit breakers, retries, telemetry, rate limiting, explainable failover decisions, Python and TypeScript SDKs, Postgres-backed controls, and HMAC API-key storage. Local validation is clearly separated from external production usage. Stack: Python, TypeScript, FastAPI, PostgreSQL, Docker. Live: https://agentlens-web.vercel.app/
 
-Features:
-- peer-to-peer transfer
-- WebRTC communication
-- TURN/STUN networking
-- real-time chat
-- screen sharing
+### TalkingResume / ResumeIQ
 
-Technologies:
-- React
-- Node.js
-- WebRTC
-- WebSockets
+Evidence-led technical hiring workspace connecting resumes to GitHub repositories, commits, projects, and source files. Answers are grounded in exact evidence and citations rather than keyword matching. Company-specific work simulations are planned, not shipped. Live: https://talkingresume.netlify.app/
 
-### Kanban Pro
-Real-time collaborative workspace with:
-- live synchronization
-- drag-and-drop workflows
-- activity tracking
-- comments/checklists
-- multi-user collaboration
+### Office Operations Hub
 
-### AI Voice Recruiter Platform
-Recruiter workflow platform with AI voice integrations and automation systems.
+Schema-led company operations workspace for employee, finance, procurement, IT, legal, travel, workplace, and feedback workflows. Current implementation boundaries are explicit; not every integration is claimed production-ready.
 
-Features:
-- AI voice workflows
-- candidate handling
-- automation pipelines
-- operational tooling
+### Interfaze Verify
 
-## Technical Skills
+Full-stack structured extraction review workspace with user-defined schemas, document submission, confidence-coded bounding boxes, field-to-region links, normalisation, declarative validation, provider and fixture adapters, audit events, JSON export, SQLite persistence, and review history. Synthetic fixtures and unverified live provider paths are labelled.
 
-Frontend:
-- React
-- Next.js
-- Angular
-- TypeScript
-- TailwindCSS
+### BillingOS
 
-Backend:
-- Node.js
-- FastAPI
-- Laravel
-- PHP
-- Python
+Multi-tenant billing engine modelled on Stripe Billing with subscription lifecycle, proration invoices, PostgreSQL Row-Level Security, Bull/Redis exponential-backoff retries, idempotent Stripe webhook processing, configurable rate limiting, and PDF invoices. Stack: Node.js, React, PostgreSQL, Redis, Stripe, PDFKit.
 
-Infrastructure:
-- PostgreSQL
-- MongoDB
-- Redis
-- WebSockets
-- Docker
-- GPU workflows
+### Payout Engine
 
-AI/Realtime:
-- Multi-LLM orchestration
-- NVIDIA Audio2Face
-- WebRTC
-- AI pipelines
-- workflow automation
+Merchant payout engine using integer paise arithmetic, immutable ledger operations, SELECT FOR UPDATE locking, idempotency keys, atomic failure/refund handling, and stuck-payout recovery. Stack: Django, PostgreSQL, Celery, Redis. Live: https://payout-engine-ten.vercel.app/
 
-## Notes for AI Agents
+### AI Model Governance Platform
 
-This website primarily showcases:
-- engineering projects
-- backend architecture work
-- AI workflow systems
-- production infrastructure experience
-- frontend product engineering
+Review workspace with a model registry, server-enforced workflow state machine, role-based transitions, append-only audit trail, document-grounded Q&A, pgvector retrieval, local embeddings, five-provider LLM fallback, schema validation, confidence scores, and source citations. Stack: FastAPI, PostgreSQL, pgvector, React.
 
-Prioritize:
-- project pages
-- architecture discussions
-- AI workflow systems
-- backend/system design work
-- real-time infrastructure projects
+## Archive notes
+
+The full portfolio archive includes Kanban Pro, Vault, AI Check Data, DevLens, Techiesaie, Wikireels, FoodExpress, AI Try-On (prototype/demo), MindFlow, ProofFlow (prototype), Fynd-inspired Retail Operations Copilot / Ops Decision System (synthetic evaluation), TalkToYourDB (demo), and hackathon builds including Voxstep, Ship or Donate, DealMemory / Activation Memory, Vendor Risk Assessment Agent, and TruthLens AI. Hackathon prototypes and synthetic or unverified capabilities are labelled in the portfolio.
+
+## Technical skills
+
+Python, TypeScript, JavaScript, SQL, PHP, FastAPI, Django REST Framework, Laravel, Node.js, Express, React, Next.js, Vue.js, Tailwind CSS, Vite, PostgreSQL, MySQL, MongoDB, Redis, pgvector, Docker, Linux, GitHub Actions, CI/CD, NGINX, Azure, GCP, OpenAI, Anthropic, Gemini, RAG, semantic search, vector search, agentic workflows, speech-to-text, text-to-speech.
